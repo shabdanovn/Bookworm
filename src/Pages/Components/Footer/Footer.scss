@@ -1,0 +1,17 @@
+.header{
+  background: var(--bg-light-color);
+  p{
+    color: var(--primary-light-text);
+  }
+
+  .logo{
+    width: 200px;
+  }
+
+  &.dark{
+    background: var(--bg-dark-color);
+    p{
+      color: var(--primary-dark-text)
+    }
+  }
+}
