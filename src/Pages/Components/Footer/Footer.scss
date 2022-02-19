@@ -1,17 +1,28 @@
-.header{
-  background: var(--bg-light-color);
-  p{
-    color: var(--primary-light-text);
-  }
+.footer-content{
+  position: absolute;
+  height: clamp(3.2rem, 10vh, 6rem);
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% / var(--columns-count) * 10);
 
   .logo{
-    width: 200px;
+    width: clamp(100px, 30%,150px);
   }
 
-  &.dark{
-    background: var(--bg-dark-color);
-    p{
-      color: var(--primary-dark-text)
-    }
+  p{
+    right: 5rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+    line-height: 140%;
+
+    letter-spacing: 0.055em;
+    color: rgba(255, 255, 255, 0.46);
+  }
+
+  .up-pic{
+    width: clamp(1rem, 10%,3rem);
   }
 }

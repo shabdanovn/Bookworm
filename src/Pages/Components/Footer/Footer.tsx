@@ -1,26 +1,22 @@
-import React, {useState} from 'react';
-import './Header.scss'
+import React from 'react';
+import './Footer.scss'
 import classNames from 'classnames'
-import darkLogo from '../../../images/dark_logo.png'
 import lightLogo from '../../../images/white_logo.png'
+import Up from '../../../images/Up.png'
 
-const Header = () => {
-    const [darkTheme, setdarkTheme] = useState(false)
-    const changeTheme = () => {
-        setdarkTheme(prevState => !prevState)
-    }
+const Footer = () => {
 
     return (
-        <div className={classNames('header', {dark: darkTheme})} >
-            {darkTheme
-                ? <img className={classNames('logo')}
-                       src={lightLogo} alt={'dark_logo'} onClick={changeTheme}/>
-                : <img className={classNames('logo')}
-                       src={darkLogo} alt={'light_logo'} onClick={changeTheme}/>
-            }
+        <div className={classNames('footer-content')} >
+            <img className={classNames('logo')}
+                 src={lightLogo} alt={'dark_logo'} />
 
+            <img  className={classNames('up-pic')}
+                  src={Up} alt={'up logo'}/>
+
+            <p>Shabdanov N. 2022</p>
         </div>
     )
 }
 
-export default Header;
+export default Footer;

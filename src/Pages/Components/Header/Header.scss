@@ -1,0 +1,129 @@
+.header{
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+
+  .logo{
+    width: clamp(100px, 30%,150px);
+  }
+
+  .menu-nav{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .menu-item{
+      font-size: 16px;
+      line-height: 140%;
+      text-decoration: none;
+      color: var(--primary-light-text);
+
+      &:hover{
+        opacity: 0.5;
+      }
+
+      &.active{
+        font-weight: 800;
+        border-bottom: 2px solid var(--primary-light-text);
+      }
+    }
+
+    .sign-in{
+      border-radius: 2.1rem;
+      background: var(--bg-dark-color);
+      color: var(--primary-dark-text);
+      width: 4.8rem;
+      height: 1.9rem;
+
+      p{
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      &.dark-theme{
+        background: var(--primary-dark-text);
+        color: var(--primary-light-text);
+      }
+    }
+  }
+
+  .burger-menu{
+      display: none;
+      .burger-menu-1, .burger-menu-2, .burger-menu-3{
+        height: 6px;
+        background: var(--bg-dark-color);
+        border-radius: 5px;
+      }
+      .burger-menu-1{
+        width: 30px;
+        margin-bottom: 3px;
+      }
+
+      .burger-menu-2{
+        width: 20px;
+      }
+
+      .burger-menu-3{
+        width: 25px;
+        margin-top: 3px;
+      }
+
+      &:hover{
+        .burger-menu-1{
+          width: 20px;
+        }
+
+        .burger-menu-2{
+          width: 30px;
+        }
+
+        .burger-menu-3{
+          width: 25px;
+        }
+      }
+    }
+
+
+  &.dark{
+    .menu-item{
+      color: var(--primary-dark-text);
+
+      &.active{
+        font-weight: 800;
+        border-bottom: 2px solid var(--primary-dark-text);
+      }
+    }
+
+    .burger-menu{
+      .burger-menu-1, .burger-menu-2, .burger-menu-3{
+        background: var(--primary-dark-text);
+      }
+    }
+  }
+
+  @media (max-width: 820px) {
+    .menu-nav{
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .menu-nav{
+      width: 4rem;
+    }
+    .logo, .sign-in,
+    .menu-nav__main,
+    .menu-nav__books,
+    .menu-nav__about{
+      display: none;
+    }
+
+    .burger-menu{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

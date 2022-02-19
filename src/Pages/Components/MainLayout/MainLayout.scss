@@ -1,0 +1,25 @@
+.mainLayout{
+  background: var(--bg-light-color);
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  &.dark{
+    background: var(--bg-dark-color);
+  }
+
+  .mainLayout-content{
+    width: calc(100% / var(--columns-count) * 10);
+
+    .footer{
+      position: absolute;
+      height: clamp(3.2rem, 10vh, 6rem);
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg-dark-color);
+      border-top: 1px solid var(--bg-light-color);
+    }
+  }
+}

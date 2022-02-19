@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Main from "./Pages/MainPage/Main";
+import { Route, Routes } from "react-router-dom";
+import ThemeContextProvider from "./Pages/Components/context/ThemeContextProvider";
 
+const Users = () => {
+    return(
+        <div>Users</div>
+    )
+}
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeContextProvider>
+            <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path={'users'} element={<Users/>}/>
+            </Routes>
+        </ThemeContextProvider>
+    );
 }
 
 export default App;
