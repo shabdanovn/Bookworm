@@ -11,6 +11,7 @@ import './Header.scss'
 import LangDropdown from "../LangDropdown/LangDropdown";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
+
 const Header = () => {
     const {isDark, setIsDark} = useTheme()
     const [showBurgerMenu, setShowBurgerMenu] = useState(false)

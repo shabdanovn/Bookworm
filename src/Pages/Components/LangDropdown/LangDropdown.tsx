@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from "react-i18next";
 import DropdownIcon from "./DropdownIcon";
 import cn from "classnames";
 import './LangDropdown.scss'
 
+export const browserLang = navigator.language
 
 type LangOptionType = {
     lang: string
     value: string
 }
+
 const languages = [
     {lang:'En', value: 'en'},
     {lang:'Ру', value: 'ru'},
@@ -17,7 +19,7 @@ const languages = [
 
 const LangDropdown = () => {
     const {i18n} = useTranslation()
-    const [lang, setLang] = useState<LangOptionType>({lang:'En', value: 'en'});
+    const [lang, setLang] = useState<LangOptionType>({lang: 'En', value: 'en'});
     const [showDrop, setShowDrop] = useState<boolean>(false);
 
     const changeLanguage = (lang:LangOptionType) => {
@@ -27,6 +29,23 @@ const LangDropdown = () => {
     }
 
     const toggleDropdown = () => setShowDrop(prevState => !prevState)
+
+    // Setting language after first detecting a browser lang
+    useEffect(() => {
+        if(browserLang==='en') setLang({lang: 'En', value: 'en'})
+        else if(browserLang==='ru') setLang({lang: 'Ру', value: 'ru'})
+        else if(browserLang==='kg') setLang({lang: 'Кырг', value: 'kg'})
+    }, [])
+
+    // Setting language if it is already detected in localstorage
+    useEffect(() => {
+        const l = localStorage.getItem('i18nextLng')
+        if(l){
+            if(l === 'kg') setLang({lang: 'Кырг', value: 'kg'})
+            else if(l === 'ru') setLang({lang: 'Ру', value: 'ru'})
+            else if(l === 'en') setLang({lang: 'En', value: 'en'})
+        }
+    }, [])
 
     return (
         <div className={cn('languages')}>
