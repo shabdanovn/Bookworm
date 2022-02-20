@@ -14,7 +14,7 @@ type LangOptionType = {
 const languages = [
     {lang:'En', value: 'en'},
     {lang:'Ру', value: 'ru'},
-    {lang:'Кырг', value: 'kg'}
+    {lang:'Кг', value: 'kg'}
 ]
 
 const LangDropdown = () => {
@@ -34,14 +34,14 @@ const LangDropdown = () => {
     useEffect(() => {
         if(browserLang==='en') setLang({lang: 'En', value: 'en'})
         else if(browserLang==='ru') setLang({lang: 'Ру', value: 'ru'})
-        else if(browserLang==='kg') setLang({lang: 'Кырг', value: 'kg'})
+        else if(browserLang==='kg') setLang({lang: 'Кг', value: 'kg'})
     }, [])
 
     // Setting language if it is already detected in localstorage
     useEffect(() => {
         const l = localStorage.getItem('i18nextLng')
         if(l){
-            if(l === 'kg') setLang({lang: 'Кырг', value: 'kg'})
+            if(l === 'kg') setLang({lang: 'Кг', value: 'kg'})
             else if(l === 'ru') setLang({lang: 'Ру', value: 'ru'})
             else if(l === 'en') setLang({lang: 'En', value: 'en'})
         }
@@ -58,7 +58,7 @@ const LangDropdown = () => {
                 {languages.map(l=> {
                     if(l.lang!==lang.lang)
                         return <p key={l.value}
-                            className={cn()}
+                            className={cn('dropdown-text')}
                             onClick={() => changeLanguage(l)}>
                             {l.lang}
                         </p>

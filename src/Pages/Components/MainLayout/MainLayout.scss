@@ -1,6 +1,5 @@
 .mainLayout{
   background: var(--bg-light-color);
-  height: 100vh;
   position: relative;
   display: flex;
   justify-content: center;
@@ -15,7 +14,6 @@
     .footer{
       position: absolute;
       height: clamp(3.2rem, 10vh, 6rem);
-      bottom: 0;
       left: 0;
       width: 100%;
       background: var(--bg-dark-color);

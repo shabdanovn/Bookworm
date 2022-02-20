@@ -1,36 +1,48 @@
-import React, {useState} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../../hooks/useTheme";
 import cn from 'classnames'
 import darkLogo from '../../../images/dark_logo.png'
 import lightLogo from '../../../images/white_logo.png'
-import darkSwitcher from '../../../images/dark_switcher.png'
-import lightSwitcher from '../../../images/light_switcher.png'
 import './Header.scss'
 import LangDropdown from "../LangDropdown/LangDropdown";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import useModal from "../../../hooks/useModal";
+import SwitcherIcon from "./SwitcherIcon";
 
 
 const Header = () => {
     const {isDark, setIsDark} = useTheme()
-    const [showBurgerMenu, setShowBurgerMenu] = useState(false)
     const {t} = useTranslation()
+    const {setModalContent, open} = useModal()
 
-    const changeTheme = () => isDark ? setIsDark(false):setIsDark(true)
+
+    const changeTheme = () => {
+        if(isDark){
+            setIsDark(false)
+            localStorage.removeItem('theme')
+        }else{
+            setIsDark(true)
+            localStorage.setItem('theme', 'dark')
+        }
+    }
+
+    const burgerHandle = () => {
+        setModalContent(<BurgerMenu/>)
+        open()
+    }
 
     return (
         <div className={cn('header', {dark: isDark})} >
 
             {/*Burger menu*/}
             <div className={cn('burger-menu')}
-                 onClick={()=> setShowBurgerMenu(prevState => !prevState)}>
+                 onClick={burgerHandle}>
                 <div className={cn('burger-menu-1')}/>
                 <div className={cn('burger-menu-2')}/>
                 <div className={cn('burger-menu-3')}/>
             </div>
-
-            {showBurgerMenu && <BurgerMenu/>}
 
             {/*Ordinary menu with logo*/}
             {isDark
@@ -46,12 +58,7 @@ const Header = () => {
                 <p className={cn('menu-item menu-nav__about')} >{t("navigation.about-us")}</p>
                 <LangDropdown />
 
-                {isDark
-                    ? <img className={cn('theme-switcher')}
-                           src={lightSwitcher} alt={'dark switcher'} onClick={changeTheme}/>
-                    : <img className={cn('theme-switcher')}
-                           src={darkSwitcher} alt={'light switcher'} onClick={changeTheme}/>
-                }
+                <SwitcherIcon changeTheme={changeTheme} />
                 <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
                     <p>{t("navigation.sign-in")}</p>
                 </div>

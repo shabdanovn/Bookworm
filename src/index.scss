@@ -4,14 +4,18 @@
   --secondary-light-text: #FFF;
   --post-light-color: rgba(243, 243, 243, 0.7);
   --modal-window-light-color: rgba(30, 33, 45, 0.54);
+  --button-light-shadow: 0 9px 25px rgba(35, 35, 35, 0.65);
 
   --bg-dark-color: #1E212D;
   --primary-dark-text: #F3F3F3;
   --secondary-dark-text: #1E212D;
   --post-dark-color: rgba(243, 243, 243, 0.7);
   --modal-window-dark-color: rgba(243, 243, 243, 0.17);
+  --button-dark-shadow: 0px 0px 10px 2px rgba(243, 243, 243, 0.7);;
 
   --error-color: #FF2727;
+  --primary-text-fontsize: 18px;
+  --secondary-text-fontsize: 16px;
 
   --columns-count: 12;
 }
@@ -20,5 +24,19 @@ body{
   margin: 0;
   padding: 0;
   font-family: Montserrat, sans-serif;
+
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 

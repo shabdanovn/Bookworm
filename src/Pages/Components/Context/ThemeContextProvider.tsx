@@ -1,4 +1,4 @@
-import React, {createContext, ReactChild, ReactNode, useMemo, useState} from 'react';
+import React, {createContext, ReactChild, ReactNode, useEffect, useMemo, useState} from 'react';
 
 export type ThemeContextType = {
     isDark: boolean;
@@ -13,6 +13,11 @@ interface ThemeContextProviderProps{
 
 const ThemeContextProvider = ({children}:ThemeContextProviderProps) => {
     const [isDark, setIsDark] = useState<boolean>(false)
+
+    useEffect(() => {
+        const theme = localStorage.getItem('theme')
+        if(theme) setIsDark(true)
+    }, []);
 
     const value = useMemo<ThemeContextType>(() => ({isDark, setIsDark}), [isDark]);
 

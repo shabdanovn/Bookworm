@@ -4,5 +4,12 @@
     "books": "Books",
     "about-us": "About us",
     "sign-in": "Sign in"
+  },
+  "main-page": {
+    "title-page": {
+      "title": "Online-platform for book lovers",
+      "quote": "“If you only read the books that everyone else is reading, you can only think what everyone else is thinking.”\n― Haruki Murakami",
+      "button": "Find a book"
+    }
   }
 }
