@@ -4,12 +4,20 @@
   display: flex;
   justify-content: center;
 
-  &.dark{
-    background: var(--bg-dark-color);
-  }
+
 
   .mainLayout-content{
     width: calc(100% / var(--columns-count) * 22);
+    max-width: 1300px;
+
+    //.header{
+    //  position: fixed;
+    //  height: 12px;
+    //  left: 0;
+    //  top: 0;
+    //  width: 100%;
+    //  background: var(--bg-light-color);
+    //}
 
     .footer{
       position: absolute;
@@ -19,5 +27,13 @@
       background: var(--bg-dark-color);
       border-top: 1px solid var(--bg-light-color);
     }
+  }
+
+  &.dark{
+    background: var(--bg-dark-color);
+
+    //.header{
+    //  background: var(--bg-dark-color);
+    //}
   }
 }

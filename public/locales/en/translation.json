@@ -10,6 +10,15 @@
       "title": "Online-platform for book lovers",
       "quote": "“If you only read the books that everyone else is reading, you can only think what everyone else is thinking.”\n― Haruki Murakami",
       "button": "Find a book"
+    },
+    "features-page": {
+      "above-title": "TAKING CARE OF EVERY BOOKLOVER",
+      "title": "Key Features",
+      "descr": "We are all about your comfort and pleasure. That’s why our platform provides the best services you can imagine.",
+      "buying": "Buy a book",
+      "selling": "Sell a book",
+      "sharing": "BookCrossing",
+      "smsing": "Social media"
     }
   }
 }

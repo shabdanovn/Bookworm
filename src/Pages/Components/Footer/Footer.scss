@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100% / var(--columns-count) * 10);
+  width: calc(100% / var(--columns-count) * 22);
 
   .logo{
     width: clamp(100px, 30%,150px);

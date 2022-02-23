@@ -15,6 +15,7 @@ const MainLayout = ({children}:MainLayoutProps) => {
     return (
         <div className={classNames('mainLayout', {dark: isDark})}>
             <div className={classNames('mainLayout-content')}>
+                {/*<div className={classNames('header')}/>*/}
                 <Header/>
                 {children}
                 <div className={classNames('footer')}/>
