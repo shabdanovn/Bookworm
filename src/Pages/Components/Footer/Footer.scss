@@ -24,5 +24,11 @@
 
   .up-pic{
     width: clamp(1rem, 10%,3rem);
+    cursor: pointer;
+
+    &:hover{
+      opacity: 0.5;
+      transform: scale(110%);
+    }
   }
 }

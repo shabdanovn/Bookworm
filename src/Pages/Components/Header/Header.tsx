@@ -1,5 +1,5 @@
 import React, {MouseEvent, useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../../hooks/useTheme";
 import cn from 'classnames'
@@ -16,6 +16,8 @@ const Header = () => {
     const {isDark, setIsDark} = useTheme()
     const {t} = useTranslation()
     const {setModalContent, open} = useModal()
+    const navigate = useNavigate()
+    const location = useLocation()
 
 
     const changeTheme = () => {
@@ -53,15 +55,16 @@ const Header = () => {
             }
 
             <div className={cn('menu-nav')}>
-                <NavLink className={cn('menu-item menu-nav__main', 'active')} to={'/'}>{t("navigation.main")}</NavLink>
-                <NavLink className={cn('menu-item menu-nav__books')}  to={'users'}>{t("navigation.books")}</NavLink>
-                <p className={cn('menu-item menu-nav__about')} >{t("navigation.about-us")}</p>
+                <NavLink className={cn('menu-item menu-nav__main', {active: location.pathname==='/'})}
+                         to={'/'}>{t("navigation.main")}</NavLink>
+                <NavLink className={cn('menu-item menu-nav__books', {active: location.pathname==='books'})}  to={'books'}>{t("navigation.books")}</NavLink>
+                {location.pathname==='/' && <p className={cn('menu-item menu-nav__about')} >{t("navigation.about-us")}</p>}
                 <LangDropdown />
 
                 <SwitcherIcon changeTheme={changeTheme} />
-                <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
-                    <p>{t("navigation.sign-in")}</p>
-                </div>
+                {location.pathname!=='/sign-in' && location.pathname!=='/sign-up' && <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
+                    <p onClick={() => navigate('sign-in')}>{t("navigation.sign-in")}</p>
+                </div>}
             </div>
         </div>
     )

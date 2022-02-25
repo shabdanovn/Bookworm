@@ -6,7 +6,8 @@ import book1 from "../../../images/book1.png";
 import book2 from "../../../images/book2.png";
 import book3 from "../../../images/book3.png";
 import './TitlePage.scss'
-import Arrow from "./Arrow";
+import Arrow from "../../Components/Button/Arrow";
+import Button from "../../Components/Button/Button";
 
 const TitlePage = () => {
     const {t} = useTranslation()
@@ -17,10 +18,7 @@ const TitlePage = () => {
             <div className={cn('offer-part', {dark: isDark})}>
                 <p className={cn('title')}>{t('main-page.title-page.title')}</p>
                 <p className={cn('quote')}>{t('main-page.title-page.quote')}</p>
-                <button className={cn('button')}>
-                    {t('main-page.title-page.button')}
-                    <Arrow/>
-                </button>
+                <Button text={'main-page.title-page.button'} path={'books'}/>
             </div>
             <div className={cn('images-part')}>
                 <img className={cn('book1')} src={book1} alt={'Book 1'}/>

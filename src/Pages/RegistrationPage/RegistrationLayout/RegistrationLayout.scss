@@ -1,0 +1,70 @@
+.registration{
+  height: calc(105vh - clamp(3.2rem, 10vh, 6rem));
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: 0.055em;
+
+  .daniel-img{
+    width: clamp(300px, 31vw, 500px);
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+  }
+
+  .statue-img{
+    width: clamp(200px, 20vw, 400px);
+    position: absolute;
+    top: 0;
+    right: 10%;
+  }
+
+  .frames-img{
+    width: clamp(150px, 20vw, 400px);
+    position: absolute;
+    top: 0;
+    left: 10%;
+  }
+
+  .account{
+    width: clamp(300px, 35vw, 400px);
+    height: clamp(100px, 15vw, 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(116, 116, 116, 0.44);
+    box-shadow: 0 0 30px #44464C;
+    border-radius: clamp(16px, 5vw, 59px);
+    z-index: 2;
+    p{
+      font-size: clamp(16px, 2.5vw, 24px);
+      color: #FFFFFF;
+    }
+    .account-btn{
+      width: clamp(120px, 20vw, 150px);
+      height: clamp(18px, 7vw, 37px);
+      background: var(--bg-dark-color);
+      border-radius: 22.5px;
+
+      font-size: clamp(14px, 2.5vw, 18px);
+      color: #FFFFFF;
+      border: none;
+      cursor: pointer;
+
+      &:hover{
+        opacity: 0.7;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px){
+    &{
+      flex-direction: column-reverse;
+    }
+  }
+}

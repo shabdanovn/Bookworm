@@ -14,11 +14,36 @@
     "features-page": {
       "above-title": "TAKING CARE OF EVERY BOOKLOVER",
       "title": "Key Features",
-      "descr": "We are all about your comfort and pleasure. That’s why our platform provides the best services you can imagine.",
+      "descr": "We are all about your comfort and pleasure. That’s why our platform provides the best services you can imagine. The main features are listed below, please, get familiar with them.",
       "buying": "Buy a book",
       "selling": "Sell a book",
       "sharing": "BookCrossing",
       "smsing": "Social media"
+    },
+    "books": {
+      "title": "Books",
+      "button": "All books",
+      "bookcrossing": "Bookcrossing",
+      "free": "Free"
+    },
+    "aboutus": {
+      "title": "About us",
+      "descr": "We are book lovers, and we hope that our platform will find people like us around the world. Because it gives a lot of useful features. You can not only sell, buy or share your book, but also chat with your friends who also love books, join fandom or create one, debate on any topic or come up with your own book, and many more. Join us and enjoy!",
+      "sign-in": "Sign in"
     }
+  },
+  "registration": {
+    "sign-in": "Sign in",
+    "registration": "Registration",
+    "no-account": "Don't have an account?",
+    "have-account": "Already have an account?",
+    "sign-up": "Sign up",
+    "username": "username",
+    "password": "password",
+    "fullname": "fullname",
+    "email": "email",
+    "phone": "phone",
+    "city": "city",
+    "forgot-password": "Forgot password?"
   }
 }

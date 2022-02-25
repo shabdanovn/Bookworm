@@ -8,6 +8,8 @@ import sharingIcon from '../../../images/Sharing.png'
 import smsingIcon from '../../../images/SMSing.png'
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../../hooks/useTheme";
+import H2 from "../../Components/H2/H2";
+import H3 from "../../Components/H3/H3";
 
 const FeaturesPage = () => {
     const {t} = useTranslation()
@@ -18,8 +20,8 @@ const FeaturesPage = () => {
             <div className={cn('description')}>
                 <div className={cn('description-text')}>
                     <p className={cn('above-title')}>{t('main-page.features-page.above-title')}</p>
-                    <p className={cn('title')}>{t('main-page.features-page.title')}</p>
-                    <p className={cn('descr')}>{t('main-page.features-page.descr')}</p>
+                    <H2 text={'main-page.features-page.title'}/>
+                    <H3 text={'main-page.features-page.descr'}/>
                 </div>
                 <img data-aos="fade-up" className={cn('description-img')}
                      src={bookShelf} alt={'Bookshelf'}/>

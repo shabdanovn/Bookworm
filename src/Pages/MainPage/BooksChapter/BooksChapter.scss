@@ -1,0 +1,15 @@
+.books-chapter{
+  width: 100%;
+  position: relative;
+
+  .books{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  @media screen and (max-width: 800px){
+    .books{
+      flex-wrap: wrap;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.h2-title{
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: clamp(28px, 2.5vw,36px);
+  line-height: 140%;
+  color: var(--primary-light-text);
+
+  &.dark{
+    color: var(--primary-dark-text);
+  }
+
+  &.margin{
+    margin: 1.5rem 0;
+  }
+}

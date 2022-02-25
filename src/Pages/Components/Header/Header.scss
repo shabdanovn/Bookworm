@@ -7,6 +7,7 @@
   height: 3rem;
   color: var(--primary-light-text);
   background: var(--bg-light-color);
+  //backdrop-filter: blur(20px);
   z-index: 100;
 
   .logo{
@@ -24,6 +25,7 @@
       line-height: 140%;
       text-decoration: none;
       color: var(--primary-light-text);
+      cursor: pointer;
 
       &:hover{
         opacity: 0.5;

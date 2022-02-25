@@ -1,0 +1,36 @@
+.button{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: clamp(40px, 25vw, 270px);
+  height: clamp(25px, 7vw, 4rem);
+  background: var(--bg-dark-color);
+  //box-shadow: var(--button-light-shadow);
+  border-radius: 37.5px 37.5px 37.5px 37.5px;
+  border: none;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: clamp(8px, 2.5vw, 24px);
+  line-height: 140%;
+  color: var(--primary-dark-text);
+
+  cursor: pointer;
+
+  &:hover{
+    opacity: 0.5;
+  }
+  &.center{
+    margin: 0 auto 1rem auto;
+  }
+
+  &.mTopBottom{
+    margin: 1rem 0;
+  }
+
+  &.dark{
+    background: var(--post-light-color);
+    //box-shadow: var(--button-dark-shadow);
+    color: var(--primary-light-text);
+  }
+}

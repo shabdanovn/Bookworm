@@ -18,22 +18,6 @@
         line-height: 140%;
         color: var(--third-light-text);
       }
-
-      .title{
-        margin: 5px 0;
-        font-weight: bold;
-        font-size: clamp(28px, 2.5vw,36px);
-        line-height: 140%;
-        color: var(--primary-light-text);
-      }
-
-      .descr{
-        margin: 5px 0;
-        font-weight: 500;
-        font-size: clamp(22px, 2.7vw,24px);
-        line-height: 140%;
-        color: var(--primary-light-text);
-      }
     }
 
     .description-img{
@@ -85,14 +69,6 @@
       .description-text{
         .above-title{
           color: var(--third-dark-text);
-        }
-
-        .title{
-          color: var(--primary-dark-text);
-        }
-
-        .descr{
-          color: var(--primary-dark-text);
         }
       }
     }
@@ -164,9 +140,13 @@
   }
 
   @media screen and (max-width: 413px){
+    .description {
+      margin-top: 4%;
+      margin-bottom: 27%;
+    }
     .features{
       height: 60vh;
-      margin-top: 4rem;
+      //margin-top: 6rem;
     }
   }
 }

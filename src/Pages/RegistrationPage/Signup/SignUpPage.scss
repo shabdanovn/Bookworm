@@ -1,0 +1,87 @@
+.signup-content{
+  width: clamp(300px, 45vw, 640px);
+  height: clamp(435px, 55vw, 550px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background: rgba(116, 116, 116, 0.44);
+  box-shadow: 0 0 30px #44464C;
+  border-radius: clamp(16px, 5vw, 59px);
+  z-index: 2;
+
+  .title{
+    font-size: clamp(24px, 3vw, 30px);
+    color: #FFFFFF;
+  }
+
+  img {
+    width: clamp(20px, 5vw, 52px);
+    color: #1e212d;
+    z-index: 3;
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    height: 100%;
+    outline: none;
+    margin-left: 10px;
+    font-size: clamp(16px, 2.5vw, 24px);
+    color: rgba(229, 229, 229, 0.8);
+  }
+
+  .fields-group {
+    height: clamp(50%, 50vw, 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .fullname, .email{
+      width: clamp(250px, 40vw, 550px);
+      height: clamp(2rem, 10vw, 4rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--primary-light-text);
+
+      input {
+        width: calc(clamp(250px, 40vw, 550px) - clamp(20px, 5vw, 52px));
+      }
+    }
+
+    .field-group{
+      width: clamp(250px, 40vw, 550px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .username, .password, .phone, .city{
+        width: 48%;
+        height: clamp(2rem, 10vw, 4rem);
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid var(--primary-light-text);
+
+        input {
+          width: 75%;
+        }
+      }
+    }
+  }
+
+  .start-btn{
+    width: clamp(150px, 30vw, 326px);
+    height: clamp(30px, 9vw, 50px);
+    background: #1E212D;
+    border-radius: 22.5px;
+    font-size: clamp(16px, 3vw, 24px);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+}
