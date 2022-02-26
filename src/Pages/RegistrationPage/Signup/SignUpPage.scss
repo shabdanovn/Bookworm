@@ -56,10 +56,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: clamp(2rem, 10vw, 4rem);
       .username, .password, .phone, .city{
         width: 48%;
-        height: clamp(2rem, 10vw, 4rem);
         display: flex;
+        height: 100%;
         align-items: center;
         border-bottom: 2px solid var(--primary-light-text);
 
@@ -68,11 +69,17 @@
         }
       }
     }
+
+    .signup-error{
+      font-size: clamp(10px, 2vw, 16px);
+      color: var(--error-color);
+      margin: 0;
+    }
   }
 
   .start-btn{
     width: clamp(150px, 30vw, 326px);
-    height: clamp(30px, 9vw, 50px);
+    height: clamp(30px, 7vw, 50px);
     background: #1E212D;
     border-radius: 22.5px;
     font-size: clamp(16px, 3vw, 24px);

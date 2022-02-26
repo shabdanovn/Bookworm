@@ -44,6 +44,12 @@
     "email": "email",
     "phone": "phone",
     "city": "city",
-    "forgot-password": "Forgot password?"
+    "forgot-password": "Forgot password?",
+    "required":  "is required",
+    "invalid": "Invalid",
+    "min": "must be at least 8 characters",
+    "max": "must be at most 16 characters"
+
+
   }
 }
