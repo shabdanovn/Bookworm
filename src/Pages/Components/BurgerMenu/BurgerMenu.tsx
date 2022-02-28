@@ -15,11 +15,12 @@ const BurgerMenu = () => {
         navigate(text)
         close()
     }
+
     return(
         <div className={cn('side-menu')}>
             <p className={cn('side-menu-item', {active: location.pathname==='/'})}
                onClick={() => clickHandle('/')}>{t("navigation.main")}</p>
-            <p className={cn('side-menu-item', {active: location.pathname==='books'})}
+            <p className={cn('side-menu-item', {active: location.pathname==='/books'})}
                onClick={() => clickHandle('books')}>{t("navigation.books")}</p>
             {location.pathname==='/' && <p className={cn('side-menu-item')}  >{t("navigation.about-us")}</p>}
             <p className={cn('side-menu-item')} onClick={() => clickHandle('sign-in')}>{t("navigation.sign-in")}</p>

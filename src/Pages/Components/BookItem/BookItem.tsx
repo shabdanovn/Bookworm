@@ -3,25 +3,17 @@ import cn from "classnames";
 import book3 from '../../../images/book3.png'
 import './BookItem.scss'
 import {useTheme} from "../../../hooks/useTheme";
-
-export type BookType = {
-    id: number,
-    price: string,
-    conditions: string,
-    img: string | HTMLImageElement | File,
-    title: string,
-    author: string,
-}
+import {BookItemType} from "../../../types/types";
 
 interface BookItemProps{
-    book: BookType
+    book: BookItemType
 }
 
 const BookItem = ({book}: BookItemProps) => {
     const {isDark} = useTheme()
     return (
         <div key={book.id} className={cn('book-item', {dark: isDark})}>
-            <p className={cn('book-price')}>{book.price!== '' ? book.price : book.conditions}</p>
+            <p className={cn('book-price')}>{book.cost!== '' ? book.cost : book.conditions}</p>
             {/*<img src={book.img} alt={'Book image'}/>*/}
             <img src={book3} alt={'Book image'}/>
             <p className={cn('book-title')}>{book.title}</p>

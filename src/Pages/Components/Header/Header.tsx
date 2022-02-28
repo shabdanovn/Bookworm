@@ -57,13 +57,14 @@ const Header = () => {
             <div className={cn('menu-nav')}>
                 <NavLink className={cn('menu-item menu-nav__main', {active: location.pathname==='/'})}
                          to={'/'}>{t("navigation.main")}</NavLink>
-                <NavLink className={cn('menu-item menu-nav__books', {active: location.pathname==='books'})}  to={'books'}>{t("navigation.books")}</NavLink>
+                <NavLink className={cn('menu-item menu-nav__books', {active: location.pathname==='/books'})}
+                         to={'/books'}>{t("navigation.books")}</NavLink>
                 {location.pathname==='/' && <p className={cn('menu-item menu-nav__about')} >{t("navigation.about-us")}</p>}
                 <LangDropdown />
 
                 <SwitcherIcon changeTheme={changeTheme} />
                 {location.pathname!=='/sign-in' && location.pathname!=='/sign-up' && <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
-                    <p onClick={() => navigate('sign-in')}>{t("navigation.sign-in")}</p>
+                    <p onClick={() => navigate('/sign-in')}>{t("navigation.sign-in")}</p>
                 </div>}
             </div>
         </div>

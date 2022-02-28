@@ -27,12 +27,21 @@ const SignUpPage = () => {
     const {t} = useTranslation()
 
     const schema = yup.object({
-        fullname: yup.string().required(`${t('registration.fullname')} ${t('registration.required')}`),
-        email: yup.string().email(`${t('registration.invalid')} ${t('registration.email')}`).required(`${t('registration.email')} ${t('registration.required')}`),
-        username: yup.string().required(`${t('registration.username')} ${t('registration.required')}`),
-        password: yup.string().min(8, `${t('registration.password')} ${t('registration.min')}`).max(16,`${t('registration.password')} ${t('registration.max')}`).required(`${t('registration.password')} ${t('registration.required')}`),
-        phone: yup.string().required(`${t('registration.phone')} ${t('registration.required')}`),
-        city: yup.string().required(`${t('registration.city')} ${t('registration.required')}`)
+        fullname: yup.string()
+            .required(`${t('registration.fullname')} ${t('registration.required')}`),
+        email: yup.string()
+            .email(`${t('registration.invalid')} ${t('registration.email')}`)
+            .required(`${t('registration.email')} ${t('registration.required')}`),
+        username: yup.string()
+            .required(`${t('registration.username')} ${t('registration.required')}`),
+        password: yup.string()
+            .min(8, `${t('registration.password')} ${t('registration.min')}`)
+            .max(16,`${t('registration.password')} ${t('registration.max')}`)
+            .required(`${t('registration.password')} ${t('registration.required')}`),
+        phone: yup.string()
+            .required(`${t('registration.phone')} ${t('registration.required')}`),
+        city: yup.string()
+            .required(`${t('registration.city')} ${t('registration.required')}`)
     }).required()
 
     const {register, handleSubmit, formState: {errors}} = useForm<IInputForms>({
