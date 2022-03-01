@@ -5,8 +5,115 @@
   left: 0;
   right: 0;
   margin: auto;
-  width: 363px;
-  height: 474px;
+  width: 320px;
+  height: 350px;
   background: var(--bg-light-color);
   border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  .title{
+    font-weight: 600;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 140%;
+    color: var(--primary-light-text);
+    margin: 0;
+  }
+
+  .filters{
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    //align-items: center;
+
+    .filter-title{
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 140%;
+      color: rgba(30, 33, 45, 0.68);
+      margin: 0;
+
+    }
+
+    .custom-select{
+      &__control{
+        width: 260px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        background: #F3F3F3;
+        border: 2px solid var(--bg-dark-color);
+
+      }
+
+      &__value-container{
+        padding-left: 5px;
+      }
+
+      &__indicator-separator{
+        display: none;
+      }
+
+      &__indicators{
+        cursor: pointer;
+      }
+
+      &__menu{
+        background: #F3F3F3;
+        &-list{
+          height: 110px;
+          overflow-y: scroll;
+          border: 1px solid var(--bg-dark-color) !important;
+          border-radius: 2px;
+        }
+      }
+    }
+
+    .genre, .city{
+      height: 45%;
+    }
+
+    .checkboxes{
+      height: 10%;
+      display: flex;
+
+      .checkbox-group{
+        display: flex;
+        align-items: center;
+
+        input{
+          margin: 0;
+        }
+
+        label{
+          margin: 0 5px 0 3px;
+          font-size: 18px;
+          line-height: 140%;
+          color: rgba(30, 33, 45, 0.68);
+        }
+      }
+    }
+  }
+
+  button{
+    width: 260px;
+    height: 40px;
+    background: var(--bg-dark-color);
+    border-radius: 20px;
+    border: none;
+
+    font-weight: 600;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 140%;
+    color: var(--primary-dark-text);
+
+    cursor: pointer;
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+
 }
