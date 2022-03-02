@@ -9,7 +9,7 @@
   height: 350px;
   background: var(--bg-light-color);
   border-radius: 30px;
-
+  border: 2px solid var(--bg-dark-color);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -77,8 +77,11 @@
     }
 
     .checkboxes{
-      height: 10%;
+      width: 260px;
+      height: 15%;
       display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
 
       .checkbox-group{
         display: flex;

@@ -4,12 +4,15 @@ import cn from "classnames";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import './BurgerMenu.scss'
 import useModal from "../../../hooks/useModal";
+import {isAuthed} from "../Header/Header";
 
 const BurgerMenu = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {close} = useModal()
     const location = useLocation()
+
+    const isAuth = isAuthed
 
     const clickHandle = (text: string) => {
         navigate(text)
@@ -23,7 +26,10 @@ const BurgerMenu = () => {
             <p className={cn('side-menu-item', {active: location.pathname==='/books'})}
                onClick={() => clickHandle('books')}>{t("navigation.books")}</p>
             {location.pathname==='/' && <p className={cn('side-menu-item')}  >{t("navigation.about-us")}</p>}
-            <p className={cn('side-menu-item')} onClick={() => clickHandle('sign-in')}>{t("navigation.sign-in")}</p>
+            {!isAuth
+                ? <p className={cn('side-menu-item')} onClick={() => clickHandle('sign-in')}>{t("navigation.sign-in")}</p>
+                : <p className={cn('side-menu-item')} onClick={() => alert('You signed out')}>{t("navigation.sign-out")}</p>
+            }
         </div>
     )
 }

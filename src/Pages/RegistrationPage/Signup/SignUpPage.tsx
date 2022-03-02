@@ -13,6 +13,7 @@ import RegistrationLayout from "../RegistrationLayout/RegistrationLayout";
 import {useForm} from "react-hook-form";
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
+import {useTheme} from "../../../hooks/useTheme";
 
 interface IInputForms{
     fullname: string
@@ -25,6 +26,7 @@ interface IInputForms{
 
 const SignUpPage = () => {
     const {t} = useTranslation()
+    const {isDark} = useTheme()
 
     const schema = yup.object({
         fullname: yup.string()
@@ -64,13 +66,13 @@ const SignUpPage = () => {
                         <input {...register('fullname')}
                                type={'text'} placeholder={t('registration.fullname')}/>
                     </div>
-                    <p className={'signup-error'}>{errors.fullname?.message}</p>
+                    <p className={cn('signup-error', {dark: isDark})}>{errors.fullname?.message}</p>
                     <div className={cn('email')}>
                         <img src={emailLogo} alt={'Email icon'}/>
                         <input {...register('email')}
                                type={'email'} placeholder={t('registration.email')}/>
                     </div>
-                    <p className={'signup-error'}>{errors.email?.message}</p>
+                    <p className={cn('signup-error', {dark: isDark})}>{errors.email?.message}</p>
 
                     <div className={cn('field-group')}>
                         <div className={cn('username')}>
@@ -84,7 +86,7 @@ const SignUpPage = () => {
                                    type={'password'} placeholder={t('registration.password')}/>
                         </div>
                     </div>
-                    <p className={'signup-error'}>{errors.username?.message || errors.password?.message}</p>
+                    <p className={cn('signup-error', {dark: isDark})}>{errors.username?.message || errors.password?.message}</p>
 
                     <div className={cn('field-group')}>
                         <div className={cn('phone')}>
@@ -98,7 +100,7 @@ const SignUpPage = () => {
                                    type={'text'} placeholder={t('registration.city')}/>
                         </div>
                     </div>
-                    <p className={'signup-error'}>{errors.phone?.message || errors.city?.message}</p>
+                    <p className={cn('signup-error', {dark: isDark})}>{errors.phone?.message || errors.city?.message}</p>
 
                 </div>
                 <button onClick={handleSubmit(onSubmit)}

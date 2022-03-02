@@ -1,0 +1,15 @@
+.authed-menu-layout{
+  width: 286px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  right: 2.5%;
+  top: 3rem;
+
+  background: var(--primary-dark-text);
+  border: 2px solid var(--primary-light-text);
+  box-sizing: border-box;
+  border-radius: 10px;
+}

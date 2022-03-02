@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import MainLayout from "../Components/MainLayout/MainLayout";
 import cn from "classnames";
 import './Books.scss'
@@ -9,8 +9,10 @@ import BooksList from "../Components/BooksList/BooksList";
 import DropdownIcon from "../Components/LangDropdown/DropdownIcon";
 import useModal from "../../hooks/useModal";
 import FiltersModalWindow from "../Components/ModalWindows/FiltersModalWindow/FiltersModalWindow";
+import {useTranslation} from "react-i18next";
 
 const Books = () => {
+    const {t} = useTranslation()
     const booksList: BookItemType[] = [
         {id: 1, title: 'Python Basics', author: 'Dan Bader', img: '', cost: '250 som', conditions: '', user_id: 1},
         {id: 2, title: 'Whale of a Tale', author: 'E. Hemingway', img: '', cost: '', conditions: 'Free', user_id: 2},
@@ -29,17 +31,22 @@ const Books = () => {
     const [books, setBooks] = useState<BookItemType[]>(booksList)
     const {setModalContent, open, close} = useModal()
 
-    const clickHandler = () => {
-        setModalContent(<FiltersModalWindow/>)
-        open()
-    }
+    const clickHandler = useCallback(
+        () => {
+            setModalContent(<FiltersModalWindow close={close}/>)
+            open()
+        },
+        [],
+    );
+
+    console.log('rendered')
 
     return (
         <MainLayout>
             <div className={cn('books-page')}>
                 <div className={cn('helpers')}>
                     <Searchbar setBooks={setBooks}/>
-                    <button className={cn('filters-btn')} onClick={clickHandler}>Filters</button>
+                    <button className={cn('filters-btn')} onClick={clickHandler}>{t('books.filters.title')}</button>
                 </div>
                 <div className={cn('bookslist')}>
                     <BooksList>

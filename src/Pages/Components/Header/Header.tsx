@@ -10,7 +10,13 @@ import LangDropdown from "../LangDropdown/LangDropdown";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import useModal from "../../../hooks/useModal";
 import SwitcherIcon from "./SwitcherIcon";
+import AddIcon from "../Icons/AddIcon/AddIcon";
+import MessageIcon from "../Icons/MessageIcon/MessageIcon";
+import Bell from "../Icons/Bell/Bell";
+import UserAvatar from "../Icons/UserAvatar/UserAvatar";
+import AuthedMenuLayout from "../ModalWindows/AuthedMenu/AuthedMenuLayout";
 
+export const isAuthed = true
 
 const Header = () => {
     const {isDark, setIsDark} = useTheme()
@@ -33,6 +39,29 @@ const Header = () => {
     const burgerHandle = () => {
         setModalContent(<BurgerMenu/>)
         open()
+    }
+
+    const userAvatarHandle = () => {
+        setModalContent(<AuthedMenuLayout>asdasd</AuthedMenuLayout>)
+        open()
+    }
+
+    const Profile = () => {
+        if(isAuthed){
+            return <>
+                <NavLink className={cn('menu-item')}
+                         to={'/create-post'}><AddIcon width={'28px'}/></NavLink>
+                <MessageIcon />
+                <Bell/>
+                <UserAvatar onClick={userAvatarHandle}/>
+            </>
+        }else {
+            if(location.pathname!=='/sign-in' && location.pathname!=='/sign-up'){
+                return <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
+                    <p onClick={() => navigate('/sign-in')}>{t("navigation.sign-in")}</p>
+                </div>
+            }else return
+        }
     }
 
     return (
@@ -63,9 +92,7 @@ const Header = () => {
                 <LangDropdown />
 
                 <SwitcherIcon changeTheme={changeTheme} />
-                {location.pathname!=='/sign-in' && location.pathname!=='/sign-up' && <div className={cn('menu-item sign-in', {'dark-theme': isDark})}>
-                    <p onClick={() => navigate('/sign-in')}>{t("navigation.sign-in")}</p>
-                </div>}
+                {Profile()}
             </div>
         </div>
     )

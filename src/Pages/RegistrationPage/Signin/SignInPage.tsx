@@ -9,6 +9,7 @@ import usernameLogo from '../../../images/username.svg'
 import passwordLogo from '../../../images/password.svg'
 import {useTranslation} from "react-i18next";
 import RegistrationLayout from "../RegistrationLayout/RegistrationLayout";
+import {useTheme} from "../../../hooks/useTheme";
 
 interface IFormInputs{
     username: string
@@ -19,6 +20,7 @@ interface IFormInputs{
 
 const SignInPage = () => {
     const {t} = useTranslation()
+    const {isDark} = useTheme()
 
     const schema = yup.object({
         username: yup.string().required(`${t('registration.username')} ${t('registration.required')}`),
@@ -46,14 +48,14 @@ const SignInPage = () => {
                             <img src={usernameLogo} alt={'Username icon'}/>
                             <input {...register('username')} type={'text'} placeholder={t('registration.username')}/>
                         </div>
-                        <p className={'sign-in-error'}>{errors.username?.message}</p>
+                        <p className={cn('sign-in-error', {dark:isDark})}>{errors.username?.message}</p>
                     </div>
                     <div className={cn('password')}>
                         <div className={cn('pwd-content')}>
                             <img src={passwordLogo} alt={'Password icon'}/>
                             <input {...register('password')} type={'password'} placeholder={t('registration.password')}/>
                         </div>
-                        <p className={'sign-in-error'}>{errors.password?.message}</p>
+                        <p className={cn('sign-in-error', {dark:isDark})}>{errors.password?.message}</p>
                     </div>
                 </div>
                 <NavLink to="sign-in" className={cn('forgot-pwd')}>{t('registration.forgot-password')}</NavLink>

@@ -57,6 +57,10 @@
         font-size: clamp(10px, 2vw, 16px);
         color: var(--error-color);
         margin: 0;
+
+        &.dark{
+          color: var(--error-dark-color);
+        }
       }
     }
   }
