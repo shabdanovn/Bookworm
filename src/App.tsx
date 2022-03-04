@@ -6,6 +6,7 @@ import ModalContextProvider from "./Pages/Components/Context/ModalWinwow/ModalCo
 import SignInPage from "./Pages/RegistrationPage/Signin/SignInPage";
 import SignUpPage from "./Pages/RegistrationPage/Signup/SignUpPage";
 import Books from "./Pages/BooksPage/Books";
+import CreateBookPost from "./Pages/CreateBookPostPage/CreateBookPost";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path={'sign-in'} element={<SignInPage/>}/>
                     <Route path={'sign-up'} element={<SignUpPage/>}/>
                     <Route path={'books'} element={<Books/>}/>
+                    <Route path={'create-post'} element={<CreateBookPost/>}/>
                 </Routes>
             </ModalContextProvider>
         </ThemeContextProvider>

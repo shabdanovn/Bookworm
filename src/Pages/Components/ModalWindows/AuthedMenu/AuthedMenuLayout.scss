@@ -1,6 +1,5 @@
 .authed-menu-layout{
   width: 286px;
-  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -12,4 +11,17 @@
   border: 2px solid var(--primary-light-text);
   box-sizing: border-box;
   border-radius: 10px;
+  animation: animate 1s;
+}
+
+@keyframes animate {
+  from{
+    top: -13rem;
+    opacity: 0.1;
+  }
+
+  to{
+    top: 3rem;
+    opacity: 1;
+  }
 }

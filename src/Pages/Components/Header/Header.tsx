@@ -15,6 +15,7 @@ import MessageIcon from "../Icons/MessageIcon/MessageIcon";
 import Bell from "../Icons/Bell/Bell";
 import UserAvatar from "../Icons/UserAvatar/UserAvatar";
 import AuthedMenuLayout from "../ModalWindows/AuthedMenu/AuthedMenuLayout";
+import ProfileMenu from "../ProfileMenu/ProfileMenu";
 
 export const isAuthed = true
 
@@ -42,7 +43,7 @@ const Header = () => {
     }
 
     const userAvatarHandle = () => {
-        setModalContent(<AuthedMenuLayout>asdasd</AuthedMenuLayout>)
+        setModalContent(<ProfileMenu/>)
         open()
     }
 

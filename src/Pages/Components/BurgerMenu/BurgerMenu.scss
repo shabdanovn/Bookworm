@@ -8,6 +8,8 @@
   border: 2px solid var(--primary-light-text);
   background: var(--primary-dark-text);
   border-radius: 10px;
+  animation: animate-menu .5s;
+
 
   .side-menu-item{
     font-size: 16px;
@@ -15,6 +17,7 @@
     margin: 10px 15px 5px 15px;
     text-decoration: none;
     color: var(--primary-light-text);
+    cursor: pointer;
     &:hover{
       opacity: 0.5;
     }
@@ -23,5 +26,17 @@
       font-weight: 800;
       border-bottom: 2px solid var(--primary-light-text);
     }
+  }
+}
+
+@keyframes animate-menu {
+  from{
+    left: -3rem;
+    opacity: 0.1;
+  }
+
+  to{
+    left:0;
+    opacity: 1;
   }
 }

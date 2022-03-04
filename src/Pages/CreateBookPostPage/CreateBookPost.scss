@@ -1,0 +1,174 @@
+.create-book-post{
+  height: 93vh;
+  font-weight: 600;
+  overflow-y: scroll;
+
+  .page-title{
+    width: 300px;
+    font-size: 24px;
+    line-height: 140%;
+    color: var(--primary-light-text);
+  }
+
+  &__content{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .create-form{
+      height: 100%;
+      width: 50%;
+      z-index: 5;
+
+
+      .book-title, .checkboxes label{
+        font-size: clamp(16px, 5vw, 20px);
+        line-height: 140%;
+        color: rgba(30, 33, 45, 0.65);
+        margin: 10px 0;
+      }
+
+      .title-author,
+      .genre-city,
+      .price-state{
+        width: 98%;
+        display: flex;
+        justify-content: space-between;
+
+        .title, .author, .genre, .city, .price, .state{
+          width: 48%;
+
+          .input-item{
+            width: 100%;
+            height: 40px;
+            padding-left: 3%;
+            background: var(--post-light-color);
+            border: 2px solid var(--bg-dark-color);
+            box-sizing: border-box;
+            border-radius: 10px;
+            font-size: 16px;
+
+            &__control{
+              width: 100%;
+              box-sizing: border-box;
+              border-radius: 10px;
+              background: var(--post-light-color);
+              border: 2px solid var(--bg-dark-color);
+            }
+
+            &__value-container{
+              padding-left: 5px;
+            }
+
+            &__indicator-separator{
+              display: none;
+            }
+
+            &__indicators{
+              cursor: pointer;
+            }
+
+            &__menu{
+              background: var(--primary-dark-text);
+              &-list{
+                height: 110px;
+                overflow-y: scroll;
+                border: 1px solid var(--bg-dark-color) !important;
+                border-radius: 2px;
+              }
+            }
+          }
+
+        }
+      }
+
+      .description{
+        width: 98%;
+        .textarea{
+          width: 100%;
+          height: 60px;
+          background: var(--post-light-color);
+          border: 2px solid var(--bg-dark-color);
+          box-sizing: border-box;
+          border-radius: 10px;
+          padding-left: 3%;
+          font-size: 16px;
+        }
+      }
+
+      .checkboxes{
+        display: flex;
+        flex-wrap: wrap;
+        input{
+          margin-right: 5px;
+        }
+      }
+
+      button{
+        outline: none;
+        width: 50%;
+        height: 40px;
+        background: var(--bg-dark-color);
+        color: var(--primary-dark-text);
+        border: 2px solid var(--bg-light-color);
+        border-radius: 10px;
+        box-shadow: 0 0 4px 2px #FFFFFF;
+        margin: 3% 0 0 48%;
+        font-size: clamp(18px, 5vw, 20px);
+        cursor: pointer;
+      }
+    }
+
+    .create-post-image{
+      width: 50%;
+      display: flex;
+      align-items: center;
+
+      img{
+        width: 100%;
+        z-index: 0;
+      }
+    }
+  }
+
+  &.dark{
+    .page-title{
+      color: var(--primary-dark-text);
+    }
+
+    .book-title,
+    .checkboxes label{
+      color: rgba(243, 243, 243, 0.7);
+    }
+  }
+  @media screen and (max-width: 800px){
+    &__content{
+      flex-direction: column;
+      align-items: center;
+      .create-form{
+        width: 100%;
+
+        .price-state{
+          flex-direction: column;
+          width: 98%;
+
+          .price, .state{
+            width: 100%;
+          }
+        }
+        .description {
+          .textarea {
+            height: 90px;
+          }
+        }
+      }
+
+      .create-post-image{
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
