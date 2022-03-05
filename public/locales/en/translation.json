@@ -86,5 +86,16 @@
     "messages": "Messages",
     "forums": "Forums",
     "sign-out": "Sign out"
+  },
+  "book-page": {
+    "title" : "Title",
+    "author": "Author",
+    "genre": "Genre",
+    "owner": "Owner",
+    "state": "State",
+    "other": "Other",
+    "comments": "COMMENTS",
+    "message": "MESSAGE",
+    "descr": "Notes"
   }
 }

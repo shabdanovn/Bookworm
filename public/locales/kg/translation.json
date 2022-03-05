@@ -87,5 +87,16 @@
     "messages": "Диалогтор",
     "forums": "Форумдар",
     "sign-out": "Чыгуу"
+  },
+  "book-page": {
+    "title" : "Аты",
+    "author": "Автору",
+    "genre": "Жанры",
+    "owner": "Ээси",
+    "state": "Абалы",
+    "other": "Башка",
+    "comments": "КОММЕНТТЕР",
+    "message": "ЖАЗУУ",
+    "descr": "Эскертмелер"
   }
 }

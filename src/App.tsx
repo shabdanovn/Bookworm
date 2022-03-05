@@ -7,6 +7,8 @@ import SignInPage from "./Pages/RegistrationPage/Signin/SignInPage";
 import SignUpPage from "./Pages/RegistrationPage/Signup/SignUpPage";
 import Books from "./Pages/BooksPage/Books";
 import CreateBookPost from "./Pages/CreateBookPostPage/CreateBookPost";
+import BookPage from "./Pages/BooksPage/BookPage/BookPage";
+import NoFoundPage from "./Pages/404/404";
 
 function App() {
     return (
@@ -17,7 +19,9 @@ function App() {
                     <Route path={'sign-in'} element={<SignInPage/>}/>
                     <Route path={'sign-up'} element={<SignUpPage/>}/>
                     <Route path={'books'} element={<Books/>}/>
+                    <Route path='books/:id' element={<BookPage/>}/>
                     <Route path={'create-post'} element={<CreateBookPost/>}/>
+                    <Route path={"*"} element={<NoFoundPage/>}/>
                 </Routes>
             </ModalContextProvider>
         </ThemeContextProvider>

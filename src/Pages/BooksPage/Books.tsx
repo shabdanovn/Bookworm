@@ -10,6 +10,7 @@ import DropdownIcon from "../Components/LangDropdown/DropdownIcon";
 import useModal from "../../hooks/useModal";
 import FiltersModalWindow from "../Components/ModalWindows/FiltersModalWindow/FiltersModalWindow";
 import {useTranslation} from "react-i18next";
+import { Outlet } from 'react-router-dom';
 
 const Books = () => {
     const {t} = useTranslation()
