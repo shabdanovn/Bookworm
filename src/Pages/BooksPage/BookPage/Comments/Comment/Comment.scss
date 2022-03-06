@@ -1,8 +1,9 @@
 .comment{
-  margin: 1rem 0 0 1rem;
+  margin: 1rem 0 0 0.2rem;
 
   border-left: 1px dotted var(--primary-light-text);
   padding-left: 5px;
+  position: relative;
   .author{
     display: flex;
     align-items: center;
@@ -34,12 +35,28 @@
     background: var(--post-light-color);
     border: 1px solid var(--primary-light-text);
     border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 
     .comment-text{
+      width: 85%;
       font-size: 18px;
       line-height: 140%;
       color: var(--primary-light-text);
       margin: 10px;
+    }
+
+    .reply{
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      width: 25px;
+      cursor: pointer;
+      z-index: 5;
+      &:hover{
+        opacity: .7;
+      }
     }
   }
 

@@ -97,5 +97,21 @@
     "comments": "КОММЕНТЫ",
     "message": "НАПИСАТЬ",
     "descr": "Заметки"
+  },
+  "comments-page": {
+    "title": "Комменты",
+    "reply": "ответить",
+    "add": "Добавить",
+    "textarea-add": "Ваш комментарий",
+    "textarea-reply": "Ваш ответ"
+  },
+  "profile-page": {
+    "profile": "Профиль",
+    "edit-profile": "Редактировать",
+    "friends": "Друзья",
+    "followings": "Подписчики",
+    "followers": "Подписки",
+    "see-all": "Все",
+    "posts": "Мои посты"
   }
 }

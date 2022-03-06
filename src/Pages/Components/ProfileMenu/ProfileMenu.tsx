@@ -11,15 +11,25 @@ import saved from '../../../images/saved.svg'
 import notif from '../../../images/bell.svg'
 import message from '../../../images/message.svg'
 import {useTranslation} from "react-i18next";
+import {NavLink, useNavigate} from "react-router-dom";
+import useModal from "../../../hooks/useModal";
 
 const ProfileMenu = () => {
     const {t} = useTranslation()
+    const navigate = useNavigate()
+    const {close} = useModal()
+
+    const clickHandle = (path: string) => {
+        navigate(path)
+        close()
+    }
+
     return (
         <AuthedMenuLayout>
             <div className={cn('profile-menu')}>
                 <div className={cn('username')}>
                     <img src={usernameLogo} alt={'Username logo'}/>
-                    <p>username</p>
+                    <p onClick={() => clickHandle('/profile-page')}>username</p>
                 </div>
                 <div className={cn('notifications')}>
                     <img src={notif} alt={'Notifications logo'}/>

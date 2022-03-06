@@ -98,5 +98,21 @@
     "comments": "КОММЕНТТЕР",
     "message": "ЖАЗУУ",
     "descr": "Эскертмелер"
+  },
+  "comments-page": {
+    "title": "Комменттер",
+    "reply": "жазуу",
+    "add": "Жонотуу",
+    "textarea-add": "Комментинизди жазыныз",
+    "textarea-reply": "Сиздин жооп"
+  },
+  "profile-page": {
+    "profile": "Профиль",
+    "edit-profile": "Ондоо",
+    "friends": "Достор",
+    "followings": "Катталгандар",
+    "followers": "Катталгандарым",
+    "see-all": "Коруу",
+    "posts": "Постторум"
   }
 }

@@ -97,5 +97,21 @@
     "comments": "COMMENTS",
     "message": "MESSAGE",
     "descr": "Notes"
+  },
+  "comments-page": {
+    "title": "Comments",
+    "reply": "reply",
+    "add": "Add",
+    "textarea-add": "Type your comment",
+    "textarea-reply": "Your reply"
+  },
+  "profile-page": {
+    "profile": "Profile",
+    "edit-profile": "Edit profile",
+    "friends": "Friends",
+    "followings": "Followings",
+    "followers": "Followers",
+    "see-all": "See all",
+    "posts": "Recent posts"
   }
 }

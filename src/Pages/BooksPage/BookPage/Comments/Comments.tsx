@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import H2 from "../../../Components/H2/H2";
-import {CommentType} from "../../../../types/types";
+// import {CommentType} from "../../../../types/types";
 import Comment from "./Comment/Comment";
 import cn from "classnames";
 import './Comments.scss'
+import {ExampleCommentType} from "../../../../types/types";
+import {useTranslation} from "react-i18next";
 
-const commentData=[
+
+
+const commentData: ExampleCommentType[]=[
         {
             id: 1,
             text: "Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1. Example comment here 1. Example comment here 1.",
@@ -55,12 +59,28 @@ const commentData=[
     ]
 
 const Comments = () => {
+    const {t} = useTranslation()
+    const [text, setText] = useState<string>('')
+    const [comments, setComments] = useState<ExampleCommentType[]>(commentData)
+
+    const clickHandler = () => {
+        if(text!==''){
+            let comment: ExampleCommentType = {
+                id: new Date().getTime(),
+                text,
+                author: `user${(new Date()).getTime()}`,
+                children: []
+            }
+            setComments(prevState => [...prevState, comment])
+            setText('')
+        }
+    }
 
     return (
         <div className={cn('comments-page')}>
-            <H2 text={'Comments'}/>
+            <H2 text={t('comments-page.title')}/>
             {
-                commentData.map((comment) => {
+                comments.map((comment) => {
                     return (
                         <Comment key={comment.id} comment={comment}/>
                     )
@@ -68,10 +88,10 @@ const Comments = () => {
             }
 
             <div className={cn('add-comment')}>
-                <textarea placeholder={"Type your comment"}/>
-                <button>Add</button>
+                <textarea placeholder={t('comments-page.textarea-add')} value={text}
+                          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>setText(e.target.value) }/>
+                <button onClick={clickHandler}>{t('comments-page.add')}</button>
             </div>
-
         </div>
     );
 };

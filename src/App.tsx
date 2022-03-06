@@ -9,6 +9,7 @@ import Books from "./Pages/BooksPage/Books";
 import CreateBookPost from "./Pages/CreateBookPostPage/CreateBookPost";
 import BookPage from "./Pages/BooksPage/BookPage/BookPage";
 import NoFoundPage from "./Pages/404/404";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Route path={'books'} element={<Books/>}/>
                     <Route path='books/:id' element={<BookPage/>}/>
                     <Route path={'create-post'} element={<CreateBookPost/>}/>
+                    <Route path={'profile-page'} element={<ProfilePage/>}/>
                     <Route path={"*"} element={<NoFoundPage/>}/>
                 </Routes>
             </ModalContextProvider>

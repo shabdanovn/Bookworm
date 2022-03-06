@@ -1,22 +1,18 @@
 import React from 'react';
+import './PostItem.scss'
 import cn from "classnames";
-import book3 from '../../../images/book3.png'
-import './BookItem.scss'
-import {useTheme} from "../../../hooks/useTheme";
+import book3 from "../../../images/book3.png";
 import {BookItemType} from "../../../types/types";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-interface BookItemProps{
+interface IPostItem{
     book: BookItemType
 }
 
-const BookItem = ({book}: BookItemProps) => {
-    const {isDark} = useTheme()
+const PostItem = ({book}: IPostItem) => {
     const navigate = useNavigate()
-    const location = useLocation()
     return (
-        <div onClick={() => location.pathname==='/' ? navigate(`books/${book.id}`) :navigate(`${book.id}`)}
-             className={cn('book-item', {dark: isDark})}>
+        <div className={cn('post-item')} onClick={() => navigate(`/books/${book.id}`)}>
             <p className={cn('book-price')}>{book.cost!== '' ? book.cost : book.conditions}</p>
             {/*<img src={book.img} alt={'Book image'}/>*/}
             <img src={book3} alt={'Book image'}/>
@@ -26,4 +22,4 @@ const BookItem = ({book}: BookItemProps) => {
     );
 };
 
-export default BookItem;
+export default PostItem;

@@ -19,9 +19,9 @@ export type UserType = {
     id: number,
     username: string,
     email: string,
-    fullname: string,
+    fullname?: string,
     img: string,
-    city_id: number,
+    city_id?: number,
     city?: string
     phone: string
 }
@@ -33,4 +33,11 @@ export type CommentType = {
     post_id: number,
     comment_id?: number,
     date: Date
+}
+
+export type ExampleCommentType = {
+    id: number,
+    text: string,
+    author: string,
+    children: ExampleCommentType[]
 }
