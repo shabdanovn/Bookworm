@@ -8,4 +8,8 @@
   &.dark{
     color: var(--primary-dark-text);
   }
+
+  &.font{
+    font-weight: 600;
+  }
 }

@@ -6,6 +6,7 @@ import {BookItemType, UserType} from "../../types/types";
 import avatar from '../../images/boy.jpg'
 import PostItem from "../Components/PostItem/PostItem";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const user: UserType = {
     id: 1,
@@ -26,6 +27,7 @@ const booksList: BookItemType[] = [
 
 const ProfilePage = () => {
     const {t} = useTranslation()
+    const navigate = useNavigate()
     return (
         <MainLayout>
             <div className={cn('profile-page')}>
@@ -33,7 +35,7 @@ const ProfilePage = () => {
                     <div className={cn('profile-page__profile')}>
                         <div className={cn('profile-page__title-edit title-btn')}>
                             <p className={'title'}>{t('profile-page.profile')}</p>
-                            <button>{t('profile-page.edit-profile')}</button>
+                            <button onClick={() => navigate('profile-edit')}>{t('profile-page.edit-profile')}</button>
                         </div>
                         <div className={cn('profile-page__profile-content')}>
                             {/*<img src={user.img ? user.img : userLogo} alt={"User avatar pic"}/>*/}

@@ -1,0 +1,138 @@
+.edit-profile-page{
+  //height: 93vh;
+  min-height: 93vh;
+  position: relative;
+
+  .profile-img-edit{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    margin-bottom: 10px;
+
+    img{
+      width: 200px;
+      height: 200px;
+
+      background: var(--bg-light-color);
+      border-radius: 20px;
+      margin: 10px;
+      border: 2px solid var(--bg-light-color);
+    }
+  }
+  .fields-group{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .form-error{
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--error-color);
+      margin: 0;
+      position: absolute;
+      right: 5px;
+      z-index: 2;
+
+      &.fullname-error{
+        top: 55px;
+      }
+
+      &.email-error{
+        top: 120px;
+      }
+
+      &.phone-error{
+        top: 185px;
+      }
+
+      &.dark{
+        color: var(--error-dark-color);
+      }
+    }
+
+    input{
+      width: 98%;
+      height: 45px;
+      margin: 10px 0;
+      font-size: clamp(16px, 2.5vw, 19px);
+      font-weight: 600;
+      padding-left: 5px;
+
+
+      background: var(--post-light-color);
+      border: 2px solid var(--primary-light-text);
+      box-sizing: border-box;
+      border-radius: 10px;
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus{
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: var(--primary-light-text);
+      }
+    }
+
+    div{
+      width: 98%;
+      display: flex;
+      justify-content: space-between;
+
+      input{
+        width: 48%;
+        z-index: 2;
+
+      }
+    }
+
+    button{
+      width: 48%;
+      height: 45px;
+      border: none;
+      box-shadow: 0 0 4px 2px #FFFFFF;
+      border-radius: 10px;
+      font-size: 20px;
+      margin: 10px 0;
+      cursor: pointer;
+      z-index: 2;
+
+      &:hover{
+        opacity: .7;
+      }
+
+      &:last-child{
+        background: var(--bg-dark-color);
+        color: var(--primary-dark-text);
+
+      }
+
+      &:first-child{
+        background: var(--post-dark-color);
+        color: var(--primary-light-text);
+        border: 2px solid var(--primary-light-text);
+      }
+
+
+    }
+  }
+
+  .statue-img{
+    width: clamp(200px, 30vw, 500px);
+    position: absolute;
+    bottom: 0;
+    right: 15%;
+    z-index: 1;
+
+  }
+
+  @media screen and (max-width: 800px){
+    .profile-img-edit{
+      width: 100%;
+    }
+
+    .fields-group{
+      width: 100%;
+    }
+  }
+}

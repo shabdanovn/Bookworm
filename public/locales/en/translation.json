@@ -112,6 +112,17 @@
     "followings": "Followings",
     "followers": "Followers",
     "see-all": "See all",
-    "posts": "Recent posts"
+    "posts": "Recent posts",
+    "edit-page": {
+      "edit": "Edit profile",
+      "save":"Save",
+      "cancel": "Cancel",
+      "change": "Change image",
+      "fullname-placeholder": "fullname",
+      "email-placeholder": "email",
+      "username-placeholder": "username",
+      "phone-placeholder": "phone",
+      "city-placeholder": "city"
+    }
   }
 }

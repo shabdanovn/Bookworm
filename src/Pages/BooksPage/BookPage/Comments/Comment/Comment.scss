@@ -45,6 +45,12 @@
       line-height: 140%;
       color: var(--primary-light-text);
       margin: 10px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      hyphens: auto;
     }
 
     .reply{

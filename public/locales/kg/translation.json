@@ -113,6 +113,17 @@
     "followings": "Катталгандар",
     "followers": "Катталгандарым",
     "see-all": "Коруу",
-    "posts": "Постторум"
+    "posts": "Постторум",
+    "edit-page": {
+      "edit": "Профильди ондоо",
+      "save":"Сактоо",
+      "cancel": "Артка",
+      "change": "Сурот тандоо",
+      "fullname-placeholder": "атыныз",
+      "email-placeholder": "email",
+      "username-placeholder": "логиниз",
+      "phone-placeholder": "номериниз",
+      "city-placeholder": "шаарыныз"
+    }
   }
 }

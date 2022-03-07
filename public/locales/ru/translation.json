@@ -112,6 +112,18 @@
     "followings": "Подписчики",
     "followers": "Подписки",
     "see-all": "Все",
-    "posts": "Мои посты"
+    "posts": "Мои посты",
+
+    "edit-page": {
+      "edit": "Редактировать профиль",
+      "save":"Сохранить",
+      "cancel": "Отмена",
+      "change": "Выбрать фото",
+      "fullname-placeholder": "фио",
+      "email-placeholder": "email",
+      "username-placeholder": "логин",
+      "phone-placeholder": "номер",
+      "city-placeholder": "город"
+    }
   }
 }
