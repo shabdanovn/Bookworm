@@ -43,7 +43,7 @@ const ProfileMenu = () => {
                     <img src={saved} alt={'Saved logo'}/>
                     <p>{t('auth-burger-menu.saved')}</p>
                 </div>
-                <div className={cn('my-posts')}>
+                <div className={cn('my-posts')} onClick={()=> clickHandle('/profile-page/my-books')}>
                     <img src={posts} alt={'Posts logo'}/>
                     <p>{t('auth-burger-menu.my-books')}</p>
                 </div>

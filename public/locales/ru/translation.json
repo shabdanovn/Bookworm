@@ -125,5 +125,8 @@
       "phone-placeholder": "номер",
       "city-placeholder": "город"
     }
+  },
+  "my-books": {
+    "title": "Мои книги"
   }
 }

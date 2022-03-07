@@ -124,5 +124,8 @@
       "phone-placeholder": "phone",
       "city-placeholder": "city"
     }
+  },
+  "my-books": {
+    "title": "My books"
   }
 }

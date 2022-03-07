@@ -125,5 +125,8 @@
       "phone-placeholder": "номериниз",
       "city-placeholder": "шаарыныз"
     }
+  },
+  "my-books": {
+    "title": "Менин китептерим"
   }
 }

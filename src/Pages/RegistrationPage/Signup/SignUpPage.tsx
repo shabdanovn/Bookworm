@@ -58,7 +58,7 @@ const SignUpPage = () => {
         <RegistrationLayout path={'/sign-in'}
                             ButtonText={'registration.sign-in'}
                             titleText={'registration.have-account'}>
-            <div className={cn('signup-content')}>
+            <div className={cn('signup-content', {dark: isDark})}>
                 <p className={cn('title')}>{t('registration.registration')}</p>
                 <div className={cn('fields-group')}>
                     <div className={cn('fullname')}>

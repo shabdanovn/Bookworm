@@ -69,7 +69,7 @@ const ProfilePage = () => {
                 <div className={cn('profile-page__posts-part')}>
                     <div className={cn('profile-page__posts-title  title-btn')}>
                         <p className={'title'}>{t('profile-page.posts')}</p>
-                        <button>{t('profile-page.see-all')}</button>
+                        <button onClick={() => navigate('my-books')}>{t('profile-page.see-all')}</button>
                     </div>
 
                     <div className={cn('posts-part')}>

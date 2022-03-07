@@ -1,0 +1,12 @@
+.my-books-page{
+  min-height: 93vh;
+
+  .books-content{
+    width: 100%;
+    //overflow-y: scroll;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+}
