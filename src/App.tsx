@@ -12,6 +12,8 @@ import NoFoundPage from "./Pages/404/404";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import EditProfilePage from "./Pages/ProfilePage/EditProfilePage/EditProfilePage";
 import MyBooksPage from "./Pages/MyBooksPage/MyBooksPage";
+import SavedBooksPage from "./Pages/SavedBooksPage/SavedBooksPage";
+import MessagesPage from "./Pages/MessagesPage/MessagesPage";
 
 function App() {
     return (
@@ -28,6 +30,8 @@ function App() {
                     <Route path={'profile-page'} element={<ProfilePage/>}/>
                     <Route path={'profile-page/profile-edit'} element={<EditProfilePage/>}/>
                     <Route path={'profile-page/my-books'} element={<MyBooksPage/>}/>
+                    <Route path={'saved-books'} element={<SavedBooksPage/>}/>
+                    <Route path={'messages-page'} element={<MessagesPage/>}/>
                     <Route path={"*"} element={<NoFoundPage/>}/>
                 </Routes>
             </ModalContextProvider>

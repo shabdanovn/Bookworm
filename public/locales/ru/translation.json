@@ -128,5 +128,14 @@
   },
   "my-books": {
     "title": "Мои книги"
+  },
+  "saved-books": {
+    "title": "Сохраненные книги"
+  },
+  "messages-page": {
+    "title": "Чаты",
+    "no-dialog": "Нет переписок",
+    "start-chat": "Напишите сообщение",
+    "message": "Сообщение..."
   }
 }

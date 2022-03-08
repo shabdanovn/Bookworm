@@ -50,9 +50,10 @@ const Header = () => {
     const Profile = () => {
         if(isAuthed){
             return <>
-                <NavLink className={cn('menu-item')}
-                         to={'/create-post'}><AddIcon width={'28px'}/></NavLink>
-                <MessageIcon />
+                {/*<NavLink className={cn('menu-item')}*/}
+                {/*         to={'/create-post'}><AddIcon width={'28px'}/></NavLink>*/}
+                <AddIcon onClick={() => navigate('/create-post')} width={'28px'}/>
+                <MessageIcon onClick={() => navigate('/messages-page')}/>
                 <Bell/>
                 <UserAvatar onClick={userAvatarHandle}/>
             </>

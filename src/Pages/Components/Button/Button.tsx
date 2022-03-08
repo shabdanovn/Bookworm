@@ -21,7 +21,8 @@ const Button = ({text, center, mTopBottom, path}: ButtonProps) => {
         navigate(path)
     }
     return (
-        <button onClick={clickHandle} className={cn('button', {center: center, dark:isDark, mTopBottom: mTopBottom})}>
+        <button onClick={clickHandle}
+                className={cn('button', {center: center, dark:isDark, mTopBottom: mTopBottom})}>
             {t(text)}
             <Arrow/>
         </button>

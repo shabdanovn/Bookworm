@@ -1,10 +1,10 @@
 import React from 'react';
-import './MyBooksPage.scss'
 import MainLayout from "../Components/MainLayout/MainLayout";
 import cn from "classnames";
 import H3 from "../Components/H3/H3";
 import {BookItemType} from "../../types/types";
 import BookItem from "../Components/BookItem/BookItem";
+import './SavedBooksPage.scss'
 import {useTranslation} from "react-i18next";
 
 const booksList: BookItemType[] = [
@@ -22,15 +22,15 @@ const booksList: BookItemType[] = [
     {id: 13, title: 'Imagine the possibilities', author: 'Written by You', img: '', cost: '215$', conditions: '', user_id: 4},
 ]
 
-const MyBooksPage = () => {
+const SavedBooksPage = () => {
     const {t} = useTranslation()
     return (
         <MainLayout>
-            <div className={cn('my-books-page')}>
-                <H3 text={t('my-books.title')} font={true}/>
-                <div className={cn('books-content')}>
+            <div className={cn('saved-books-page')}>
+                <H3 text={t('saved-books.title')} font={true}/>
+                <div className={cn('saved-books-content')}>
                     {booksList.map(book => {
-                        return <BookItem book={book} key={book.id}/>
+                        return <BookItem key={book.id} book={book} />
                     })}
                 </div>
             </div>
@@ -38,4 +38,4 @@ const MyBooksPage = () => {
     );
 };
 
-export default MyBooksPage;
+export default SavedBooksPage;

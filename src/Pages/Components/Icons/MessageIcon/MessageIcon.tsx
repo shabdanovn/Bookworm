@@ -3,10 +3,14 @@ import './MessageIcon.scss'
 import {useTheme} from "../../../../hooks/useTheme";
 import cn from "classnames";
 
-const MessageIcon = () => {
+interface IMessageIcon{
+    onClick?: () => void
+}
+const MessageIcon = ({onClick}: IMessageIcon) => {
     const {isDark} = useTheme()
     return (
-        <svg fill="currentColor" className={cn('message-icon', {dark: isDark})}
+        <svg onClick={onClick} fill="currentColor"
+             className={cn('message-icon', {dark: isDark})}
              viewBox="0 0 32 32">
             <title/>
             <g data-name="mail email e-mail letter" id="mail_email_e-mail_letter">

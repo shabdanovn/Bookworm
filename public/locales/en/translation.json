@@ -127,5 +127,14 @@
   },
   "my-books": {
     "title": "My books"
+  },
+  "saved-books": {
+    "title": "Saved books"
+  },
+  "messages-page": {
+    "title": "Chats",
+    "no-dialog": "No dialogs to show",
+    "start-chat": "Start chatting",
+    "message": "Message..."
   }
 }

@@ -1,0 +1,10 @@
+.saved-books-page{
+  min-height: 93vh;
+
+  .saved-books-content {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}

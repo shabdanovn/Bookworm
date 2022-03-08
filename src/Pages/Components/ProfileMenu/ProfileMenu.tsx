@@ -2,8 +2,6 @@ import React from 'react';
 import './ProfileMenu.scss'
 import cn from "classnames";
 import AuthedMenuLayout from "../ModalWindows/AuthedMenu/AuthedMenuLayout";
-import MessageIcon from "../Icons/MessageIcon/MessageIcon";
-import Bell from "../Icons/Bell/Bell";
 import usernameLogo from '../../../images/username.svg'
 import posts from '../../../images/posts.svg'
 import signout from '../../../images/sign_out.svg'
@@ -11,7 +9,7 @@ import saved from '../../../images/saved.svg'
 import notif from '../../../images/bell.svg'
 import message from '../../../images/message.svg'
 import {useTranslation} from "react-i18next";
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useModal from "../../../hooks/useModal";
 
 const ProfileMenu = () => {
@@ -35,15 +33,18 @@ const ProfileMenu = () => {
                     <img src={notif} alt={'Notifications logo'}/>
                     <p>{t('auth-burger-menu.notifications')}</p>
                 </div>
-                <div className={cn('messages')}>
+                <div onClick={() => clickHandle('/messages-page')}
+                     className={cn('messages')}>
                     <img src={message} alt={'Messages logo'}/>
                     <p>{t('auth-burger-menu.messages')}</p>
                 </div>
-                <div className={cn('saved')}>
+                <div onClick={() => clickHandle('/saved-books')}
+                     className={cn('saved')}>
                     <img src={saved} alt={'Saved logo'}/>
                     <p>{t('auth-burger-menu.saved')}</p>
                 </div>
-                <div className={cn('my-posts')} onClick={()=> clickHandle('/profile-page/my-books')}>
+                <div className={cn('my-posts')}
+                     onClick={()=> clickHandle('/profile-page/my-books')}>
                     <img src={posts} alt={'Posts logo'}/>
                     <p>{t('auth-burger-menu.my-books')}</p>
                 </div>

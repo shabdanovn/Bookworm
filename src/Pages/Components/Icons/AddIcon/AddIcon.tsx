@@ -8,7 +8,7 @@ interface IAddIcon{
 const AddIcon = ({width, onClick}: IAddIcon) => {
     return (
         <svg fill="none" height={width}
-             onClick={onClick} width={width} style={{cursor: 'pointer', marginTop: '7px'}}
+             onClick={onClick} width={width} style={{cursor: 'pointer'}}
              stroke={'currentColor'} strokeLinecap="round"
              strokeLinejoin="round" strokeWidth="2"
              viewBox="0 0 24 24">

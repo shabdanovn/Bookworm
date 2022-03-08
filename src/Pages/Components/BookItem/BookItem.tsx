@@ -5,6 +5,7 @@ import {useTheme} from "../../../hooks/useTheme";
 import {BookItemType} from "../../../types/types";
 import editLogo from '../../../images/edit.svg'
 import deleteLogo from '../../../images/delete.svg'
+import savedLogo from '../../../images/saved.svg'
 import cn from "classnames";
 import './BookItem.scss'
 
@@ -31,6 +32,13 @@ const BookItem = ({book}: BookItemProps) => {
         }
     }
 
+    const saveHandle = (e: MouseEvent<HTMLImageElement>) => {
+        if(e.target === e.currentTarget){
+            e.stopPropagation()
+            alert('unsaved ' + book.id)
+        }
+    }
+
     return (
         <div onClick={() => location.pathname!=='books' ? navigate(`/books/${book.id}`) :navigate(`${book.id}`)}
              className={cn('book-item', {dark: isDark})}>
@@ -50,6 +58,11 @@ const BookItem = ({book}: BookItemProps) => {
             <img src={book3} alt={'Book image'}/>
             <p className={cn('book-title')}>{book.title}</p>
             <p className={cn('book-author')}>{book.author}</p>
+            {location.pathname==='/saved-books' &&
+                <img onClick={saveHandle}
+                     className={cn('saved-logo')}
+                     src={savedLogo} alt={'Saved item'}/>
+            }
         </div>
     );
 };

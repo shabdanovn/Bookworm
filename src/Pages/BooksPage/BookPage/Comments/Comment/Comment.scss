@@ -67,6 +67,8 @@
   }
 
   &.dark{
+    border-left: 1px dotted var(--primary-dark-text);
+
     .author{
       .comment-author{
         color: var(--primary-dark-text);
