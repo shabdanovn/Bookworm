@@ -1,5 +1,4 @@
-import React from 'react';
-import {NavLink} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
 import cn from "classnames";
 import './SignUpPage.scss'
 import usernameLogo from '../../../images/username.svg'
@@ -14,19 +13,20 @@ import {useForm} from "react-hook-form";
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useTheme} from "../../../hooks/useTheme";
-
-interface IInputForms{
-    fullname: string
-    email: string
-    username: string
-    password: string
-    phone: string
-    city: string
-}
+import {IRegister} from "../../../types/auth";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import { signup} from "../../../redux/slices/auth.slice";
+import {useNavigate} from "react-router-dom";
+import Loader from "../../Components/Loader/Loader";
 
 const SignUpPage = () => {
     const {t} = useTranslation()
     const {isDark} = useTheme()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const [loading, setLoading] = useState(false)
+    const [messages, setMessages] = useState('')
 
     const schema = yup.object({
         fullname: yup.string()
@@ -42,17 +42,30 @@ const SignUpPage = () => {
             .required(`${t('registration.password')} ${t('registration.required')}`),
         phone: yup.string()
             .required(`${t('registration.phone')} ${t('registration.required')}`),
-        city: yup.string()
+        cityName: yup.string()
             .required(`${t('registration.city')} ${t('registration.required')}`)
     }).required()
 
-    const {register, handleSubmit, formState: {errors}} = useForm<IInputForms>({
+    const {register, handleSubmit, formState: {errors}} = useForm<IRegister>({
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = (data: IInputForms) => {
-        console.log(data)
+    const onSubmit = (data: IRegister) => {
+        setLoading(true)
+        dispatch(signup(data))
+            .unwrap()
+            .then(() => {
+                setLoading(false)
+                navigate('/books')
+            })
+            .catch(() => {
+                setLoading(false)
+                setMessages(t('errors.sign-up'))
+            })
     }
+    useEffect(() => {
+        if(isLoggedIn) navigate('/books')
+    }, [])
 
     return (
         <RegistrationLayout path={'/sign-in'}
@@ -60,6 +73,7 @@ const SignUpPage = () => {
                             titleText={'registration.have-account'}>
             <div className={cn('signup-content', {dark: isDark})}>
                 <p className={cn('title')}>{t('registration.registration')}</p>
+                {loading && <Loader/>}
                 <div className={cn('fields-group')}>
                     <div className={cn('fullname')}>
                         <img src={fullnameLogo} alt={'Full name icon'}/>
@@ -96,12 +110,12 @@ const SignUpPage = () => {
                         </div>
                         <div className={cn('city')}>
                             <img src={cityLogo} alt={'City icon'}/>
-                            <input {...register('city')}
+                            <input {...register('cityName')}
                                    type={'text'} placeholder={t('registration.city')}/>
                         </div>
                     </div>
-                    <p className={cn('signup-error', {dark: isDark})}>{errors.phone?.message || errors.city?.message}</p>
-
+                    <p className={cn('signup-error', {dark: isDark})}>{errors.phone?.message || errors.cityName?.message}</p>
+                    {messages && <p className={cn('signup-error', {dark: isDark})}>{messages}</p>}
                 </div>
                 <button onClick={handleSubmit(onSubmit)}
                     className={cn('start-btn')}>{t('registration.sign-up')}</button>

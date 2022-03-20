@@ -75,7 +75,7 @@ const EditProfilePage = () => {
                 <div className={cn('profile-img-edit')}>
                     <img src={files
                         ? URL.createObjectURL(files[0])
-                        : user.img ? user.img : username}/>
+                        : user.img ? user.img : username} alt={'File'}/>
 
                     <FileUploader setFiles={setFiles}
                                   title={files ? files[0].name: t('profile-page.edit-page.change')}/>

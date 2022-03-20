@@ -136,5 +136,9 @@
     "no-dialog": "No dialogs to show",
     "start-chat": "Start chatting",
     "message": "Message..."
+  },
+  "errors": {
+    "sign-in": "Invalid email or password",
+    "sign-up": "This email already registered"
   }
 }

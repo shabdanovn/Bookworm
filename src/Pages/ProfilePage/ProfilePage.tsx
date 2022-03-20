@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import cn from "classnames";
 import './ProfilePage.scss'
 import MainLayout from "../Components/MainLayout/MainLayout";
 import {BookItemType, UserType} from "../../types/types";
-import avatar from '../../images/boy.jpg'
+import avatar from '../../images/avatar.svg'
 import PostItem from "../Components/PostItem/PostItem";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../hooks/redux";
+import {API_URL} from "../../utils/constants";
+import Loader from "../Components/Loader/Loader";
 
 const user: UserType = {
     id: 1,
@@ -28,8 +31,18 @@ const booksList: BookItemType[] = [
 const ProfilePage = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
+    const {user: userNew, isLoggedIn} = useAppSelector(state => state.auth)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(()=>{
+        setLoading(true)
+        if(!isLoggedIn) navigate('/books')
+        setLoading(false)
+    }, [isLoggedIn])
+
     return (
         <MainLayout>
+            {loading ? <Loader/> :
             <div className={cn('profile-page')}>
                 <div className={cn('profile-page__profile-part')}>
                     <div className={cn('profile-page__profile')}>
@@ -38,8 +51,8 @@ const ProfilePage = () => {
                             <button onClick={() => navigate('profile-edit')}>{t('profile-page.edit-profile')}</button>
                         </div>
                         <div className={cn('profile-page__profile-content')}>
-                            {/*<img src={user.img ? user.img : userLogo} alt={"User avatar pic"}/>*/}
-                            <img src={avatar} alt={"User avatar pic"}/>
+                            <img src={userNew && userNew.img ? `${API_URL}/${userNew.img}` : avatar} alt={"User avatar pic"}/>
+                            {/*<img src={avatar} alt={"User avatar pic"}/>*/}
                             <div className={cn('profile-info')}>
                                 <p className={cn('profile-info__fullname')}>{user.fullname}</p>
                                 <p>{user.username}</p>
@@ -76,7 +89,7 @@ const ProfilePage = () => {
                         {booksList.map(book => <PostItem key={book.id} book={book} />)}
                     </div>
                 </div>
-            </div>
+            </div>}
         </MainLayout>
     );
 };

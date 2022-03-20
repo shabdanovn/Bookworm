@@ -1,7 +1,7 @@
 .book-item {
   position: relative;
   width: clamp(150px, 20vw, 270px);
-  height: clamp(200px, 23vw, 350px);
+  height: clamp(200px, 24vw, 370px);
   margin:0 5px 2rem 5px;
 
   background: var(--post-light-color);
@@ -10,6 +10,15 @@
 
   &:hover{
     opacity: 0.7;
+  }
+
+  .book-img{
+    object-fit: cover;
+    border-radius: 10px;
+    width: clamp(100px, 13vw, 220px);
+    height: clamp(100px, 14vw, 220px);
+    //object-fit: cover;
+    margin: 2% 16%;
   }
 
   .price-actions-group{
@@ -49,15 +58,6 @@
 
 
   }
-
-
-  img {
-    width: clamp(100px, 13vw, 220px);
-    height: clamp(100px, 14vw, 220px);
-    //object-fit: cover;
-    margin: 2% 0 2% 15%;
-  }
-
   .book-title{
     width: 90%;
     font-weight: 600;

@@ -11,14 +11,24 @@ import message from '../../../images/message.svg'
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import useModal from "../../../hooks/useModal";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {logout} from "../../../redux/slices/auth.slice";
 
 const ProfileMenu = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {close} = useModal()
+    const dispatch = useAppDispatch()
+    const user = useAppSelector(state => state.auth.user)
+
 
     const clickHandle = (path: string) => {
         navigate(path)
+        close()
+    }
+
+    const signoutHandle = () => {
+        dispatch(logout())
         close()
     }
 
@@ -27,7 +37,7 @@ const ProfileMenu = () => {
             <div className={cn('profile-menu')}>
                 <div className={cn('username')}>
                     <img src={usernameLogo} alt={'Username logo'}/>
-                    <p onClick={() => clickHandle('/profile-page')}>username</p>
+                    <p onClick={() => clickHandle('/profile-page')}>{user.username}</p>
                 </div>
                 <div className={cn('notifications')}>
                     <img src={notif} alt={'Notifications logo'}/>
@@ -48,7 +58,7 @@ const ProfileMenu = () => {
                     <img src={posts} alt={'Posts logo'}/>
                     <p>{t('auth-burger-menu.my-books')}</p>
                 </div>
-                <div className={cn('sign-out')}>
+                <div className={cn('sign-out')} onClick={signoutHandle}>
                     <img src={signout} alt={'Sign out logo'}/>
                     <p>{t('auth-burger-menu.sign-out')}</p>
                 </div>

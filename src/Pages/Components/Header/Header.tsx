@@ -1,4 +1,4 @@
-import React, {MouseEvent, useState} from 'react';
+import React from 'react';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../../hooks/useTheme";
@@ -14,10 +14,8 @@ import AddIcon from "../Icons/AddIcon/AddIcon";
 import MessageIcon from "../Icons/MessageIcon/MessageIcon";
 import Bell from "../Icons/Bell/Bell";
 import UserAvatar from "../Icons/UserAvatar/UserAvatar";
-import AuthedMenuLayout from "../ModalWindows/AuthedMenu/AuthedMenuLayout";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
-
-export const isAuthed = true
+import {useAppSelector} from "../../../hooks/redux";
 
 const Header = () => {
     const {isDark, setIsDark} = useTheme()
@@ -25,7 +23,7 @@ const Header = () => {
     const {setModalContent, open} = useModal()
     const navigate = useNavigate()
     const location = useLocation()
-
+    const isAuthed = useAppSelector(state => state.auth.isLoggedIn)
 
     const changeTheme = () => {
         if(isDark){

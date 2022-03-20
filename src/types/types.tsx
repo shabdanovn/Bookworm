@@ -2,6 +2,11 @@ import {Dispatch, SetStateAction} from "react";
 
 export type TypeSetState<T> = Dispatch<SetStateAction<T>>
 
+export type CityType = {
+    id?: number,
+    name?: string
+}
+
 export type BookItemType = {
     id: number,
     title: string,

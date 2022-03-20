@@ -7,6 +7,7 @@ interface IFileUploader{
     title?: string
     setFiles: (files: FileList | null) => void
 }
+
 const FileUploader = ({setFiles, title}: IFileUploader) => {
     const {t} = useTranslation()
 

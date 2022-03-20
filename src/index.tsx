@@ -6,14 +6,19 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
 import './i18n';
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
+import Loader from "./Pages/Components/Loader/Loader";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Suspense fallback="Loading...">
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-      </Suspense>
+      <Provider store={store}>
+          <Suspense fallback={<Loader/>}>
+              <BrowserRouter>
+                    <App />
+              </BrowserRouter>
+          </Suspense>
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

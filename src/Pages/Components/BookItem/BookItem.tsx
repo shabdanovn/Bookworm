@@ -8,9 +8,11 @@ import deleteLogo from '../../../images/delete.svg'
 import savedLogo from '../../../images/saved.svg'
 import cn from "classnames";
 import './BookItem.scss'
+import {API_URL} from "../../../utils/constants";
+import {BookType} from "../../../types/books";
 
 interface BookItemProps{
-    book: BookItemType
+    book: BookType
 }
 
 const BookItem = ({book}: BookItemProps) => {
@@ -54,8 +56,8 @@ const BookItem = ({book}: BookItemProps) => {
                 </div>}
 
             </div>
-            {/*<img src={book.img} alt={'Book image'}/>*/}
-            <img src={book3} alt={'Book image'}/>
+            <img className={cn('book-img')}
+                 src={book.img ? `${API_URL}/${book.img}` : book3} alt={'Book image'}/>
             <p className={cn('book-title')}>{book.title}</p>
             <p className={cn('book-author')}>{book.author}</p>
             {location.pathname==='/saved-books' &&

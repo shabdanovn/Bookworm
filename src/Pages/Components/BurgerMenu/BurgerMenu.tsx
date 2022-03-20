@@ -1,21 +1,27 @@
 import React from 'react';
 import {useTranslation} from "react-i18next";
 import cn from "classnames";
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import './BurgerMenu.scss'
 import useModal from "../../../hooks/useModal";
-import {isAuthed} from "../Header/Header";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {logout} from "../../../redux/slices/auth.slice";
 
 const BurgerMenu = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {close} = useModal()
     const location = useLocation()
-
-    const isAuth = isAuthed
+    const isAuth = useAppSelector(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
 
     const clickHandle = (text: string) => {
         navigate(text)
+        close()
+    }
+
+    const signoutHandle = () => {
+        dispatch(logout())
         close()
     }
 
@@ -28,7 +34,7 @@ const BurgerMenu = () => {
             {location.pathname==='/' && <p className={cn('side-menu-item')}  >{t("navigation.about-us")}</p>}
             {!isAuth
                 ? <p className={cn('side-menu-item')} onClick={() => clickHandle('sign-in')}>{t("navigation.sign-in")}</p>
-                : <p className={cn('side-menu-item')} onClick={() => alert('You signed out')}>{t("navigation.sign-out")}</p>
+                : <p className={cn('side-menu-item')} onClick={signoutHandle}>{t("navigation.sign-out")}</p>
             }
         </div>
     )

@@ -16,8 +16,10 @@
     color: #FFFFFF;
   }
 
+
+
   img {
-    width: clamp(20px, 5vw, 52px);
+    width: clamp(20px, 5vw, 40px);
     color: var(--bg-dark-color);
     z-index: 3;
   }
@@ -91,7 +93,7 @@
   .start-btn{
     width: clamp(150px, 30vw, 326px);
     height: clamp(30px, 7vw, 50px);
-    background: #1E212D;
+    background: var(--bg-dark-color);
     border-radius: 22.5px;
     font-size: clamp(16px, 3vw, 24px);
     color: #FFFFFF;
