@@ -4,13 +4,10 @@ import cn from "classnames";
 import './Books.scss'
 import BookItem from "../Components/BookItem/BookItem";
 import Searchbar from "../Components/Searchbar/Searchbar";
-import {BookItemType} from "../../types/types";
 import BooksList from "../Components/BooksList/BooksList";
-import DropdownIcon from "../Components/LangDropdown/DropdownIcon";
 import useModal from "../../hooks/useModal";
 import FiltersModalWindow from "../Components/ModalWindows/FiltersModalWindow/FiltersModalWindow";
 import {useTranslation} from "react-i18next";
-import { Outlet } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {getAllBooks} from "../../redux/slices/books.slice";
 import {BookType} from "../../types/books";

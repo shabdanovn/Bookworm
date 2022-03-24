@@ -38,7 +38,7 @@ const ProfilePage = () => {
         setLoading(true)
         if(!isLoggedIn) navigate('/books')
         setLoading(false)
-    }, [isLoggedIn])
+    }, [isLoggedIn, navigate])
 
     return (
         <MainLayout>

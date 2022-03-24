@@ -14,8 +14,11 @@ import EditProfilePage from "./Pages/ProfilePage/EditProfilePage/EditProfilePage
 import MyBooksPage from "./Pages/MyBooksPage/MyBooksPage";
 import SavedBooksPage from "./Pages/SavedBooksPage/SavedBooksPage";
 import MessagesPage from "./Pages/MessagesPage/MessagesPage";
+import useAlan from "./hooks/useAlan";
 
 function App() {
+    useAlan()
+
     return (
         <ThemeContextProvider>
             <ModalContextProvider>

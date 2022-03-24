@@ -12,7 +12,6 @@ interface MainLayoutProps{
 const MainLayout = ({children}:MainLayoutProps) => {
     const {isDark} = useTheme()
 
-
     return (
         <div className={classNames('mainLayout', {dark: isDark})}>
             <div className={classNames('mainLayout-content')}>

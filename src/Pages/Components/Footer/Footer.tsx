@@ -12,7 +12,8 @@ const Footer = () => {
                  src={lightLogo} alt={'dark_logo'} />
 
             <img  className={classNames('up-pic')}
-                  src={Up} alt={'up logo'}/>
+                  src={Up} alt={'up logo'}
+                  onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}/>
 
             <p>Shabdanov N. 2022</p>
         </div>

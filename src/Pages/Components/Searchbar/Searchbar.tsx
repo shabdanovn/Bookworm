@@ -15,7 +15,7 @@ const Searchbar = ({setBooks}: ISearchbar) => {
         <div className={cn('searchbar')}>
             <input type={'text'} placeholder={t('books.searchbar')}/>
             <div className={cn('search-btn')}>
-                <img src={searchLogo}/>
+                <img src={searchLogo} alt={'searchbar logo'}/>
             </div>
         </div>
     );

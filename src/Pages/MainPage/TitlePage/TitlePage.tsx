@@ -6,7 +6,6 @@ import book1 from "../../../images/book1.png";
 import book2 from "../../../images/book2.png";
 import book3 from "../../../images/book3.png";
 import './TitlePage.scss'
-import Arrow from "../../Components/Button/Arrow";
 import Button from "../../Components/Button/Button";
 import {useNavigate} from "react-router-dom";
 
@@ -14,6 +13,7 @@ const TitlePage = () => {
     const {t} = useTranslation()
     const {isDark} = useTheme()
     const navigate= useNavigate()
+
 
     return (
         <div className={cn('title-page')}>

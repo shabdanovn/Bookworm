@@ -65,7 +65,7 @@ const SignUpPage = () => {
     }
     useEffect(() => {
         if(isLoggedIn) navigate('/books')
-    }, [])
+    }, [isLoggedIn, navigate])
 
     return (
         <RegistrationLayout path={'/sign-in'}

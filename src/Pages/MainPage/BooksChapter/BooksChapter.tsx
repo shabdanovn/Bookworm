@@ -18,7 +18,7 @@ const BooksChapter = () => {
 
     useEffect(() => {
         dispatch(getAllBooks())
-    },[])
+    },[dispatch])
 
     useEffect(() => {
         setBooks(booksList)
