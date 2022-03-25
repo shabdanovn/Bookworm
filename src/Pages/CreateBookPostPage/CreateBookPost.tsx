@@ -1,13 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import Select, {OnChangeValue} from "react-select";
 import {useTranslation} from "react-i18next";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import cn from "classnames";
 import MainLayout from "../Components/MainLayout/MainLayout";
 import FileUploader from "../Components/FileUploader/FileUploader";
 import {useTheme} from "../../hooks/useTheme";
 import map from '../../images/map.png'
 import './CreateBookPost.scss'
+import {useAppSelector} from "../../hooks/redux";
 
 interface IOption{
     value: string
@@ -75,6 +76,12 @@ const CreateBookPost = () => {
         description: '',
         conditions: 'price'
     })
+    const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(()=>{
+        if(!isLoggedIn) navigate('/books')
+    }, [isLoggedIn, navigate])
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let item = JSON.parse(JSON.stringify(post))
@@ -91,6 +98,8 @@ const CreateBookPost = () => {
         item.city = city.value
         console.log(item)
     }
+
+
 
     return (
         <MainLayout>

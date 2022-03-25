@@ -53,17 +53,16 @@
         }
       }
     }
-
-
-
-
   }
-  .book-title{
-    width: 90%;
+  .book-title, .id{
     font-weight: 600;
     font-size: clamp(12px, 1.2vw,18px);
     line-height: 140%;
     color: var(--primary-light-text);
+  }
+
+  .book-title{
+    width: 90%;
     margin:1% 0 0 1rem;
   }
 
@@ -74,6 +73,12 @@
     line-height: 140%;
     color: rgba(30, 33, 45, 0.46);
     margin:1% 0 0 1rem;
+  }
+
+  .id{
+    position: absolute;
+    bottom: 0;
+    right: 20%;
   }
 
   .saved-logo{

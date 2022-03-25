@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
@@ -13,6 +13,7 @@ import username from '../../../images/username.svg'
 import FileUploader from "../../Components/FileUploader/FileUploader";
 import './EditProfilePage.scss'
 import {useTheme} from "../../../hooks/useTheme";
+import {useAppSelector} from "../../../hooks/redux";
 
 const user: UserType = {
     id: 1,
@@ -39,6 +40,11 @@ const EditProfilePage = () => {
     const [files, setFiles] = useState<FileList | null>()
     const [userInfo, setUserInfo] = useState<UserType>(user)
     const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(()=>{
+        if(!isLoggedIn) navigate('/books')
+    }, [isLoggedIn, navigate])
 
     const schema = yup.object({
         fullname: yup.string()

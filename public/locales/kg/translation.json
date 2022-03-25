@@ -54,6 +54,7 @@
   },
   "books": {
     "searchbar": "Китеп же автору",
+    "no-found": "Китептер табылган жок",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
@@ -141,5 +142,23 @@
   "errors": {
     "sign-in": "Туура эмес email же пароль",
     "sign-up": "Бул email катталган"
+  },
+  "genres": {
+    "Detective": "Детектив",
+    "Sci-Fi": "Илимий-Фантастикалык",
+    "Horror": "Ужас",
+    "Adventure": "Укмуштуу окуялар",
+    "Biography": "Өмүр баяны",
+    "Business": "Бизнес",
+    "Classics": "Классика",
+    "Crime": "Кылмыш",
+    "Fantasy": "Фантастика",
+    "History": "Тарых",
+    "Literary": "Адабий",
+    "Mystery": "Мистика",
+    "Poetry": "Поэзия",
+    "Romans": "Романдар",
+    "Thriller": "Триллер",
+    "All": "Баардыгы"
   }
 }

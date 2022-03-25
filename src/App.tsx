@@ -18,7 +18,6 @@ import useAlan from "./hooks/useAlan";
 
 function App() {
     useAlan()
-
     return (
         <ThemeContextProvider>
             <ModalContextProvider>

@@ -53,6 +53,7 @@
   },
   "books": {
     "searchbar": "Title or author",
+    "no-found": "No books found",
     "filters": {
       "title": "Filters",
       "genre": "Genre",
@@ -140,5 +141,23 @@
   "errors": {
     "sign-in": "Invalid email or password",
     "sign-up": "This email already registered"
+  },
+  "genres": {
+    "Detective": "Detective",
+    "Sci-Fi": "Sci-Fi",
+    "Horror": "Horror",
+    "Adventure": "Adventure",
+    "Biography": "Biography",
+    "Business": "Business",
+    "Classics": "Classics",
+    "Crime": "Crime",
+    "Fantasy": "Fantasy",
+    "History": "History",
+    "Literary": "Literary",
+    "Mystery": "Mystery",
+    "Poetry": "Poetry",
+    "Romans": "Romans",
+    "Thriller": "Thriller",
+    "All": "All"
   }
 }

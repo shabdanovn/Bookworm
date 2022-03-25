@@ -8,7 +8,8 @@ const initialState = {
     isLoading: false,
     bookInfo: {},
     error: null,
-    userCity: {}
+    userCity: {},
+    searchedBooks: []
 }
 
 export const getAllBooks = createAsyncThunk(
@@ -65,6 +66,32 @@ export const createBook = createAsyncThunk(
     }
 )
 
+export const getSearchedBooks = createAsyncThunk(
+    'books/getSearchBooks',
+    async (word: string,{rejectWithValue})=>{
+        try{
+            return await BookService.getSearchedBooks(word)
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+export const getFilteredBooks = createAsyncThunk(
+    'books/getFilteredBooks',
+    async (word: string,{rejectWithValue})=>{
+        try{
+            return await BookService.getFilteredBooks(word)
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
 
 const booksSlice = createSlice({
     name: 'books',
@@ -84,6 +111,36 @@ const booksSlice = createSlice({
             state.isLoading = false
             state.error = payload
             state.books=[]
+        },
+
+        [getSearchedBooks.fulfilled.type]: (state, {payload}) => {
+            state.isLoading = false
+            state.searchedBooks = payload
+        },
+
+        [getSearchedBooks.pending.type]: (state) => {
+            state.isLoading = true
+        },
+
+        [getSearchedBooks.rejected.type]: (state, {payload}) => {
+            state.isLoading = false
+            state.error = payload
+            state.searchedBooks=[]
+        },
+
+        [getFilteredBooks.fulfilled.type]: (state, {payload}) => {
+            state.isLoading = false
+            state.searchedBooks = payload
+        },
+
+        [getFilteredBooks.pending.type]: (state) => {
+            state.isLoading = true
+        },
+
+        [getFilteredBooks.rejected.type]: (state, {payload}) => {
+            state.isLoading = false
+            state.error = payload
+            state.searchedBooks=[]
         },
 
         [getBook.fulfilled.type]: (state, {payload}) => {

@@ -75,9 +75,10 @@ const FiltersModalWindow = ({close}: IFiltersModalWindow) => {
 
     const doneClick = () => {
         let filters = {genre: genre.value, city: city.value, selectedRadio}
-        console.log(filters)
+        // console.log(filters)
         close()
     }
+
     return (
         <div className={cn('filters-modal')}>
             <p className={cn('title')}>{t('books.filters.title')}</p>

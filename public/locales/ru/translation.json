@@ -53,6 +53,7 @@
   },
   "books": {
     "searchbar": "Название книги или автор",
+    "no-found": "Книг не найдено",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
@@ -141,5 +142,23 @@
   "errors": {
     "sign-in": "Неверный email или пароль",
     "sign-up": "Данный email уже зарегистрирован"
+  },
+  "genres": {
+    "Detective": "Детектив",
+    "Sci-Fi": "Научная фантастика",
+    "Horror": "Ужасы",
+    "Adventure": "Приключение",
+    "Biography": "Биография",
+    "Business": "Бизнес",
+    "Classics": "Классика",
+    "Crime": "Преступление",
+    "Fantasy": "Фантастика",
+    "History": "История",
+    "Literary": "Литература",
+    "Mystery": "Мистика",
+    "Poetry": "Поэзия",
+    "Romans": "Романы",
+    "Thriller": "Триллер",
+    "All": "Все"
   }
 }

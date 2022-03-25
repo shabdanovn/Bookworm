@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import MainLayout from "../Components/MainLayout/MainLayout";
 import cn from "classnames";
 import H3 from "../Components/H3/H3";
@@ -6,6 +6,8 @@ import {BookItemType} from "../../types/types";
 import BookItem from "../Components/BookItem/BookItem";
 import './SavedBooksPage.scss'
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../hooks/redux";
 
 const booksList: BookItemType[] = [
     {id: 1, title: 'Python Basics', author: 'Dan Bader', img: '', cost: '250 som', conditions: '', user_id: 1},
@@ -24,6 +26,13 @@ const booksList: BookItemType[] = [
 
 const SavedBooksPage = () => {
     const {t} = useTranslation()
+    const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(()=>{
+        if(!isLoggedIn) navigate('/books')
+    }, [isLoggedIn, navigate])
+
     return (
         <MainLayout>
             <div className={cn('saved-books-page')}>

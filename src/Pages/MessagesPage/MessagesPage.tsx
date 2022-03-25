@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './MessagesPage.scss'
 import MainLayout from "../Components/MainLayout/MainLayout";
 import cn from "classnames";
@@ -9,6 +9,8 @@ import MessageItem from "../Components/MessageItem/MessageItem";
 import {DialogType} from "../../types/types";
 import art from '../../images/statue.png'
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../hooks/redux";
 
 
 const dialogs= [
@@ -134,6 +136,12 @@ const MessagesPage = () => {
     const [messageText, setMessageText] = useState<string>("");
     const [hideDialog, setHideDialog] = useState<boolean>(false);
     const [dialog, setDialog] = useState<DialogType|null>(null);
+    const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(()=>{
+        if(!isLoggedIn) navigate('/books')
+    }, [isLoggedIn, navigate])
 
     const dialogClickHandle = (dialog: DialogType) => {
         setHideDialog(true)

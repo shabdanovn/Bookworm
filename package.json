@@ -31,6 +31,7 @@
     "react-select": "^5.2.2",
     "typescript": "^4.5.5",
     "web-vitals": "^0.2.4",
+    "words-to-numbers": "^1.5.1",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",

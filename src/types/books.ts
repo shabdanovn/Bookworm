@@ -5,6 +5,10 @@ export type GenreType = {
     name: string
 }
 
+export type CreateGenreType ={
+    name: string
+}
+
 export type CommentType = {
     id: number,
     text: string,
