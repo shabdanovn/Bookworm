@@ -31,15 +31,6 @@ export type UserType = {
     phone: string
 }
 
-export type CommentType = {
-    id: number,
-    text: string,
-    author_id: number,
-    post_id: number,
-    comment_id?: number,
-    date: Date
-}
-
 export type ExampleCommentType = {
     id: number,
     text: string,

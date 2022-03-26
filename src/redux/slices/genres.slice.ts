@@ -32,9 +32,9 @@ const genresSlice = createSlice({
             state.isLoading = false
             state.genres = payload
         },
-        [getAllGenres.rejected.type]: (state, {paylaod})=>{
+        [getAllGenres.rejected.type]: (state, {payload})=>{
             state.isLoading = false
-            state.error=paylaod
+            state.error=payload
             state.genres=[]
         },
     }

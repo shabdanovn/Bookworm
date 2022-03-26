@@ -28,6 +28,7 @@ const Books = () => {
         setBooks(booksList)
     },[booksList])
 
+
     return (
         <MainLayout>
              <div className={cn('books-page')}>
@@ -39,7 +40,7 @@ const Books = () => {
                         <BooksList>
                             {isLoading
                                 ? <Loader/>
-                                : books.map(book => {
+                                : books && books.map(book => {
                                         return <BookItem key={book.id} book={book}/>
                                     })
                             }

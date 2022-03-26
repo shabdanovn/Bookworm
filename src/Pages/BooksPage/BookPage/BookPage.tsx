@@ -31,12 +31,20 @@ const BookPage = () => {
     const [book, setBook] =useState<BookType>(bookInfo)
     const [userCity, setUserCity] = useState<CityType>(CityName)
 
+
     const [isSaved, setIsSaved] = useState<boolean>(false)
     const [showComments, setShowComments] = useState<boolean>(false)
 
     const saveClick = () => {
         setIsSaved(prevState => !prevState)
     }
+
+    const showCommentsHandle = () => {
+        setShowComments(prevState => !prevState)
+    }
+
+    if(showComments) window.scrollTo(0, document.body.scrollHeight+50)
+    else window.scrollTo(0,0)
 
     useEffect(() => {
         if(id) dispatch(getBook(+id))
@@ -57,7 +65,7 @@ const BookPage = () => {
                                 <img src={book && book.img ? `${API_URL}/${book.img}` : bookLogo} alt={'Book image'}/>
                             </div>
                             <div className={cn('buttons')}>
-                                <button onClick={() => setShowComments(prevState => !prevState)}>
+                                <button onClick={showCommentsHandle}>
                                     {t('book-page.comments')}</button>
                                 <div onClick={saveClick}>
                                     <img src={isSaved ? savedLogo : saveLogo} alt={'Save logo'}/></div>
@@ -105,7 +113,7 @@ const BookPage = () => {
                     </div></>
                 }
             </div>
-            {showComments && <Comments />}
+            {showComments && <Comments bookId={book.id} bookComments={book.comments}/>}
         </MainLayout>
     );
 };

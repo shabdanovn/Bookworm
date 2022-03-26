@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import './BooksChapter.scss'
 import cn from 'classnames'
 import {useTheme} from "../../../hooks/useTheme";
-import Button from "../../Components/Button/Button";
 import BookItem from "../../Components/BookItem/BookItem";
 import H2 from "../../Components/H2/H2";
 import BooksList from "../../Components/BooksList/BooksList";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {getAllBooks} from "../../../redux/slices/books.slice";
 import {BookType} from "../../../types/books";
+import SecondaryButton from "../../Components/Button/SecondaryButton/SecondaryButton";
 
 const BooksChapter = () => {
     const {isDark} = useTheme()
@@ -32,7 +32,7 @@ const BooksChapter = () => {
                     return <BookItem key={book.id} book={book}/>
                 })}
             </BooksList>
-            <Button text={'main-page.books.button'} center={true} path={'books'}/>
+            <SecondaryButton text={'main-page.books.button'} center={true} path={'books'}/>
         </div>
     );
 };

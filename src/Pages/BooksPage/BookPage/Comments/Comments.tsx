@@ -1,78 +1,54 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useMemo, useState} from 'react';
 import H2 from "../../../Components/H2/H2";
-// import {CommentType} from "../../../../types/types";
 import Comment from "./Comment/Comment";
 import cn from "classnames";
 import './Comments.scss'
-import {ExampleCommentType} from "../../../../types/types";
 import {useTranslation} from "react-i18next";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
+import useModal from "../../../../hooks/useModal";
+import {createComment, getComments} from "../../../../redux/slices/books.slice";
+import {CommentType, CreateCommentType} from "../../../../types/books";
 
+interface IComments {
+    bookId: number | undefined
+    bookComments: CommentType[] | undefined
+}
 
-
-const commentData: ExampleCommentType[]=[
-        {
-            id: 1,
-            text: "Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1. Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1.Example comment here 1. Example comment here 1. Example comment here 1.",
-            author: "user2",
-            children: [
-                {
-                    id: 2,
-                    text: "Another example comment text 2.",
-                    author: "user3",
-                    children: [
-                        {
-                            id: 3,
-                            text: "Another example comment text 3.",
-                            author: "user4",
-                            children: []
-                        }
-                    ]
-                },
-                {
-                    id: 5,
-                    text: "Another example comment text 5.",
-                    author: "user5",
-                    children: [
-                        {
-                            id: 6,
-                            text: "Another example comment text 6.",
-                            author: "user6",
-                            children: []
-                        },
-                        {
-                            id: 7,
-                            text: "Another example comment text 7.",
-                            author: "user7",
-                            children: []
-                        }
-                    ]
-                }
-
-            ]
-        },
-        {
-            id: 4,
-            text: "Example comment here 2.",
-            author: "user5",
-            children: []
-        }
-    ]
-
-const Comments = () => {
+const Comments = ({bookId}: IComments) => {
     const {t} = useTranslation()
     const [text, setText] = useState<string>('')
-    const [comments, setComments] = useState<ExampleCommentType[]>(commentData)
+    const {user, isLoggedIn} = useAppSelector(state => state.auth)
+    const {comments:bookComments} = useAppSelector(state => state.books)
+
+    const [comments, setComments] = useState<CommentType[]|undefined>(bookComments)
+    const {setModalContent, open} = useModal()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if(bookId) dispatch(getComments(bookId))
+    }, [])
+
+    useEffect(() => {
+        setComments(bookComments)
+    }, [bookComments])
+
 
     const clickHandler = () => {
-        if(text!==''){
-            let comment: ExampleCommentType = {
-                id: new Date().getTime(),
-                text,
-                author: `user${(new Date()).getTime()}`,
-                children: []
+        if(!isLoggedIn) {
+            setModalContent(<p>Login firts</p>)
+            open()
+        }else{
+            if(text!==''){
+                let comment: CreateCommentType = {
+                    text,
+                    author: user.username,
+                    authorImg: user.img,
+                    bookId: bookId,
+                    authorId: user.id
+                }
+                dispatch(createComment(comment))
+                setText('')
             }
-            setComments(prevState => [...prevState, comment])
-            setText('')
         }
     }
 
@@ -80,7 +56,8 @@ const Comments = () => {
         <div className={cn('comments-page')}>
             <H2 text={t('comments-page.title')}/>
             {
-                comments.map((comment) => {
+                comments && comments
+                    .map((comment) => {
                     return (
                         <Comment key={comment.id} comment={comment}/>
                     )

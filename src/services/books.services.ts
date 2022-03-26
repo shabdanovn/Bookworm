@@ -1,16 +1,29 @@
 import axios from "axios";
 import {API_URL} from "../utils/constants";
-import {AttachGenreType, CreateBookType, UpdateBookType} from "../types/books";
+import {AttachGenreType, CommentType, CreateCommentType, UpdateBookType} from "../types/books";
 import authHeader from "./auth-header";
 
-const createBook=async (data: CreateBookType)=> {
+const addGenreToBook=async (genre: AttachGenreType)=> {
     try{
-        const response = await axios.post(`${API_URL}/books`, data,{
+        const response = await axios.post(`${API_URL}/books/genre`, genre,{
             headers: {
                 Authorization: 'Bearer ' + authHeader()
             }
         })
         return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const createBook=async (data: FormData, genre:string)=> {
+    try{
+        await axios.post(`${API_URL}/books`, data,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
+            .then((response) => addGenreToBook({name: genre, bookId: response.data.id}))
     }catch (e){
         return e
     }
@@ -36,7 +49,11 @@ const getBook=async (id:number)=> {
 
 const deleteBook=async (id:number)=> {
     try{
-        const response = await axios.delete(`${API_URL}/books/${id}`)
+        const response = await axios.delete(`${API_URL}/books/${id}`,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
         return response.data
     }catch (e){
         return e
@@ -63,7 +80,11 @@ const getFilteredBooks=async (word:string)=> {
 
 const updateBookWithImage=async (data: UpdateBookType)=> {
     try{
-        const response = await axios.put(`${API_URL}/books/with-image`, data)
+        const response = await axios.put(`${API_URL}/books/with-image`, data,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
         return response.data
     }catch (e){
         return e
@@ -72,16 +93,11 @@ const updateBookWithImage=async (data: UpdateBookType)=> {
 
 const updateBookWithoutImage=async (data: UpdateBookType)=> {
     try{
-        const response = await axios.put(`${API_URL}/books/without-image`, data)
-        return response.data
-    }catch (e){
-        return e
-    }
-}
-
-const addGenreToBook=async (genre: AttachGenreType)=> {
-    try{
-        const response = await axios.post(`${API_URL}/books/genre`, genre)
+        const response = await axios.put(`${API_URL}/books/without-image`, data,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
         return response.data
     }catch (e){
         return e
@@ -97,7 +113,30 @@ const getCity=async (id: number)=>{
     }
 }
 
+const createComment=async (data: CreateCommentType)=> {
+    try{
+        const response = await axios.post(`${API_URL}/comments`, data,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const getComments=async (id:number)=> {
+    try{
+        const response = await axios.get(`${API_URL}/comments/${id}`)
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
 const BookService = {createBook, getBook, deleteBook,
     getSearchedBooks, addGenreToBook, getAllBooks, getFilteredBooks,
+    createComment, getComments,
     updateBookWithImage, updateBookWithoutImage, getCity}
 export default BookService

@@ -8,76 +8,41 @@ import FileUploader from "../Components/FileUploader/FileUploader";
 import {useTheme} from "../../hooks/useTheme";
 import map from '../../images/map.png'
 import './CreateBookPost.scss'
-import {useAppSelector} from "../../hooks/redux";
-
-interface IOption{
-    value: string
-    label: string
-}
-
-const genres: IOption[] = [
-    { value: 'Adult', label: 'Adult' },
-    { value: 'Adventure', label: 'Adventure' },
-    { value: 'Biography', label: 'Biography' },
-    { value: 'Business fiction', label: 'Business fiction' },
-    { value: 'Classics', label: 'Classics' },
-    { value: 'Children\'s', label: 'Children\'s' },
-    { value: 'Crime', label: 'Crime' },
-    { value: 'Detective', label: 'Detective' },
-    { value: 'Fantasy', label: 'Fantasy' },
-    { value: 'History', label: 'History' },
-    { value: 'Horror', label: 'Horror' },
-    { value: 'Literary Fiction', label: 'Literary Fiction' },
-    { value: 'Mystery', label: 'Mystery' },
-    { value: 'Poetry', label: 'Poetry' },
-    { value: 'Romans', label: 'Romans' },
-    { value: 'SCI-FI', label: 'SCI-FI' },
-    { value: 'Thriller', label: 'Thriller' }
-]
-
-const cities: IOption[] = [
-    { value: 'Bishkek', label: 'Bishkek' },
-    { value: 'Osh', label: 'Osh' },
-    { value: 'Kara-Kol', label: 'Kara-Kol' },
-    { value: 'Talas', label: 'Talas' },
-    { value: 'Djalal-Abad', label: 'Djalal-Abad' },
-    { value: 'Toktogul', label: 'Toktogul' },
-    { value: 'Naryn', label: 'Naryn' },
-    { value: 'LA', label: 'LA' },
-    { value: 'NYC', label: 'NYC' },
-    { value: 'Las-Vegas', label: 'Las-Vegas' }
-]
-
-interface IBookPost{
-    title: string
-    author: string
-    genre: string
-    city: string
-    price: string
-    state: string
-    description: string
-    conditions: string
-}
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {CreateBookType, GenreType, IOption} from "../../types/books";
+import {getAllGenres} from "../../redux/slices/genres.slice";
+import {createBook} from "../../redux/slices/books.slice";
+import {GenresList} from "../Components/GenresDropdown/GenresList";
 
 const CreateBookPost = () => {
     const {t} = useTranslation()
     const {isDark} = useTheme()
     const location = useLocation()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const {genres, isLoading} = useAppSelector(state => state.genres)
+    const {user, isLoggedIn} = useAppSelector(state => state.auth)
     const [files, setFiles] = useState<FileList | null>()
-    const [genre, setGenre] = useState<IOption>({value: '', label:''})
-    const [city, setCity] = useState<IOption>({value: '', label:''})
-    const [post, setPost] = useState<IBookPost>({
+    const [genre, setGenre] = useState<IOption>({value: "---", label: "---"})
+    const [genresList, setGenresList] = useState<IOption[]>(genres)
+
+    // const [city, setCity] = useState<IOption>({value: '', label:''})
+    const [post, setPost] = useState<CreateBookType>({
         title: "",
         author: "",
-        genre: '',
-        city: '',
-        price: '',
+        cost: '',
         state: '',
-        description: '',
-        conditions: 'price'
+        conditions: 'price',
+        notes: ""
     })
-    const navigate = useNavigate()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+    useEffect(() => {
+        if(genres.length===0) dispatch(getAllGenres())
+    },[])
+
+    useEffect(() => {
+        GenresList({genres, setGenresList})
+    },[genres])
 
     useEffect(()=>{
         if(!isLoggedIn) navigate('/books')
@@ -90,13 +55,23 @@ const CreateBookPost = () => {
     }
 
     const onChangeGenre = (newValue: OnChangeValue<IOption, boolean>) => setGenre(newValue as IOption)
-    const onChangeCity = (newValue: OnChangeValue<IOption, boolean>) => setCity(newValue as IOption)
+    // const onChangeCity = (newValue: OnChangeValue<IOption, boolean>) => setCity(newValue as IOption)
 
     const doneClick = () => {
-        let item = JSON.parse(JSON.stringify(post))
-        item.genre = genre.value
-        item.city = city.value
-        console.log(item)
+        if(genre.value && genre.value !== '---' && files && files[0] &&
+            post.author && post.state && post.title){
+            let formData = new FormData()
+            formData.append('title', post.title)
+            formData.append('author', post.author)
+            formData.append('cost', post.cost)
+            formData.append('conditions', post.conditions)
+            formData.append('state', post.state)
+            formData.append('notes', post.notes)
+            formData.append('img', files[0])
+            formData.append('userId', user.id)
+            dispatch(createBook({data: formData, genre: genre.value}))
+            navigate('/books')
+        }
     }
 
 
@@ -137,28 +112,29 @@ const CreateBookPost = () => {
                                 <p className={cn('book-title')}>{t('books.filters.genre')}</p>
                                 <Select classNamePrefix={cn('input-item')}
                                         placeholder={'Choose...'}
-                                        options={genres}
+                                        options={genresList}
                                         value={genre} onChange={onChangeGenre}
                                         isMulti={false} isSearchable
                                 />
                             </div>
-                            <div className={cn('city')}>
-                                <p className={cn('book-title')}>{t('books.filters.city')}</p>
-                                <Select classNamePrefix={cn('input-item')}
-                                        placeholder={'Choose...'}
-                                        options={cities}
-                                        value={city} onChange={onChangeCity}
-                                        isMulti={false} isSearchable
-                                />
-                            </div>
+                            {/*<div className={cn('city')}>*/}
+                            {/*    <p className={cn('book-title')}>{t('books.filters.city')}</p>*/}
+                            {/*    <Select classNamePrefix={cn('input-item')}*/}
+                            {/*            placeholder={'Choose...'}*/}
+                            {/*            options={cities}*/}
+                            {/*            value={city} onChange={onChangeCity}*/}
+                            {/*            isMulti={false} isSearchable*/}
+                            {/*    />*/}
+                            {/*</div>*/}
                         </div>
 
                         <div className={cn('price-state')}>
                             <div className={cn('price')}>
                                 <p className={cn('book-title')}>{t('books.filters.price')}</p>
                                 <input type={'text'}
-                                       value={post.price} name={'price'}
+                                       value={post.cost} name={'cost'}
                                        onChange={changeHandler}
+                                       disabled={post.conditions!=='price'}
                                        placeholder={'250 сом/рублей/$'}
                                        className={cn('input-item')}/>
                             </div>
@@ -174,7 +150,7 @@ const CreateBookPost = () => {
                         <div className={cn('description')}>
                             <p className={cn('book-title')}>{t('create-post.description')}</p>
                             <textarea className={cn('input-item textarea')}
-                                      value={post.description} name={'description'}
+                                      value={post.notes} name={'notes'}
                                       onChange={changeHandler}
                                       placeholder={t('create-post.description-placeholder')}/>
                         </div>
@@ -191,7 +167,7 @@ const CreateBookPost = () => {
 
                             <div className={cn('checkbox-group')}>
                                 <input type="radio" id="free"
-                                       name="conditions" value='free'
+                                       name="conditions" value='Free'
                                        onChange={changeHandler}
                                 />
                                 <label htmlFor="free">{t('books.filters.free')}</label>
@@ -199,7 +175,7 @@ const CreateBookPost = () => {
 
                             <div className={cn('checkbox-group')}>
                                 <input type="radio" id="bookcrossing"
-                                       name="conditions" value='bookcrossing'
+                                       name="conditions" value='Bookcrossing'
                                        onChange={changeHandler}
                                 />
                                 <label htmlFor="bookcrossing">{t('books.filters.bookcrossing')}</label>

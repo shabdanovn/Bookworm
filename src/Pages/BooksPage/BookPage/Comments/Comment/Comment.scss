@@ -8,25 +8,35 @@
     display: flex;
     align-items: center;
     .avatar{
-      width: 30px;
-      height: 30px;
+      width: 42px;
+      height: 42px;
       background: var(--bg-light-color);
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 50%;
       img{
-        width: 25px;
-        margin: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
 
     .comment-author{
       font-weight: 600;
-      font-size: 18px;
+      font-size: 20px;
       line-height: 140%;
       color: var(--primary-light-text);
       margin-left: 5px;
+    }
+
+    .comment-time{
+      font-weight: 500;
+      font-size: 14px;
+      color: #555555;
+      margin: 2px 0 0 5px;
+      font-style: italic;
     }
   }
 
@@ -72,6 +82,10 @@
     .author{
       .comment-author{
         color: var(--primary-dark-text);
+      }
+
+      .comment-time{
+        color: #cecece;
       }
     }
   }
