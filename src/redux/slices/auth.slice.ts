@@ -7,7 +7,6 @@ const token = JSON.parse(localStorage.getItem('token'))
 // @ts-ignore
 const user = JSON.parse(localStorage.getItem('user'))
 
-
 export const login = createAsyncThunk(
     'auth/login',
     async (data: ILogin, {rejectWithValue, dispatch}) => {

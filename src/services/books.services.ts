@@ -47,12 +47,26 @@ const getBook=async (id:number)=> {
     }
 }
 
-const deleteBook=async (id:number)=> {
+const getUsersBooks=async (id:number)=> {
     try{
-        const response = await axios.delete(`${API_URL}/books/${id}`,{
+        const response = await axios.get(`${API_URL}/books/my/${id}`,{
             headers: {
                 Authorization: 'Bearer ' + authHeader()
             }
+        })
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const deleteBook=async (id:number, userId:number)=> {
+    try{
+        const response = await axios.delete(`${API_URL}/books`,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            },
+            data: {id, userId}
         })
         return response.data
     }catch (e){
@@ -137,6 +151,6 @@ const getComments=async (id:number)=> {
 
 const BookService = {createBook, getBook, deleteBook,
     getSearchedBooks, addGenreToBook, getAllBooks, getFilteredBooks,
-    createComment, getComments,
+    createComment, getComments, getUsersBooks,
     updateBookWithImage, updateBookWithoutImage, getCity}
 export default BookService

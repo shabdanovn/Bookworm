@@ -5,38 +5,60 @@ import {useAppDispatch, useAppSelector} from "./redux";
 import wordsToNumbers from "words-to-numbers";
 import {logout} from "../redux/slices/auth.slice";
 import {useTheme} from "./useTheme";
-import {getAllBooks, getFilteredBooks, getSearchedBooks} from "../redux/slices/books.slice";
+import {createComment, getAllBooks, getFilteredBooks, getSearchedBooks} from "../redux/slices/books.slice";
+import {useGeneralContext} from "./useGeneralContext";
+import { CreateCommentType} from "../types/books";
 
 interface ICommandData{
     command: string
     number: string
     word: string
     genre: string
+    text:string
 }
 
 const ALAN_KEY='6dd5bf0eaf8eed5b3cf8ad6efeadef222e956eca572e1d8b807a3e2338fdd0dc/stage'
 
-
 const useAlan = () => {
     const navigate = useNavigate()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
-    const {setIsDark, isDark} = useTheme()
+    const {setIsDark} = useTheme()
+    const {setShowComments} = useGeneralContext()
 
     const parseNum = (number:string) => {
         return number.length > 2 ? wordsToNumbers(number, {fuzzy: true}) : number
     }
 
     const searchBookByName = (word:string) => {
-        if(word) dispatch(getSearchedBooks(word))
+        if (word) dispatch(getSearchedBooks(word))
     }
 
     const searchBooksByGenre = (genre:string) => {
         if(genre) dispatch(getFilteredBooks(genre))
     }
 
-    const findAllBooks = () => {
-        dispatch(getAllBooks())
+    const findAllBooks = () => dispatch(getAllBooks())
+
+    const addComment = (text:string) => {
+        if(!isLoggedIn) {
+            // setModalContent(<p>Login firts</p>)
+            // open()
+            return null
+        }else{
+            const array = window.location.pathname.split('/')
+            const bookId = array[array.length-1]
+            if(text!==''){
+                let comment: CreateCommentType = {
+                    text,
+                    author: user.username,
+                    authorImg: user.img,
+                    bookId: +bookId,
+                    authorId: user.id
+                }
+                dispatch(createComment(comment))
+            }
+        }
     }
 
     useEffect(()=> {
@@ -44,7 +66,7 @@ const useAlan = () => {
             zIndex: 100,
             // key: process.env.REACT_APP_ALAN_KEY || '',
             key: ALAN_KEY,
-            onCommand: ({command, number, word, genre}: ICommandData) => {
+            onCommand: ({command, number, word, genre, text}: ICommandData) => {
                 switch (command){
                     case 'books':
                     case 'sign-in':
@@ -88,6 +110,11 @@ const useAlan = () => {
                     case "find-book-by-name": searchBookByName(word); break;
                     case "find-books-by-genre": searchBooksByGenre(genre); break;
                     case "find-all-books": findAllBooks(); break;
+                    case "show-comments": setShowComments(true); break;
+                    case "close-comments": setShowComments(false); break;
+                    case "dark-mode": setIsDark(true); break;
+                    case "light-mode": setIsDark(false); break;
+                    case "add-comment": addComment(text); break;
                 }
             }
         });

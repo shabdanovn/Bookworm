@@ -1,16 +1,30 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import BookService from "../../services/books.services";
-import {AttachGenreType, CommentType, CreateCommentType,} from "../../types/books";
+import {AttachGenreType, BookType, CommentType, CreateCommentType,} from "../../types/books";
+import {CityType} from "../../types/types";
 
+interface IInitialState {
+    books: BookType[],
+    isLoading: boolean,
+    bookInfo: BookType,
+    bookId: number|undefined,
+    error: null|string,
+    userCity: CityType,
+    searchedBooks: BookType[],
+    comments: CommentType[],
+    myBooks: BookType[]
+}
 
-const initialState = {
+const initialState:IInitialState = {
     books: [],
     isLoading: false,
     bookInfo: {},
+    bookId: undefined,
     error: null,
     userCity: {},
     searchedBooks: [],
-    comments: []
+    comments: [],
+    myBooks: []
 }
 
 export const getAllBooks = createAsyncThunk(
@@ -33,6 +47,19 @@ export const getBook = createAsyncThunk(
             const response = await BookService.getBook(id)
             dispatch(getCity(response.user.cityId))
             return response
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+export const getUsersBooks = createAsyncThunk(
+    'books/getUsersBooks',
+    async (id:number,{rejectWithValue, dispatch})=>{
+        try{
+            return await BookService.getUsersBooks(id)
         }catch (error:any) {
             const message = (error.message && error.response.data && error.response.data.message) ||
                 error.message || error.toString()
@@ -112,11 +139,17 @@ export const getFilteredBooks = createAsyncThunk(
     }
 )
 
+interface IDeleteBook{
+    id: number
+    userId: number
+}
+
 export const deleteBook = createAsyncThunk(
     'books/deleteBook',
-    async (id: number,{rejectWithValue})=>{
+    async ({id, userId}:IDeleteBook,{rejectWithValue, dispatch})=>{
         try{
-            return await BookService.deleteBook(id)
+            await BookService.deleteBook(id, userId)
+            dispatch(getUsersBooks(userId))
         }catch (error:any) {
             const message = (error.message && error.response.data && error.response.data.message) ||
                 error.message || error.toString()
@@ -153,137 +186,153 @@ export const createComment = createAsyncThunk(
     }
 )
 
-
-
 const booksSlice = createSlice({
     name: 'books',
     initialState,
     reducers:{},
-    extraReducers: {
-        [getAllBooks.fulfilled.type]: (state, {payload}) => {
+    extraReducers: builder => {
+        builder.addCase(getAllBooks.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(getAllBooks.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.books = payload
-        },
+        });
 
-        [getAllBooks.pending.type]: (state) => {
-            state.isLoading = true
-        },
-
-        [getAllBooks.rejected.type]: (state, {payload}) => {
+        builder.addCase(getAllBooks.rejected, (state, action) => {
             state.isLoading = false
-            state.error = payload
-            state.books=[]
-        },
+            state.error = action.error.message || "Something wrong with getting all books"
+        });
 
-        [getSearchedBooks.fulfilled.type]: (state, {payload}) => {
+        builder.addCase(getUsersBooks.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(getUsersBooks.fulfilled, (state, {payload}) => {
+            state.isLoading = false
+            state.myBooks = payload
+        });
+
+        builder.addCase(getUsersBooks.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something wrong with getting all books"
+        });
+
+        builder.addCase(getSearchedBooks.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(getSearchedBooks.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.searchedBooks = payload
-        },
+        });
 
-        [getSearchedBooks.pending.type]: (state) => {
-            state.isLoading = true
-        },
-
-        [getSearchedBooks.rejected.type]: (state, {payload}) => {
+        builder.addCase(getSearchedBooks.rejected, (state, action) => {
             state.isLoading = false
-            state.error = payload
             state.searchedBooks=[]
-        },
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [getFilteredBooks.fulfilled.type]: (state, {payload}) => {
+        builder.addCase(getFilteredBooks.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(getFilteredBooks.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.searchedBooks = payload
-        },
+        });
 
-        [getFilteredBooks.pending.type]: (state) => {
-            state.isLoading = true
-        },
-
-        [getFilteredBooks.rejected.type]: (state, {payload}) => {
+        builder.addCase(getFilteredBooks.rejected, (state, action) => {
             state.isLoading = false
-            state.error = payload
             state.searchedBooks=[]
-        },
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [getBook.fulfilled.type]: (state, {payload}) => {
-            state.isLoading = false
-            state.bookInfo = payload
-        },
-
-        [getBook.pending.type]: (state) => {
+        builder.addCase(getBook.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [getBook.rejected.type]: (state, {payload}) => {
+        builder.addCase(getBook.fulfilled, (state, action) => {
             state.isLoading = false
-            state.error = payload
+            state.bookInfo = action.payload
+            state.bookId = action.payload.id
+        });
+
+        builder.addCase(getBook.rejected, (state, action) => {
+            state.isLoading = false
             state.bookInfo={}
-        },
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [getCity.fulfilled.type]: (state, {payload}) => {
-            state.isLoading = false
-            state.userCity = payload
-        },
-
-        [getCity.pending.type]: (state) => {
+        builder.addCase(getCity.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [getCity.rejected.type]: (state, {payload}) => {
+        builder.addCase(getCity.fulfilled, (state, action) => {
             state.isLoading = false
-            state.error = payload
-            state.userCity={}
-        },
+            state.userCity = action.payload
+        });
 
-        [createBook.fulfilled.type]: (state) => {
+        builder.addCase(getCity.rejected, (state, action) => {
             state.isLoading = false
-            // state.books = [...state.books, payload]
-        },
+            state.userCity = {}
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [createBook.pending.type]: (state) => {
+        builder.addCase(createBook.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [createBook.rejected.type]: (state, {payload}) => {
+        builder.addCase(createBook.fulfilled, (state, action) => {
             state.isLoading = false
-            state.error = payload
-        },
-        [deleteBook.pending.type]: (state) => {
+        });
+
+        builder.addCase(createBook.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
+
+        builder.addCase(createComment.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [deleteBook.rejected.type]: (state, {payload}) => {
+        builder.addCase(createComment.fulfilled, (state) => {
             state.isLoading = false
-            state.error = payload
-        },
+        });
 
-        [createComment.fulfilled.type]: (state, {payload}) => {
+        builder.addCase(createComment.rejected, (state, action) => {
             state.isLoading = false
-        },
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [createComment.pending.type]: (state) => {
+        builder.addCase(deleteBook.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [createComment.rejected.type]: (state, {payload}) => {
+        builder.addCase(deleteBook.fulfilled, (state) => {
             state.isLoading = false
-            state.error = payload
-        },
+        });
 
-        [getComments.fulfilled.type]: (state, {payload}) => {
+        builder.addCase(deleteBook.rejected, (state, action) => {
             state.isLoading = false
-            state.comments = payload
-        },
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
 
-        [getComments.pending.type]: (state) => {
+        builder.addCase(getComments.pending, (state) => {
             state.isLoading = true
-        },
+        });
 
-        [getComments.rejected.type]: (state, {payload}) => {
+        builder.addCase(getComments.fulfilled, (state, action) => {
             state.isLoading = false
-            state.error = payload
-        },
-    }
+            state.comments = action.payload
+        });
+
+        builder.addCase(getComments.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something wrong with getting searched books"
+        });
+    },
 })
 
 const booksReducer = booksSlice.reducer

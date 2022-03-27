@@ -7,9 +7,11 @@ import avatar from '../../images/avatar.svg'
 import PostItem from "../Components/PostItem/PostItem";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
-import {useAppSelector} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {API_URL} from "../../utils/constants";
 import Loader from "../Components/Loader/Loader";
+import {getAllBooks, getUsersBooks} from "../../redux/slices/books.slice";
+import {BookType} from "../../types/books";
 
 const user: UserType = {
     id: 1,
@@ -21,24 +23,33 @@ const user: UserType = {
     city: "Bishkek",
     fullname: 'John Doe'
 }
-const booksList: BookItemType[] = [
-    {id: 1, title: 'Python Basics', author: 'Dan Bader', img: '', cost: '250 som', conditions: '', user_id: 1},
-    {id: 2, title: 'Whale of a Tale', author: 'E. Hemingway', img: '', cost: '', conditions: 'Free', user_id: 2},
-    {id: 3, title: 'Killing', author: 'E. Hemingway', img: '', cost: '', conditions: 'Bookcrossing', user_id: 3},
-    {id: 4, title: 'Imagine the possibilities', author: 'Written by You', img: '', cost: '', conditions: 'Bookcrossing', user_id: 4},
-]
+// const booksList: BookItemType[] = [
+//     {id: 1, title: 'Python Basics', author: 'Dan Bader', img: '', cost: '250 som', conditions: '', user_id: 1},
+//     {id: 2, title: 'Whale of a Tale', author: 'E. Hemingway', img: '', cost: '', conditions: 'Free', user_id: 2},
+//     {id: 3, title: 'Killing', author: 'E. Hemingway', img: '', cost: '', conditions: 'Bookcrossing', user_id: 3},
+//     {id: 4, title: 'Imagine the possibilities', author: 'Written by You', img: '', cost: '', conditions: 'Bookcrossing', user_id: 4},
+// ]
 
 const ProfilePage = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {user: userNew, isLoggedIn} = useAppSelector(state => state.auth)
+    const {myBooks} = useAppSelector(state => state.books)
     const [loading, setLoading] = useState(false)
+    const [booksList, setBooksList] = useState<BookType[]>(myBooks)
+    const dispatch = useAppDispatch()
 
     useEffect(()=>{
         setLoading(true)
         if(!isLoggedIn) navigate('/books')
         setLoading(false)
     }, [isLoggedIn, navigate])
+
+    useEffect(() => {
+        if(myBooks.length===0) dispatch(getUsersBooks(userNew.id))
+    }, [])
+
+    useEffect(() => setBooksList(myBooks), [myBooks])
 
     return (
         <MainLayout>
@@ -86,7 +97,7 @@ const ProfilePage = () => {
                     </div>
 
                     <div className={cn('posts-part')}>
-                        {booksList.map(book => <PostItem key={book.id} book={book} />)}
+                        {booksList.slice(0, 4).map(book => <PostItem key={book.id} book={book} />)}
                     </div>
                 </div>
             </div>}

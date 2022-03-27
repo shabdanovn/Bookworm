@@ -1,7 +1,7 @@
 .post-item{
   width: 220px;
   height: 200px;
-  background: #f3f3f3;
+  background: var(--primary-dark-text);
   border: 2px solid var(--primary-light-text);
   margin: 10px;
   border-radius: 10px;
@@ -20,6 +20,10 @@
     color: #0C43CF;
   }
 
+  .book-price{
+    height: 25px;
+  }
+
   .book-title{
     color: var(--primary-light-text);
   }
@@ -32,6 +36,9 @@
 
   img{
     width: 120px;
-    margin-left: 20%;
+    height: 100px;
+    object-fit: cover;
+    margin-left: 22%;
+    border-radius: 10px;
   }
 }

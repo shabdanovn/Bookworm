@@ -20,39 +20,35 @@ import {BookType} from "../../../types/books";
 import Loader from "../../Components/Loader/Loader";
 import {API_URL} from "../../../utils/constants";
 import {CityType} from "../../../types/types";
-
+import {useGeneralContext} from "../../../hooks/useGeneralContext";
 
 const BookPage = () => {
     const {t} = useTranslation()
     const {id} = useParams()
     const {isDark} = useTheme()
     const {bookInfo, isLoading, userCity: CityName} = useAppSelector(state => state.books)
+    const {setBookId} = useGeneralContext()
     const dispatch = useAppDispatch()
     const [book, setBook] =useState<BookType>(bookInfo)
     const [userCity, setUserCity] = useState<CityType>(CityName)
 
-
     const [isSaved, setIsSaved] = useState<boolean>(false)
-    const [showComments, setShowComments] = useState<boolean>(false)
+    const {showComments, setShowComments} = useGeneralContext()
 
-    const saveClick = () => {
-        setIsSaved(prevState => !prevState)
-    }
+    const saveClick = () => setIsSaved(prevState => !prevState)
 
-    const showCommentsHandle = () => {
-        setShowComments(prevState => !prevState)
-    }
+    const showCommentsHandle = () => setShowComments(!showComments)
 
     if(showComments) window.scrollTo(0, document.body.scrollHeight+50)
     else window.scrollTo(0,0)
 
     useEffect(() => {
         if(id) dispatch(getBook(+id))
+        if(id) setBookId(+id)
+        setShowComments(false)
     }, [])
 
-    useEffect(() => {
-        setBook(bookInfo)
-    }, [bookInfo])
+    useEffect(() => setBook(bookInfo), [bookInfo])
 
     return (
         <MainLayout>

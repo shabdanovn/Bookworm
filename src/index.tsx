@@ -9,13 +9,22 @@ import './i18n';
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import Loader from "./Pages/Components/Loader/Loader";
+import GeneralContextProvider from "./Pages/Components/Context/GeneralContextProvider";
+import ThemeContextProvider from "./Pages/Components/Context/ThemeContextProvider";
+import ModalContextProvider from "./Pages/Components/Context/ModalWinwow/ModalContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
           <Suspense fallback={<Loader/>}>
               <BrowserRouter>
-                    <App />
+                  <ThemeContextProvider>
+                      <ModalContextProvider>
+                          <GeneralContextProvider>
+                              <App />
+                          </GeneralContextProvider>
+                      </ModalContextProvider>
+                  </ThemeContextProvider>
               </BrowserRouter>
           </Suspense>
       </Provider>

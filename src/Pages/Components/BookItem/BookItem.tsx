@@ -10,7 +10,8 @@ import cn from "classnames";
 import './BookItem.scss'
 import {API_URL} from "../../../utils/constants";
 import {BookType} from "../../../types/books";
-import {useAppSelector} from "../../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {deleteBook} from "../../../redux/slices/books.slice";
 
 interface BookItemProps{
     book: BookType
@@ -20,12 +21,14 @@ const BookItem = ({book}: BookItemProps) => {
     const {isDark} = useTheme()
     const navigate = useNavigate()
     const location = useLocation()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch()
 
     const deleteHandle = (e: MouseEvent<HTMLImageElement>) => {
         if(e.target === e.currentTarget){
             e.stopPropagation()
-            alert('deleted ' + book.id)
+            if(book.id && user.id)
+                dispatch(deleteBook({id: book.id, userId: user.id}))
         }
     }
 

@@ -9,7 +9,10 @@
   cursor: pointer;
 
   &:hover{
-    opacity: 0.7;
+    width: calc(clamp(150px, 20vw, 270px) - 6px);
+    height: calc(clamp(200px, 24vw, 370px) - 6px);
+    transform: scale(97%);
+    border: 3px solid var(--primary-light-text);
   }
 
   .book-img{
@@ -95,6 +98,8 @@
 
 
   &.dark{
-      //filter: drop-shadow(0px 10px 50px rgba(255, 255, 255, 0.16));
+    &:hover{
+      border: 3px solid var(--primary-dark-text);
+    }
   }
 }
