@@ -1,18 +1,26 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import BookService from "../../services/books.services";
-import {AttachGenreType, BookType, CommentType, CreateCommentType,} from "../../types/books";
+import {
+    AttachGenreType,
+    BookCityType,
+    BookType,
+    CommentType,
+    CreateCommentType,
+    SavedBookType,
+} from "../../types/books";
 import {CityType} from "../../types/types";
 
 interface IInitialState {
     books: BookType[],
     isLoading: boolean,
-    bookInfo: BookType,
+    bookInfo: BookCityType,
     bookId: number|undefined,
     error: null|string,
     userCity: CityType,
     searchedBooks: BookType[],
     comments: CommentType[],
-    myBooks: BookType[]
+    myBooks: BookType[],
+    savedBooks: BookType[]
 }
 
 const initialState:IInitialState = {
@@ -24,7 +32,8 @@ const initialState:IInitialState = {
     userCity: {},
     searchedBooks: [],
     comments: [],
-    myBooks: []
+    myBooks: [],
+    savedBooks: []
 }
 
 export const getAllBooks = createAsyncThunk(
@@ -44,9 +53,7 @@ export const getBook = createAsyncThunk(
     'books/getBook',
     async (id:number,{rejectWithValue, dispatch})=>{
         try{
-            const response = await BookService.getBook(id)
-            dispatch(getCity(response.user.cityId))
-            return response
+            return await BookService.getBook(id)
         }catch (error:any) {
             const message = (error.message && error.response.data && error.response.data.message) ||
                 error.message || error.toString()
@@ -185,6 +192,49 @@ export const createComment = createAsyncThunk(
         }
     }
 )
+
+export const getSavedBooks = createAsyncThunk(
+    'books/getSavedBooks',
+    async (id:number,{rejectWithValue, dispatch})=>{
+        try{
+            return await BookService.getSavedBooks(id)
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+export const saveBook = createAsyncThunk(
+    'books/saveBook',
+    async (data: SavedBookType,{rejectWithValue, dispatch})=>{
+        try{
+            await BookService.saveBook(data)
+            dispatch(getSavedBooks(data.userId))
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+
+export const removeSavedBook = createAsyncThunk(
+    'books/removeSavedBook',
+    async (data: SavedBookType,{rejectWithValue, dispatch})=>{
+        try{
+            await BookService.removeSavedBook(data)
+            dispatch(getSavedBooks(data.userId))
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
 
 const booksSlice = createSlice({
     name: 'books',
@@ -331,6 +381,46 @@ const booksSlice = createSlice({
         builder.addCase(getComments.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error.message || "Something wrong with getting searched books"
+        });
+
+        builder.addCase(getSavedBooks.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(getSavedBooks.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.savedBooks = action.payload
+        });
+
+        builder.addCase(getSavedBooks.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something went wrong with getting saved books"
+        });
+
+        builder.addCase(saveBook.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(saveBook.fulfilled, (state, action) => {
+            state.isLoading = false
+        });
+
+        builder.addCase(saveBook.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something went wrong with saving a book"
+        });
+
+        builder.addCase(removeSavedBook.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(removeSavedBook.fulfilled, (state, action) => {
+            state.isLoading = false
+        });
+
+        builder.addCase(removeSavedBook.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something went wrong with saving a book"
         });
     },
 })

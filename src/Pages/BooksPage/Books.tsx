@@ -7,7 +7,7 @@ import Searchbar from "../Components/Searchbar/Searchbar";
 import BooksList from "../Components/BooksList/BooksList";
 import {useTranslation} from "react-i18next";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {getAllBooks} from "../../redux/slices/books.slice";
+import {getAllBooks, getSavedBooks} from "../../redux/slices/books.slice";
 import {BookType} from "../../types/books";
 import GenresDropdown from "../Components/GenresDropdown/GenresDropdown";
 import Loader from "../Components/Loader/Loader";
@@ -17,11 +17,13 @@ const Books = () => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch()
     const {books:booksList, isLoading} = useAppSelector(state => state.books)
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
     const [books, setBooks] = useState<BookType[]>(booksList)
     const {isDark} = useTheme()
 
     useEffect(() => {
         if(booksList.length===0) dispatch(getAllBooks())
+        if(isLoggedIn) dispatch(getSavedBooks(user.id))
     },[])
 
     useEffect(() => {

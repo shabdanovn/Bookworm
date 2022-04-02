@@ -2,12 +2,14 @@ import {configureStore} from "@reduxjs/toolkit";
 import authReducer from "./slices/auth.slice";
 import booksReducer from "./slices/books.slice";
 import genreReducer from "./slices/genres.slice";
+import userReducer from "./slices/user.slice";
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
         books: booksReducer,
-        genres: genreReducer
+        genres: genreReducer,
+        user: userReducer
     },
     devTools: true
 })

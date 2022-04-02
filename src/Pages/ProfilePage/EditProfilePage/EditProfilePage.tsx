@@ -8,23 +8,24 @@ import cn from "classnames";
 import MainLayout from "../../Components/MainLayout/MainLayout";
 import H3 from "../../Components/H3/H3";
 import statue from '../../../images/daniel.png'
-import {UserType} from "../../../types/types";
 import username from '../../../images/username.svg'
 import FileUploader from "../../Components/FileUploader/FileUploader";
 import './EditProfilePage.scss'
 import {useTheme} from "../../../hooks/useTheme";
 import {useAppSelector} from "../../../hooks/redux";
+import {UserType} from "../../../types/user";
+import {API_URL} from "../../../utils/constants";
 
-const user: UserType = {
-    id: 1,
-    img: '',
-    username: 'nightKnight',
-    phone: "+996700100100",
-    email: "hero@elixir.labs",
-    city_id: 1,
-    city: "Bishkek",
-    fullname: 'John Doe'
-}
+// const user: UserType = {
+//     id: 1,
+//     img: '',
+//     username: 'nightKnight',
+//     phone: "+996700100100",
+//     email: "hero@elixir.labs",
+//     city_id: 1,
+//     city: "Bishkek",
+//     fullname: 'John Doe'
+// }
 
 interface IInputForms{
     fullname: string
@@ -38,7 +39,8 @@ const EditProfilePage = () => {
     const {t} = useTranslation()
     const {isDark} = useTheme()
     const [files, setFiles] = useState<FileList | null>()
-    const [userInfo, setUserInfo] = useState<UserType>(user)
+    const {currentUser} = useAppSelector(state => state.user)
+    const [userInfo, setUserInfo] = useState<UserType>(currentUser)
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
@@ -81,7 +83,7 @@ const EditProfilePage = () => {
                 <div className={cn('profile-img-edit')}>
                     <img src={files
                         ? URL.createObjectURL(files[0])
-                        : user.img ? user.img : username} alt={'File'}/>
+                        : userInfo.img ? `${API_URL}/${userInfo.img}` : username} alt={'File'}/>
 
                     <FileUploader setFiles={setFiles}
                                   title={files ? files[0].name: t('profile-page.edit-page.change')}/>
@@ -92,7 +94,7 @@ const EditProfilePage = () => {
                             name={'fullname'} type={'text'}
                             value={userInfo.fullname} onChange={onChange}/>
                     <p className={cn('form-error fullname-error', {dark: isDark})}>{errors.fullname?.message}</p>
-                    <div>
+                    <div className={cn('email-username-div')}>
                         <input {...register('email')} type={'email'}
                                placeholder={t('profile-page.edit-page.email-placeholder')}
                                name={'email'} className={cn('half-input')}
@@ -104,7 +106,7 @@ const EditProfilePage = () => {
                     </div>
                     <p className={cn('form-error email-error', {dark: isDark})}>{errors.email?.message || errors.username?.message}</p>
 
-                    <div>
+                    <div className={cn('phone-city-div')}>
                         <input {...register('phone')} type={'text'}
                                placeholder={t('profile-page.edit-page.phone-placeholder')}
                                name={'phone'} className={cn('half-input')}
@@ -112,11 +114,12 @@ const EditProfilePage = () => {
                         <input {...register('city')} type={'text'}
                                placeholder={t('profile-page.edit-page.city-placeholder')}
                                name={'city'} className={cn('half-input')}
-                               value={userInfo.city} onChange={onChange}/>
+                               value={userInfo.city?.name} onChange={onChange}/>
+
                     </div>
                     <p className={cn('form-error phone-error', {dark: isDark})}>{errors.phone?.message || errors.city?.message}</p>
 
-                    <div>
+                    <div className={cn('btns-div')}>
                         <button onClick={() => navigate(-1)}>{t('profile-page.edit-page.cancel')}</button>
                         <button onClick={handleSubmit(saveData)}>{t('profile-page.edit-page.save')}</button>
                     </div>

@@ -1,4 +1,5 @@
 import {UserType} from "./user";
+import {CityType} from "./types";
 
 export type GenreType = {
     id:number,
@@ -42,6 +43,11 @@ export type CreateCommentType = {
     comments?: CommentType[]
 }
 
+export type BookCityType = {
+    book?: BookType,
+    city?: CityType
+}
+
 export type BookType = {
     id?: number,
     title?: string,
@@ -53,8 +59,8 @@ export type BookType = {
     userId?: number,
     state?: string,
     user?: UserType,
-    genres?: GenreType[]
-    comments?: CommentType[]
+    genres?: GenreType[],
+    comments?: CommentType[],
 }
 
 export type CreateBookType = {
@@ -80,5 +86,10 @@ export type UpdateBookType = {
     state: string,
 }
 
+export type SavedBookType = {
+    id?: number,
+    userId: number,
+    bookId: number
+}
 
 

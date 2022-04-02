@@ -73,6 +73,9 @@
             font-size: clamp(16px, 2.5vw, 20px);
             color: rgba(30, 33, 45, 0.71);
             margin: 1rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &__fullname{

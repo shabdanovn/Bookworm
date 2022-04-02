@@ -11,7 +11,8 @@ import './BookItem.scss'
 import {API_URL} from "../../../utils/constants";
 import {BookType} from "../../../types/books";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {deleteBook} from "../../../redux/slices/books.slice";
+import {deleteBook, removeSavedBook, saveBook} from "../../../redux/slices/books.slice";
+import Loader from "../Loader/Loader";
 
 interface BookItemProps{
     book: BookType
@@ -22,6 +23,7 @@ const BookItem = ({book}: BookItemProps) => {
     const navigate = useNavigate()
     const location = useLocation()
     const {isLoggedIn, user} = useAppSelector(state => state.auth)
+    const {savedBooks, isLoading} = useAppSelector(state => state.books)
     const dispatch = useAppDispatch()
 
     const deleteHandle = (e: MouseEvent<HTMLImageElement>) => {
@@ -42,14 +44,27 @@ const BookItem = ({book}: BookItemProps) => {
     const saveHandle = (e: MouseEvent<HTMLImageElement>) => {
         if(e.target === e.currentTarget){
             e.stopPropagation()
-            alert('unsaved ' + book.id)
+            if(!isLoggedIn)
+                alert('First you need to login')
+            else {
+                if(book.id) dispatch(saveBook({userId: user.id, bookId: book.id}))
+            }
         }
     }
+
+    const unsaveHandle = (e: MouseEvent<HTMLImageElement>) => {
+        if(e.target === e.currentTarget){
+            e.stopPropagation()
+            if(book.id) dispatch(removeSavedBook({userId: user.id, bookId: book.id}))
+        }
+    }
+
+    if(isLoading) return <Loader/>
 
     return (
         <div onClick={() => location.pathname!=='books' ? navigate(`/books/${book.id}`) :navigate(`${book.id}`)}
              className={cn('book-item', {dark: isDark})}>
-            <div className={cn('price-actions-group', {edit: location.pathname==='/profile-page/my-books'})}>
+                <div className={cn('price-actions-group', {edit: location.pathname==='/profile-page/my-books'})}>
                 <p className={cn('book-price')}>{book.cost!== '' ? book.cost : book.conditions}</p>
                 {location.pathname==='/profile-page/my-books' && <div>
                     <img onClick={editHandle}
@@ -65,19 +80,26 @@ const BookItem = ({book}: BookItemProps) => {
                  src={book.img ? `${API_URL}/${book.img}` : book3} alt={'Book image'}/>
             <p className={cn('book-title')}>{book.title}</p>
             <p className={cn('book-author')}>{book.author}</p>
-            <p className={cn('id')}>{book.id}</p>
-            {isLoggedIn
-                ? location.pathname==='/saved-books'
-                    ? <img onClick={saveHandle}
-                     className={cn('saved-logo')}
-                     src={savedLogo} alt={'Saved item'}/>
-                    : <img onClick={saveHandle}
-                          className={cn('saved-logo')}
-                          src={saveLogo} alt={'Save item'}/>
-                :   <img onClick={saveHandle}
-                         className={cn('saved-logo')}
-                         src={saveLogo} alt={'Save item'}/>
+            {location.pathname === '/saved-books'
+                ?<p className={cn('id')}>{book.id}</p>
+                :<p className={cn('id without-save')}>{book.id}</p>
             }
+            {/*{isLoggedIn*/}
+            {/*    ? savedBooks.find(item => item.id === book.id)*/}
+            {/*        ? <img onClick={unsaveHandle}*/}
+            {/*         className={cn('saved-logo')}*/}
+            {/*         src={savedLogo} alt={'Saved item'}/>*/}
+            {/*        : <img onClick={saveHandle}*/}
+            {/*              className={cn('saved-logo')}*/}
+            {/*              src={saveLogo} alt={'Save item'}/>*/}
+            {/*    :   <img onClick={saveHandle}*/}
+            {/*             className={cn('saved-logo')}*/}
+            {/*             src={saveLogo} alt={'Save item'}/>*/}
+            {/*}*/}
+            {isLoggedIn && location.pathname === '/saved-books'
+                    && <img onClick={unsaveHandle}
+                           className={cn('saved-logo')}
+                           src={savedLogo} alt={'Saved item'}/>}
         </div>
     );
 };

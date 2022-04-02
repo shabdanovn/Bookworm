@@ -6,7 +6,7 @@ import BookItem from "../../Components/BookItem/BookItem";
 import H2 from "../../Components/H2/H2";
 import BooksList from "../../Components/BooksList/BooksList";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {getAllBooks} from "../../../redux/slices/books.slice";
+import {getAllBooks, getSavedBooks} from "../../../redux/slices/books.slice";
 import {BookType} from "../../../types/books";
 import SecondaryButton from "../../Components/Button/SecondaryButton/SecondaryButton";
 
@@ -14,10 +14,12 @@ const BooksChapter = () => {
     const {isDark} = useTheme()
     const dispatch = useAppDispatch()
     const {books:booksList} = useAppSelector(state => state.books)
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
     const [books, setBooks] = useState<BookType[]>(booksList)
 
     useEffect(() => {
         dispatch(getAllBooks())
+        if(isLoggedIn) dispatch(getSavedBooks(user.id))
     },[dispatch])
 
     useEffect(() => {

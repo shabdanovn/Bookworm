@@ -1,6 +1,6 @@
 import axios from "axios";
 import {API_URL} from "../utils/constants";
-import {AttachGenreType, CommentType, CreateCommentType, UpdateBookType} from "../types/books";
+import {AttachGenreType, CommentType, CreateCommentType, SavedBookType, UpdateBookType} from "../types/books";
 import authHeader from "./auth-header";
 
 const addGenreToBook=async (genre: AttachGenreType)=> {
@@ -53,6 +53,46 @@ const getUsersBooks=async (id:number)=> {
             headers: {
                 Authorization: 'Bearer ' + authHeader()
             }
+        })
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const getSavedBooks = async (userId:number)=> {
+    try{
+        const response = await axios.get(`${API_URL}/saved-books/${userId}`,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const saveBook = async (data: SavedBookType)=> {
+    try{
+        const response = await axios.post(`${API_URL}/saved-books`, data,{
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            }
+        })
+        return response.data
+    }catch (e){
+        return e
+    }
+}
+
+const removeSavedBook = async (data: SavedBookType)=> {
+    try{
+        const response = await axios.delete(`${API_URL}/saved-books`, {
+            headers: {
+                Authorization: 'Bearer ' + authHeader()
+            },
+            data
         })
         return response.data
     }catch (e){
@@ -152,5 +192,6 @@ const getComments=async (id:number)=> {
 const BookService = {createBook, getBook, deleteBook,
     getSearchedBooks, addGenreToBook, getAllBooks, getFilteredBooks,
     createComment, getComments, getUsersBooks,
+    saveBook, getSavedBooks, removeSavedBook,
     updateBookWithImage, updateBookWithoutImage, getCity}
 export default BookService

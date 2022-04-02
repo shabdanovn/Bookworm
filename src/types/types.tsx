@@ -20,17 +20,6 @@ export type BookItemType = {
     state?: string
 }
 
-export type UserType = {
-    id: number,
-    username: string,
-    email: string,
-    fullname?: string,
-    img: string,
-    city_id?: number,
-    city?: string
-    phone: string
-}
-
 export type ExampleCommentType = {
     id: number,
     text: string,

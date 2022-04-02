@@ -17,7 +17,6 @@ interface ICommandData{
     text:string
 }
 
-const ALAN_KEY='6dd5bf0eaf8eed5b3cf8ad6efeadef222e956eca572e1d8b807a3e2338fdd0dc/stage'
 
 const useAlan = () => {
     const navigate = useNavigate()
