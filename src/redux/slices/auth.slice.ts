@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ILogin, IRegister} from "../../types/auth";
 import AuthService from "../../services/auth.service";
+import {UserType} from "../../types/user";
 
 // @ts-ignore
 const token = JSON.parse(localStorage.getItem('token'))
@@ -25,6 +26,19 @@ export const signup = createAsyncThunk(
     async (data: IRegister, {rejectWithValue, dispatch}) => {
         try {
             return await AuthService.signup(data)
+        }catch (error:any){
+            const message = (error.message && error.response.data && error.response.data.message)
+                || error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+export const updateUser = createAsyncThunk(
+    'auth/updateUser',
+    async (data: UserType, {rejectWithValue}) => {
+        try {
+            return AuthService.updateUser(data)
         }catch (error:any){
             const message = (error.message && error.response.data && error.response.data.message)
                 || error.message || error.toString()
@@ -70,6 +84,11 @@ const authSlice = createSlice({
         [signup.rejected.type]: (state) => {
             state.isLoggedIn = false
             state.user = null
+        },
+
+        [updateUser.fulfilled.type]:(state, action) => {
+            state.isLoggedIn = true
+            state.user = action.payload
         },
     }
 })

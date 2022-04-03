@@ -132,7 +132,7 @@ const getFilteredBooks=async (word:string)=> {
     }
 }
 
-const updateBookWithImage=async (data: UpdateBookType)=> {
+const updateBookWithImage=async (data: FormData)=> {
     try{
         const response = await axios.put(`${API_URL}/books/with-image`, data,{
             headers: {

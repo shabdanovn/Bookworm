@@ -6,7 +6,7 @@ import {
     BookType,
     CommentType,
     CreateCommentType,
-    SavedBookType,
+    SavedBookType, UpdateBookType,
 } from "../../types/books";
 import {CityType} from "../../types/types";
 
@@ -235,6 +235,33 @@ export const removeSavedBook = createAsyncThunk(
     }
 )
 
+export const updateBookWithImage = createAsyncThunk(
+    'books/updateBookWithImage',
+    async (data: FormData,{rejectWithValue, dispatch})=>{
+        try{
+            await BookService.updateBookWithImage(data)
+            dispatch(getAllBooks())
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
+
+export const updateBookWithoutImage = createAsyncThunk(
+    'books/updateBookWithoutImage',
+    async (data: UpdateBookType,{rejectWithValue, dispatch})=>{
+        try{
+            await BookService.updateBookWithoutImage(data)
+            dispatch(getAllBooks())
+        }catch (error:any) {
+            const message = (error.message && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+            return rejectWithValue(message)
+        }
+    }
+)
 
 const booksSlice = createSlice({
     name: 'books',
@@ -314,6 +341,26 @@ const booksSlice = createSlice({
             state.bookInfo={}
             state.error = action.error.message || "Something wrong with getting searched books"
         });
+
+        builder.addCase(updateBookWithImage.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(updateBookWithImage.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something wrong with updating a book with image"
+        });
+
+        builder.addCase(updateBookWithoutImage.pending, (state) => {
+            state.isLoading = true
+        });
+
+        builder.addCase(updateBookWithoutImage.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message || "Something wrong with updating a book without image"
+        });
+
+
 
         builder.addCase(getCity.pending, (state) => {
             state.isLoading = true

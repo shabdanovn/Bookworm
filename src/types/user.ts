@@ -17,7 +17,7 @@ export type UpdateWithoutImageUserType = {
     username:string,
     fullname: string,
     phone: string,
-    cityId:number
+    cityName: string
 }
 
 export interface IData {

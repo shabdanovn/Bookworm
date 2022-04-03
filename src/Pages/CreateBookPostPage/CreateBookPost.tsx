@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import Select, {OnChangeValue} from "react-select";
 import {useTranslation} from "react-i18next";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import cn from "classnames";
 import MainLayout from "../Components/MainLayout/MainLayout";
 import FileUploader from "../Components/FileUploader/FileUploader";
@@ -9,9 +9,9 @@ import {useTheme} from "../../hooks/useTheme";
 import map from '../../images/map.png'
 import './CreateBookPost.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {CreateBookType, GenreType, IOption} from "../../types/books";
+import {BookType, CreateBookType, GenreType, IOption, UpdateBookType} from "../../types/books";
 import {getAllGenres} from "../../redux/slices/genres.slice";
-import {createBook} from "../../redux/slices/books.slice";
+import {createBook, getBook, updateBookWithImage, updateBookWithoutImage} from "../../redux/slices/books.slice";
 import {GenresList} from "../Components/GenresDropdown/GenresList";
 
 const CreateBookPost = () => {
@@ -19,10 +19,13 @@ const CreateBookPost = () => {
     const {isDark} = useTheme()
     const location = useLocation()
     const navigate = useNavigate()
+    const {id} = useParams()
     const dispatch = useAppDispatch()
     const {genres, isLoading} = useAppSelector(state => state.genres)
     const {user, isLoggedIn} = useAppSelector(state => state.auth)
+    const {bookInfo} = useAppSelector(state => state.books)
     const [files, setFiles] = useState<FileList | null>()
+    const [filesTitle, setFilesTitle] = useState<string>('')
     const [genre, setGenre] = useState<IOption>({value: "---", label: "---"})
     const [genresList, setGenresList] = useState<IOption[]>(genres)
 
@@ -38,11 +41,29 @@ const CreateBookPost = () => {
 
     useEffect(() => {
         if(genres.length===0) dispatch(getAllGenres())
+        if(id) dispatch(getBook(+id))
     },[])
 
-    useEffect(() => {
-        GenresList({genres, setGenresList})
-    },[genres])
+    useEffect(() => GenresList({genres, setGenresList}),[genres])
+    useEffect(() =>{
+        if(location.pathname!=='/create-post'
+            && bookInfo.book?.title && bookInfo.book?.author
+            && bookInfo.book?.state && bookInfo.book?.notes
+            && bookInfo.book?.img && (bookInfo.book?.cost || bookInfo.book?.cost==='')
+            && (bookInfo.book?.conditions || bookInfo.book?.conditions==='') ) {
+            const book = {
+                title: bookInfo.book?.title,
+                author: bookInfo.book?.author,
+                cost: bookInfo.book?.cost,
+                state: bookInfo.book?.state,
+                conditions: bookInfo.book?.conditions,
+                notes: bookInfo.book?.notes,
+                img: bookInfo.book?.img
+            }
+            setFilesTitle("Book's picture")
+            setPost(book)
+        }
+    },[bookInfo])
 
     useEffect(()=>{
         if(!isLoggedIn) navigate('/books')
@@ -57,24 +78,52 @@ const CreateBookPost = () => {
     const onChangeGenre = (newValue: OnChangeValue<IOption, boolean>) => setGenre(newValue as IOption)
     // const onChangeCity = (newValue: OnChangeValue<IOption, boolean>) => setCity(newValue as IOption)
 
+    const formDataCreator = () => {
+        let formData = new FormData()
+        formData.append('title', post.title)
+        formData.append('author', post.author)
+        formData.append('cost', post.cost)
+        formData.append('conditions', post.conditions)
+        formData.append('state', post.state)
+        formData.append('notes', post.notes)
+        if(files) formData.append('img', files[0])
+        formData.append('userId', user.id)
+
+        return formData
+    }
     const doneClick = () => {
-        if(genre.value && genre.value !== '---' && files && files[0] &&
-            post.author && post.state && post.title){
-            let formData = new FormData()
-            formData.append('title', post.title)
-            formData.append('author', post.author)
-            formData.append('cost', post.cost)
-            formData.append('conditions', post.conditions)
-            formData.append('state', post.state)
-            formData.append('notes', post.notes)
-            formData.append('img', files[0])
-            formData.append('userId', user.id)
-            dispatch(createBook({data: formData, genre: genre.value}))
-            navigate('/books')
+        if(location.pathname === '/create-post') {
+            if (genre.value && genre.value !== '---' && files && files[0] &&
+                post.author && post.state && post.title) {
+                const formData = formDataCreator()
+                dispatch(createBook({data: formData, genre: genre.value}))
+                navigate('/books')
+            }
+        }else{
+            if (files && files[0] && post.author && post.state && post.title) {
+                const formData = formDataCreator()
+                if(id) formData.append('id', id)
+                dispatch(updateBookWithImage(formData))
+                navigate('/books')
+            }else{
+                if(id && post.img){
+                    let data:UpdateBookType = {
+                        id: +id,
+                        title: post.title,
+                        author: post.author,
+                        cost: post.cost,
+                        state: post.state,
+                        conditions: post.conditions,
+                        notes: post.notes,
+                        userId: user.id,
+                        img: post.img
+                    }
+                    dispatch(updateBookWithoutImage(data))
+                    navigate('/books')
+                }
+            }
         }
     }
-
-
 
     return (
         <MainLayout>
@@ -85,7 +134,13 @@ const CreateBookPost = () => {
                 <div className={cn('create-book-post__content')}>
                     <div className={cn('create-form')}>
                         <FileUploader
-                            title={files ? files[0].name: t('create-post.picture')}
+                            title={location.pathname !== '/create-post'
+                                ? files
+                                    ? files[0].name
+                                    : filesTitle
+                                : files
+                                    ? files[0].name
+                                    : t('create-post.picture')}
                             setFiles={setFiles}/>
 
                         <div className={cn('title-author')}>
@@ -107,26 +162,28 @@ const CreateBookPost = () => {
                             </div>
                         </div>
 
-                        <div className={cn('genre-city')}>
-                            <div className={cn('genre')}>
-                                <p className={cn('book-title')}>{t('books.filters.genre')}</p>
-                                <Select classNamePrefix={cn('input-item')}
-                                        placeholder={'Choose...'}
-                                        options={genresList}
-                                        value={genre} onChange={onChangeGenre}
-                                        isMulti={false} isSearchable
-                                />
+                        {location.pathname==='/create-post' &&
+                            <div className={cn('genre-city')}>
+                                <div className={cn('genre')}>
+                                    <p className={cn('book-title')}>{t('books.filters.genre')}</p>
+                                    <Select classNamePrefix={cn('input-item')}
+                                            placeholder={'Choose...'}
+                                            options={genresList}
+                                            value={genre} onChange={onChangeGenre}
+                                            isMulti={false} isSearchable
+                                    />
+                                </div>
+                                {/*<div className={cn('city')}>*/}
+                                {/*    <p className={cn('book-title')}>{t('books.filters.city')}</p>*/}
+                                {/*    <Select classNamePrefix={cn('input-item')}*/}
+                                {/*            placeholder={'Choose...'}*/}
+                                {/*            options={cities}*/}
+                                {/*            value={city} onChange={onChangeCity}*/}
+                                {/*            isMulti={false} isSearchable*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </div>
-                            {/*<div className={cn('city')}>*/}
-                            {/*    <p className={cn('book-title')}>{t('books.filters.city')}</p>*/}
-                            {/*    <Select classNamePrefix={cn('input-item')}*/}
-                            {/*            placeholder={'Choose...'}*/}
-                            {/*            options={cities}*/}
-                            {/*            value={city} onChange={onChangeCity}*/}
-                            {/*            isMulti={false} isSearchable*/}
-                            {/*    />*/}
-                            {/*</div>*/}
-                        </div>
+                        }
 
                         <div className={cn('price-state')}>
                             <div className={cn('price')}>

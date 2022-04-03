@@ -10,6 +10,13 @@ const getUser =async (id:number) => {
         }
     })
 
+    let newUser = {
+        id: response.data.id,
+        username: response.data.username,
+        img: response.data.img
+    }
+
+    localStorage.setItem('user', JSON.stringify(newUser))
     return response.data
 }
 
@@ -24,7 +31,7 @@ const updateUserWithImage =async (data: FormData) => {
 }
 
 const updateUserWithoutImage =async (data: UpdateWithoutImageUserType) => {
-    const response = await axios.put(`${API_URL}/users/with-image`, data,{
+    const response = await axios.put(`${API_URL}/users/without-image`, data,{
         headers:{
             Authorization: "Bearer " + authHeader()
         }

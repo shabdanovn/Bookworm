@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {IData, UpdateWithoutImageUserType, UserType} from "../../types/user";
 import UserService from "../../services/user.service";
+import {updateUser} from "./auth.slice";
 
 type InitialStateType = {
     isLoading: boolean,
@@ -18,7 +19,9 @@ export const getUser = createAsyncThunk(
     'user/getUser',
     async (id:number, {rejectWithValue, dispatch}) => {
         try {
-            return await UserService.getUser(id)
+            const response = await UserService.getUser(id)
+            dispatch(updateUser(response))
+            return response
         }catch (error: any){
             const message = (error.message && error.response.data && error.response.data.message) ||
                 error.message || error.toString()
@@ -26,8 +29,6 @@ export const getUser = createAsyncThunk(
         }
     }
 )
-
-
 
 export const updateUserWithImage = createAsyncThunk(
     'user/updateUserWithImage',

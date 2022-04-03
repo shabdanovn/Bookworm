@@ -12,28 +12,10 @@ import username from '../../../images/username.svg'
 import FileUploader from "../../Components/FileUploader/FileUploader";
 import './EditProfilePage.scss'
 import {useTheme} from "../../../hooks/useTheme";
-import {useAppSelector} from "../../../hooks/redux";
-import {UserType} from "../../../types/user";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {UpdateWithoutImageUserType, UserType} from "../../../types/user";
 import {API_URL} from "../../../utils/constants";
-
-// const user: UserType = {
-//     id: 1,
-//     img: '',
-//     username: 'nightKnight',
-//     phone: "+996700100100",
-//     email: "hero@elixir.labs",
-//     city_id: 1,
-//     city: "Bishkek",
-//     fullname: 'John Doe'
-// }
-
-interface IInputForms{
-    fullname: string
-    email: string
-    username: string
-    phone: string
-    city: string
-}
+import {updateUserWithImage, updateUserWithoutImage} from "../../../redux/slices/user.slice";
 
 const EditProfilePage = () => {
     const {t} = useTranslation()
@@ -41,8 +23,10 @@ const EditProfilePage = () => {
     const [files, setFiles] = useState<FileList | null>()
     const {currentUser} = useAppSelector(state => state.user)
     const [userInfo, setUserInfo] = useState<UserType>(currentUser)
+    const [city, setCity] = useState(currentUser.city?.name)
     const navigate = useNavigate()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
 
     useEffect(()=>{
         if(!isLoggedIn) navigate('/books')
@@ -62,7 +46,7 @@ const EditProfilePage = () => {
             .required(`${t('registration.city')} ${t('registration.required')}`)
     }).required()
 
-    const {handleSubmit, formState: {errors}, register} = useForm<IInputForms>({
+    const {handleSubmit, formState: {errors}, register} = useForm<UpdateWithoutImageUserType>({
         resolver: yupResolver(schema)
     })
 
@@ -72,8 +56,37 @@ const EditProfilePage = () => {
         setUserInfo(copy)
     }
 
-    const saveData = () => {
-        alert(userInfo.fullname)
+    const cityChange = (e:ChangeEvent<HTMLInputElement>) => setCity(e.target.value)
+
+    const onSubmit = () => {
+        if(files){
+            let formData = new FormData()
+            if(userInfo.fullname && userInfo.username && userInfo.email && userInfo.phone && city && userInfo.id) {
+                formData.append('id', `${userInfo.id}`)
+                formData.append('fullname', userInfo.fullname)
+                formData.append('username', userInfo.username)
+                formData.append('email', userInfo.email)
+                formData.append('cityName', city)
+                formData.append('phone', userInfo.phone)
+                formData.append('img', files[0])
+                dispatch(updateUserWithImage({data: formData, userId: userInfo.id}))
+
+                navigate('/profile-page')
+            }
+        }else{
+            if(userInfo.fullname && userInfo.username && userInfo.email && userInfo.phone && city && userInfo.id) {
+                const data = {
+                    id: user.id,
+                    fullname: userInfo.fullname,
+                    username: userInfo.username,
+                    email: userInfo.email,
+                    cityName: city,
+                    phone: userInfo.phone
+                }
+                if(data.id) dispatch(updateUserWithoutImage(data))
+                navigate('/profile-page')
+            }
+        }
     }
 
     return (
@@ -111,17 +124,17 @@ const EditProfilePage = () => {
                                placeholder={t('profile-page.edit-page.phone-placeholder')}
                                name={'phone'} className={cn('half-input')}
                                value={userInfo.phone} onChange={onChange}/>
-                        <input {...register('city')} type={'text'}
+                        <input {...register('cityName')} type={'text'}
                                placeholder={t('profile-page.edit-page.city-placeholder')}
                                name={'city'} className={cn('half-input')}
-                               value={userInfo.city?.name} onChange={onChange}/>
+                               value={city} onChange={cityChange}/>
 
                     </div>
-                    <p className={cn('form-error phone-error', {dark: isDark})}>{errors.phone?.message || errors.city?.message}</p>
+                    <p className={cn('form-error phone-error', {dark: isDark})}>{errors.phone?.message || errors.cityName?.message}</p>
 
                     <div className={cn('btns-div')}>
                         <button onClick={() => navigate(-1)}>{t('profile-page.edit-page.cancel')}</button>
-                        <button onClick={handleSubmit(saveData)}>{t('profile-page.edit-page.save')}</button>
+                        <button onClick={onSubmit}>{t('profile-page.edit-page.save')}</button>
                     </div>
                 </div>
                 <img className={cn('statue-img')} src={statue} alt={'Statue picture'}/>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {API_URL} from "../utils/constants";
 import {ILogin, IRegister} from "../types/auth";
+import {UserType} from "../types/user";
 
 const login = (data:ILogin) => {
     return axios
@@ -22,9 +23,17 @@ const signup = (data:IRegister) => {
         })
 }
 
+const updateUser = (data:UserType) => {
+    return {
+        id: data.id,
+        username: data.username,
+        img: data.img
+    }
+}
+
 const logout = () => {
     localStorage.removeItem('token')
 }
 
-const AuthService = {login, logout, signup}
+const AuthService = {login, logout, signup, updateUser}
 export default AuthService
