@@ -21,6 +21,9 @@ import Loader from "../../Components/Loader/Loader";
 import {API_URL} from "../../../utils/constants";
 import {CityType} from "../../../types/types";
 import {useGeneralContext} from "../../../hooks/useGeneralContext";
+import useModal from "../../../hooks/useModal";
+import MessageModal from "../../Components/ModalWindows/MessageModal/MessageModal";
+import NotAuthedModal from "../../Components/ModalWindows/NotAuthedModal/NotAuthedModal";
 
 const BookPage = () => {
     const {t} = useTranslation()
@@ -33,6 +36,7 @@ const BookPage = () => {
     const [book, setBook] =useState<BookCityType>(bookInfo)
     const {showComments, setShowComments} = useGeneralContext()
     const [isSaved, setIsSaved] = useState<boolean>(false)
+    const {open, close, setModalContent} = useModal()
 
     const showCommentsHandle = () => setShowComments(!showComments)
 
@@ -52,9 +56,10 @@ const BookPage = () => {
     }, [bookInfo])
 
     const saveHandle = (e: MouseEvent<HTMLImageElement>) => {
-        if(!isLoggedIn)
-            alert('First you need to login')
-        else {
+        if(!isLoggedIn) {
+            setModalContent(<NotAuthedModal close={close}/>)
+            open()
+        }else {
             if(id){
                 if(isSaved) {
                     dispatch(removeSavedBook({userId: user.id, bookId: +id}))
@@ -67,6 +72,19 @@ const BookPage = () => {
             }
         }
     }
+    
+    const messageHandle = () => {
+        if(isLoggedIn){
+            setModalContent(<MessageModal username={book.book?.user?.username}
+                                          receiverId={book.book?.user?.id}
+                                          senderId={user.id} close={close}/> )
+            open()
+        }else{
+            setModalContent(<NotAuthedModal close={close}/>)
+            open()
+        }
+    }
+    
 
     return (
         <MainLayout>
@@ -83,7 +101,7 @@ const BookPage = () => {
                                     {t('book-page.comments')}</button>
                                 <div onClick={saveHandle}>
                                     <img src={isSaved ? savedLogo : saveLogo} alt={'Save logo'}/></div>
-                                <button>{t('book-page.message')} <img src={sendLogo} alt={'Send logo'}/></button>
+                                <button onClick={messageHandle}>{t('book-page.message')} <img src={sendLogo} alt={'Send logo'}/></button>
                             </div>
                         </div>
                         <div className={cn('book-content')}>

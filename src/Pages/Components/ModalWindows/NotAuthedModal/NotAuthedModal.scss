@@ -1,0 +1,37 @@
+.not-authed-modal{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: clamp(200px, 25vw, 400px);
+  height: 120px;
+
+  background: var(--bg-light-color);
+  border: 3px solid var(--primary-light-text);
+  border-radius: 10px;
+
+  p{
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  button{
+    width: 50%;
+    height: 30px;
+    background: var(--bg-dark-color);
+    color: var(--primary-dark-text);
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover{
+      transform: scale(95%);
+    }
+
+  }
+}

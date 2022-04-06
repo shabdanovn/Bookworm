@@ -26,18 +26,3 @@ export type ExampleCommentType = {
     author: string,
     children: ExampleCommentType[]
 }
-
-
-
-export type MessageType = {
-    msgId: number,
-    type: string,
-    text: string
-}
-
-export type DialogType = {
-    id: number,
-    name: string,
-    date: string,
-    messages: MessageType[]
-}

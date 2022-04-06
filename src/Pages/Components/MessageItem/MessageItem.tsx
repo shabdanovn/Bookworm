@@ -1,24 +1,35 @@
-import React from 'react';
-import './MessageItem.scss'
+import React, {forwardRef} from 'react';
 import cn from "classnames";
-import boy from "../../../images/boy.jpg";
-import {MessageType} from "../../../types/types";
+import avatar from "../../../images/username.svg";
+import {IFriend, MessageType} from "../../../types/chat";
+import {useAppSelector} from "../../../hooks/redux";
+import * as timeago from 'timeago.js';
+import './MessageItem.scss'
+import {API_URL} from "../../../utils/constants";
+// import {MessageType} from "../../../types/types";
 
 interface IMessageItem{
-    msg: MessageType
+    msg: MessageType,
+    friend?: IFriend,
 }
 
-const MessageItem = ({msg}: IMessageItem) => {
+const MessageItem = forwardRef(({msg, friend}: IMessageItem, ref: React.Ref<HTMLDivElement>) => {
+    const {user} = useAppSelector(state => state.auth)
+
     return (
-        msg.type === 'sent'
-            ? <div key={msg.msgId} className={cn("sent-message")}><p>
-                {msg.text}</p></div>
-            : <div key={msg.msgId} className={cn('received-message')}>
-                <img src={boy} alt={"Sender avatar"}/>
-                <p >
-                    {msg.text}</p>
+        msg.senderId === user.id
+            ? <div key={msg.id} ref={ref} className={cn("sent-message")}>
+                <p>{msg.text}</p>
+                <p className={cn('timestamp')} >{timeago.format(msg.createdAt)}</p>
+            </div>
+            : <div key={msg.id} className={cn('received-message')}>
+                <div className={cn('received-message-content')}>
+                    <img src={friend?.img ? `${API_URL}/${friend.img}` : avatar} alt={"Sender avatar"}/>
+                    <p className={cn('received-message-text')}>{msg.text}</p>
+                </div>
+                <p className={cn('timestamp')}>{timeago.format(msg.createdAt)}</p>
             </div>
     );
-};
+});
 
 export default MessageItem;

@@ -10,12 +10,13 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {BookType} from "../../types/books";
 import {getSavedBooks} from "../../redux/slices/books.slice";
+import Loader from "../Components/Loader/Loader";
 
 const SavedBooksPage = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {isLoggedIn, user} = useAppSelector(state => state.auth)
-    const {savedBooks} = useAppSelector(state => state.books)
+    const {savedBooks, isLoading} = useAppSelector(state => state.books)
     const [booksList, setBooksList] = useState<BookType[]>(savedBooks)
     const dispatch = useAppDispatch()
 
@@ -24,7 +25,7 @@ const SavedBooksPage = () => {
     }, [isLoggedIn, navigate])
 
     useEffect(() => {
-        dispatch(getSavedBooks(user.id))
+        if(isLoggedIn) dispatch(getSavedBooks(user.id))
     }, []);
 
     useEffect(() => {
@@ -34,14 +35,16 @@ const SavedBooksPage = () => {
 
     return (
         <MainLayout>
-            <div className={cn('saved-books-page')}>
-                <H3 text={t('saved-books.title')} font={true}/>
-                <div className={cn('saved-books-content')}>
-                    {booksList.map(book => {
-                        return <BookItem key={book.id} book={book} />
-                    })}
+            {isLoading ? <Loader/> :
+                <div className={cn('saved-books-page')}>
+                    <H3 text={t('saved-books.title')} font={true}/>
+                    <div className={cn('saved-books-content')}>
+                        {booksList.map(book => {
+                            return <BookItem key={book.id} book={book}/>
+                        })}
+                    </div>
                 </div>
-            </div>
+            }
         </MainLayout>
     );
 };

@@ -9,12 +9,13 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {getUsersBooks} from "../../redux/slices/books.slice";
 import {BookType} from "../../types/books";
+import Loader from "../Components/Loader/Loader";
 
 const MyBooksPage = () => {
     const {t} = useTranslation()
     const navigate = useNavigate()
     const {isLoggedIn, user} = useAppSelector(state => state.auth)
-    const {myBooks} = useAppSelector(state => state.books)
+    const {myBooks, isLoading} = useAppSelector(state => state.books)
     const [booksList, setBooksList] = useState<BookType[]>(myBooks)
     const dispatch = useAppDispatch()
 
@@ -23,7 +24,7 @@ const MyBooksPage = () => {
     }, [isLoggedIn, navigate])
 
     useEffect(() => {
-        dispatch(getUsersBooks(user.id))
+        if(isLoggedIn) dispatch(getUsersBooks(user.id))
     },[])
 
     useEffect(() => {
@@ -32,7 +33,8 @@ const MyBooksPage = () => {
 
     return (
         <MainLayout>
-            <div className={cn('my-books-page')}>
+            {isLoading ? <Loader/> :
+                <div className={cn('my-books-page')}>
                 <H3 text={t('my-books.title')} font={true}/>
                 <div className={cn('books-content')}>
                     {booksList.map(book => {
@@ -40,6 +42,7 @@ const MyBooksPage = () => {
                     })}
                 </div>
             </div>
+            }
         </MainLayout>
     );
 };

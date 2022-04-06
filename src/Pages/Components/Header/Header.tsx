@@ -83,7 +83,7 @@ const Header = () => {
                        src={darkLogo} alt={'light_logo'} />
             }
 
-            <div className={cn('menu-nav')}>
+            <div className={cn('menu-nav', {auth: isAuthed})}>
                 <NavLink className={cn('menu-item menu-nav__main', {active: location.pathname==='/'})}
                          to={'/'}>{t("navigation.main")}</NavLink>
                 <NavLink className={cn('menu-item menu-nav__books', {active: location.pathname==='/books'})}

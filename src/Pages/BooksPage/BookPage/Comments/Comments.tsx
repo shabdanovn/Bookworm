@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import useModal from "../../../../hooks/useModal";
 import {createComment, getComments} from "../../../../redux/slices/books.slice";
 import {CommentType, CreateCommentType} from "../../../../types/books";
+import NotAuthedModal from "../../../Components/ModalWindows/NotAuthedModal/NotAuthedModal";
 
 interface IComments {
     bookId: number | undefined
@@ -21,7 +22,7 @@ const Comments = ({bookId}: IComments) => {
     const {comments:bookComments} = useAppSelector(state => state.books)
 
     const [comments, setComments] = useState<CommentType[]|undefined>(bookComments)
-    const {setModalContent, open} = useModal()
+    const {setModalContent, open, close} = useModal()
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const Comments = ({bookId}: IComments) => {
 
     const clickHandler = () => {
         if(!isLoggedIn) {
-            setModalContent(<p>Login firts</p>)
+            setModalContent(<NotAuthedModal close={close}/>)
             open()
         }else{
             if(text!==''){

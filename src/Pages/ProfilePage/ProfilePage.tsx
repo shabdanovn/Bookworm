@@ -31,8 +31,10 @@ const ProfilePage = () => {
     }, [isLoggedIn, navigate])
 
     useEffect(() => {
-        if(myBooks.length===0) dispatch(getUsersBooks(userNew.id))
-        if(Object.keys(currentUser).length===0) dispatch(getUser(userNew.id))
+        if(isLoggedIn) {
+            if (myBooks.length === 0) dispatch(getUsersBooks(userNew.id))
+            if (Object.keys(currentUser).length === 0) dispatch(getUser(userNew.id))
+        }
     }, [])
 
     useEffect(() => setBooksList(myBooks), [myBooks])

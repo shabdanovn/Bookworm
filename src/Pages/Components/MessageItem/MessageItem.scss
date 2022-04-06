@@ -1,8 +1,9 @@
 .sent-message {
   display: flex;
+  flex-direction: column;
   align-items: center;
   align-self: end;
-  p {
+  p:first-child {
     width: 200px;
     font-size: 16px;
     padding: 5px;
@@ -13,26 +14,46 @@
     text-align: center;
     margin-right: 5px;
   }
+  .timestamp{
+    font-size: 14px;
+    margin-top: -10px;
+    color: var(--primary-light-text);
+    font-weight: 600;
+    font-style: italic;
+  }
 }
 
 .received-message{
   display: flex;
-  align-items: center;
-  p{
-    width: 200px;
-    font-size: 16px;
-    padding: 5px;
-    background: var(--primary-dark-text);
-    color: var(--primary-light-text);
-    border: 2px solid var(--primary-light-text);
-    border-radius: 15px 15px 15px 0;
+  flex-direction: column;
+  justify-content: center;
+  .received-message-content{
+    display: flex;
+    align-items: center;
+    .received-message-text{
+      width: 200px;
+      font-size: 16px;
+      padding: 5px;
+      background: var(--primary-dark-text);
+      color: var(--primary-light-text);
+      border: 2px solid var(--primary-light-text);
+      border-radius: 15px 15px 15px 0;
+    }
+    img{
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin:0 5px;
+      border: 2px solid var(--primary-dark-text);
+    }
   }
-  img{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin:0 5px;
-    border: 2px solid var(--primary-dark-text);
 
+  .timestamp{
+    font-size: 14px;
+    margin-top: -10px;
+    margin-left: 50px;
+    color: var(--primary-light-text);
+    font-weight: 600;
+    font-style: italic;
   }
 }
