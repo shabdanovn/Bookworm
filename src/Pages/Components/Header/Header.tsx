@@ -88,6 +88,10 @@ const Header = () => {
                          to={'/'}>{t("navigation.main")}</NavLink>
                 <NavLink className={cn('menu-item menu-nav__books', {active: location.pathname==='/books'})}
                          to={'/books'}>{t("navigation.books")}</NavLink>
+                <NavLink className={cn('menu-item menu-nav__posts', {active: location.pathname==='/posts'})}
+                         to={'/posts'}>{t("navigation.posts")}</NavLink>
+                <NavLink className={cn('menu-item menu-nav__challenges', {active: location.pathname==='/challenges'})}
+                         to={'/challenges'}>{t("navigation.challenges")}</NavLink>
                 {location.pathname==='/' && <p className={cn('menu-item menu-nav__about')} >{t("navigation.about-us")}</p>}
                 <LangDropdown />
 

@@ -7,13 +7,15 @@ import {useTheme} from "../../../hooks/useTheme";
 interface H3Props{
     text: string
     font?: boolean
+    onClick?: () => void
 }
 
-const H3 = ({text, font}: H3Props) => {
+const H3 = ({text, font, onClick}: H3Props) => {
     const {t} = useTranslation()
     const {isDark} = useTheme()
     return (
-        <p className={cn('h3', {dark: isDark, font: font})}>{t(text)}</p>
+        <p onClick={onClick}
+           className={cn('h3', {dark: isDark, font: font})}>{t(text)}</p>
     );
 };
 

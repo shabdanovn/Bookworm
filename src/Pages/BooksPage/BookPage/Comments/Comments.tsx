@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useMemo, useState} from 'react';
 import H2 from "../../../Components/H2/H2";
-import Comment from "./Comment/Comment";
+import Comment from "../../../Components/Comment/Comment";
 import cn from "classnames";
 import './Comments.scss'
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,6 @@ import NotAuthedModal from "../../../Components/ModalWindows/NotAuthedModal/NotA
 
 interface IComments {
     bookId: number | undefined
-    bookComments: CommentType[] | undefined
 }
 
 const Comments = ({bookId}: IComments) => {
@@ -32,7 +31,6 @@ const Comments = ({bookId}: IComments) => {
     useEffect(() => {
         setComments(bookComments)
     }, [bookComments])
-
 
     const clickHandler = () => {
         if(!isLoggedIn) {

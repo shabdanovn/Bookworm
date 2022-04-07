@@ -35,7 +35,7 @@ const Books = () => {
         <MainLayout>
              <div className={cn('books-page')}>
                     <div className={cn('helpers')}>
-                        <Searchbar setBooks={setBooks}/>
+                        <Searchbar setBooks={setBooks} placeholder={'books.searchbar'}/>
                         <GenresDropdown setBooks={setBooks}/>
                     </div>
                     <div className={cn('bookslist')}>

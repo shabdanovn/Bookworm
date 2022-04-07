@@ -2,6 +2,8 @@
   "navigation": {
     "main": "Главная",
     "books": "Книги",
+    "posts": "Лента",
+    "challenges": "Вызовы",
     "about-us": "О нас",
     "sign-in": "Войти",
     "sign-out": "Выйти"
@@ -64,6 +66,10 @@
       "done": "Готово",
       "no-found": "Ничего не найдено"
     }
+  },
+  "posts": {
+    "searchbar": "Имя пользователя",
+    "no-found": "Никто не найден"
   },
   "create-post": {
     "create": "Создать",

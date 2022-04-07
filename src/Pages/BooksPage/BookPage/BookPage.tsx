@@ -33,7 +33,7 @@ const BookPage = () => {
     const {isLoggedIn, user} = useAppSelector(state => state.auth)
     const {setBookId} = useGeneralContext()
     const dispatch = useAppDispatch()
-    const [book, setBook] =useState<BookCityType>(bookInfo)
+    const [book, setBook]=useState<BookCityType>(bookInfo)
     const {showComments, setShowComments} = useGeneralContext()
     const [isSaved, setIsSaved] = useState<boolean>(false)
     const {open, close, setModalContent} = useModal()
@@ -145,7 +145,7 @@ const BookPage = () => {
                     </div></>
                 }
             </div>
-            {showComments && <Comments bookId={book.book?.id} bookComments={book.book?.comments}/>}
+            {showComments && <Comments bookId={book.book?.id} />}
         </MainLayout>
     );
 };

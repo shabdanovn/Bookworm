@@ -8,6 +8,8 @@
   align-items: center;
   border: 2px solid var(--bg-dark-color);
 
+
+
   input{
     width: 89%;
     border: none;
@@ -33,6 +35,17 @@
     border-radius: 0 clamp(5px, 0.5vw, 10px) clamp(5px, 0.5vw, 10px) 0;
     img{
       width: clamp(14px, 2.5vw, 32px);
+    }
+  }
+
+  &.full{
+    width: 100%;
+    input{
+      height: clamp(30px, 3.6vw, 40px);
+
+    }
+    .search-btn{
+      height: clamp(30px, 3.6vw, 40px);
     }
   }
 

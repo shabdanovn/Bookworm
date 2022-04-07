@@ -32,8 +32,8 @@ const ProfilePage = () => {
 
     useEffect(() => {
         if(isLoggedIn) {
-            if (myBooks.length === 0) dispatch(getUsersBooks(userNew.id))
-            if (Object.keys(currentUser).length === 0) dispatch(getUser(userNew.id))
+            dispatch(getUsersBooks(userNew.id))
+            dispatch(getUser(userNew.id))
         }
     }, [])
 
@@ -64,7 +64,6 @@ const ProfilePage = () => {
                     <div className={cn('profile-page__friends')}>
                         <div className={'title-btn'}>
                             <p className={'title'}>{t('profile-page.friends')}</p>
-                            <button>{t('profile-page.see-all')}</button>
                         </div>
                         <div className={cn('friends-blocks')}>
                             <div className={cn('friends-block followers')}>
@@ -78,16 +77,36 @@ const ProfilePage = () => {
                         </div>
                     </div>
                 </div>
-                <div className={cn('profile-page__posts-part')}>
-                    <div className={cn('profile-page__posts-title  title-btn')}>
-                        <p className={'title'}>{t('profile-page.posts')}</p>
-                        <button onClick={() => navigate('my-books')}>{t('profile-page.see-all')}</button>
+                <div className={cn('profile-page__posts-reading-book-part')}>
+                    <div className={cn('reading-book-item')}>
+                        <div className={cn('profile-page__posts-title  title-btn')}>
+                            <p className={'title'}>Reading book</p>
+                            <button >Edit book</button>
+                        </div>
+
+                        <div className={cn('reading-book-item__part')}>
+                            <img src={user && user.img ? `${API_URL}/${user.img}` : avatar} alt={"User avatar pic"}/>
+                            <div>
+                                <p className={cn('book-title')}>Title</p>
+                                <p>Author</p>
+                                <p>Genre</p>
+                                <p>Start date</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className={cn('posts-part')}>
-                        {booksList.slice(0, 4).map(book => <PostItem key={book.id} book={book} />)}
+                    <div className={cn('post-part')}>
+                        <div className={cn('profile-page__posts-title  title-btn')}>
+                            <p className={'title'}>{t('profile-page.posts')}</p>
+                            <button onClick={() => navigate('my-books')}>{t('profile-page.see-all')}</button>
+                        </div>
+
+                        <div className={cn('posts-part')}>
+                            {booksList.slice(0, 2).map(book => <PostItem key={book.id} book={book} />)}
+                        </div>
                     </div>
                 </div>
+
             </div>}
         </MainLayout>
     );

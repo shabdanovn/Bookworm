@@ -8,10 +8,12 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {getSearchedBooks} from "../../../redux/slices/books.slice";
 
 interface ISearchbar{
-    setBooks:(books: BookType[]) => void
+    setBooks?:(books: BookType[]) => void
+    full?: boolean
+    placeholder: string
 }
 
-const Searchbar = ({setBooks}: ISearchbar) => {
+const Searchbar = ({setBooks, full=false, placeholder}: ISearchbar) => {
     const {t} = useTranslation()
     const [word, setWord] = useState<string>('')
     const dispatch = useAppDispatch()
@@ -28,16 +30,16 @@ const Searchbar = ({setBooks}: ISearchbar) => {
     };
 
     useEffect(() => {
-        setBooks(searchedBooks)
+        setBooks && setBooks(searchedBooks)
     }, [searchedBooks])
 
     useEffect(() => {
-        if(!word) setBooks(books)
+        if(!word && setBooks) setBooks(books)
     }, [word])
 
     return (
-        <div className={cn('searchbar')}>
-            <input type={'text'} placeholder={t('books.searchbar')}
+        <div className={cn('searchbar', {full: full})}>
+            <input type={'text'} placeholder={t(placeholder)}
                    onKeyDown={keyDownHandler}
                    value={word} onChange={(e: ChangeEvent<HTMLInputElement>) => setWord(e.target.value)}/>
             <div className={cn('search-btn')} onClick={btnClick}>

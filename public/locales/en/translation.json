@@ -2,6 +2,8 @@
   "navigation": {
     "main": "Main",
     "books": "Books",
+    "posts": "Posts",
+    "challenges": "Challenges",
     "about-us": "About us",
     "sign-in": "Sign in",
     "sign-out": "Sign out"
@@ -64,6 +66,10 @@
       "done": "Done",
       "no-found": "No items found"
     }
+  },
+  "posts": {
+    "searchbar": "Friend name or username",
+    "no-found": "No friends found"
   },
   "create-post": {
     "create": "Create",

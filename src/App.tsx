@@ -16,6 +16,9 @@ import SavedBooksPage from "./Pages/SavedBooksPage/SavedBooksPage";
 import MessagesPage from "./Pages/MessagesPage/MessagesPage";
 import GeneralContextProvider from "./Pages/Components/Context/GeneralContextProvider";
 import useAlan from "./hooks/useAlan";
+import PostsPage from "./Pages/PostsPage/PostsPage";
+import ChallengesPage from "./Pages/ChallengesPage/ChallengesPage";
+import PostPage from "./Pages/PostsPage/PostPage/PostPage";
 
 function App() {
     useAlan()
@@ -33,6 +36,9 @@ function App() {
             <Route path={'profile-page/my-books'} element={<MyBooksPage/>}/>
             <Route path={'saved-books'} element={<SavedBooksPage/>}/>
             <Route path={'messages-page'} element={<MessagesPage/>}/>
+            <Route path={'posts'} element={<PostsPage/>}/>
+            <Route path={'posts/:id'} element={<PostPage/>}/>
+            <Route path={'challenges'} element={<ChallengesPage/>}/>
             <Route path={"*"} element={<NoFoundPage/>}/>
         </Routes>
     );

@@ -41,9 +41,7 @@ const useAlan = () => {
 
     const addComment = (text:string) => {
         if(!isLoggedIn) {
-            // setModalContent(<p>Login firts</p>)
-            // open()
-            return null
+            // return null
         }else{
             const array = window.location.pathname.split('/')
             const bookId = array[array.length-1]
