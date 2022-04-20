@@ -16,6 +16,7 @@ import Bell from "../Icons/Bell/Bell";
 import UserAvatar from "../Icons/UserAvatar/UserAvatar";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import {useAppSelector} from "../../../hooks/redux";
+import CreateModal from "../ModalWindows/CreateModal/CreateModal";
 
 const Header = () => {
     const {isDark, setIsDark} = useTheme()
@@ -45,12 +46,18 @@ const Header = () => {
         open()
     }
 
+    const plusClick = () => {
+        setModalContent(<CreateModal />)
+        open()
+    }
+
+
     const Profile = () => {
         if(isAuthed){
             return <>
                 {/*<NavLink className={cn('menu-item')}*/}
                 {/*         to={'/create-post'}><AddIcon width={'28px'}/></NavLink>*/}
-                <AddIcon onClick={() => navigate('/create-post')} width={'28px'}/>
+                <AddIcon onClick={plusClick} width={'28px'}/>
                 <MessageIcon onClick={() => navigate('/messages-page')}/>
                 <Bell/>
                 <UserAvatar onClick={userAvatarHandle}/>

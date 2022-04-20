@@ -31,7 +31,7 @@ const createBook=async (data: FormData, genre:string)=> {
 
 const getAllBooks=async ()=> {
     try{
-        const response = await axios.get(`${API_URL}/books`)
+        const response = await axios.get(`${API_URL}/books`, {withCredentials: false})
         return response.data
     }catch (e){
         return e

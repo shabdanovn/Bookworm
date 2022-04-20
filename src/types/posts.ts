@@ -1,16 +1,22 @@
+import {UserType} from "./user";
+
 export type PostType = {
-    id: number,
-    img: string,
-    username: string,
-    userId: number,
-    description: string
+    id?: number,
+    img?: string,
+    userId?: number,
+    description?: string
+    user?: UserType
 }
 
 export type CreatePostType = {
-    user_id: number, //fk
-    img: string,
-    username: string,
-    userId: number,
+    img?: FileList,
+    authorId: number,
+    description: string
+}
+
+export type UpdatePostType = {
+    id: number,
+    authorId: number,
     description: string
 }
 
@@ -27,8 +33,10 @@ export type PostCommentType = {
 export type PostCreateCommentType = {
     text: string,
     authorId: number,
-    author?: string,
-    authorImg?: string,
-    postId?: number,
-    createdAt?: string,
+    postId: number,
+}
+
+export type SavePostType = {
+    userId: number,
+    postId: number
 }

@@ -1,37 +1,40 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './PostsPage.scss'
 import cn from "classnames";
 import MainLayout from "../Components/MainLayout/MainLayout";
-import boy from '../../images/boy.jpg'
-import post from '../../images/world_map_home.png'
-import {useNavigate} from "react-router-dom";
-
-const posts = [
-    {id: 1, img: boy},
-    {id: 2, img: boy},
-    {id: 3, img: boy},
-    {id: 4, img: boy},
-    {id: 5, img: boy},
-    {id: 6, img: boy},
-    {id: 7, img: boy},
-    {id: 8, img: boy},
-    {id: 9, img: post}
-]
+import PostsItem from "../Components/PostsItem/PostsItem";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {PostType} from "../../types/posts";
+import {getAllPosts, getSavedPosts} from "../../redux/slices/posts.slice";
+import Loader from "../Components/Loader/Loader";
+import {getSavedBooks} from "../../redux/slices/books.slice";
 
 const PostsPage = () => {
-    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const {posts: postsList, isLoading} = useAppSelector(state => state.posts)
+    const {isLoggedIn, user} = useAppSelector(state => state.auth)
+    const [posts, setPosts] = useState<PostType[]>(postsList)
+
+    useEffect(() => {
+        dispatch(getAllPosts())
+        if(isLoggedIn) dispatch(getSavedPosts(user.id))
+    }, [])
+
+    useEffect(() => {
+        setPosts(postsList)
+    }, [postsList])
+
     return (
         <MainLayout>
             <div className={cn('posts-page')}>
-                <div className={cn('posts-page__content')}>
-                    {posts.map(post=> {
-                        return <img key={post.id}
-                                    className={cn('posts-page__post')}
-                                    src={post.img} alt={'Post image'}
-                                    onClick={() => navigate(`/posts/${post.id}`)}
-                        />
-                    })}
-                </div>
+                {isLoading
+                    ? <Loader />
+                    :   <div className={cn('posts-page__content')}>
+                        {posts.map(post=> {
+                            return <PostsItem key={post.id} post={post}/>
+                        })}
+                    </div>
+                }
             </div>
         </MainLayout>
     );

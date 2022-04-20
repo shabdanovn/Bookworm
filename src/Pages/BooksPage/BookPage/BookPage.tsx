@@ -1,4 +1,4 @@
-import React, {MouseEvent, useEffect, useState} from 'react';
+import React, {MouseEvent, useEffect, useRef, useState} from 'react';
 import './BookPage.scss'
 import MainLayout from "../../Components/MainLayout/MainLayout";
 import cn from "classnames";
@@ -37,10 +37,11 @@ const BookPage = () => {
     const {showComments, setShowComments} = useGeneralContext()
     const [isSaved, setIsSaved] = useState<boolean>(false)
     const {open, close, setModalContent} = useModal()
+    const commentsRef = useRef<null|HTMLDivElement>(null)
 
     const showCommentsHandle = () => setShowComments(!showComments)
 
-    if(showComments) window.scrollTo(0, document.body.scrollHeight+50)
+    if(showComments) commentsRef.current?.scrollIntoView({behavior: "smooth"})
     else window.scrollTo(0,0)
 
     useEffect(() => {
@@ -100,7 +101,8 @@ const BookPage = () => {
                                 <button onClick={showCommentsHandle}>
                                     {t('book-page.comments')}</button>
                                 <div onClick={saveHandle}>
-                                    <img src={isSaved ? savedLogo : saveLogo} alt={'Save logo'}/></div>
+                                    <img src={isSaved ? savedLogo : saveLogo} alt={'Save logo'}/>
+                                </div>
                                 <button onClick={messageHandle}>{t('book-page.message')} <img src={sendLogo} alt={'Send logo'}/></button>
                             </div>
                         </div>
@@ -145,7 +147,7 @@ const BookPage = () => {
                     </div></>
                 }
             </div>
-            {showComments && <Comments bookId={book.book?.id} />}
+            {showComments && <Comments bookId={book.book?.id} ref={commentsRef}/>}
         </MainLayout>
     );
 };

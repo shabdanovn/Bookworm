@@ -1,0 +1,69 @@
+.friend-item{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: clamp(40px, 13vw, 60px);
+
+  border: 2px solid var(--primary-light-text);
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 10px 0;
+
+
+  &__content{
+    display: flex;
+    align-items: center;
+    img{
+      width: clamp(30px, 10vw, 50px);
+      height: clamp(30px, 10vw, 50px);
+
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid var(--primary-light-text);
+      margin: 0 10px;
+    }
+
+    .friend-name{
+      p{
+        font-style: normal;
+        line-height: 140%;
+        color: var(--primary-light-text);
+        margin: 0;
+      }
+
+      p:first-child{
+        font-weight: 600;
+        font-size: clamp(14px, 2.5vw, 24px);
+      }
+
+      p:last-child{
+        font-weight: 500;
+        font-size: clamp(12px, 2.5vw, 16px);
+      }
+    }
+  }
+
+  button{
+    margin-right: 10px;
+    width: clamp(80px, 11vw, 122px);
+    height: clamp(15px, 8vw, 36px);
+    background: #0C43CF;
+    border: 2px solid var(--primary-light-text);
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: clamp(14px, 2.5vw, 20px);
+    line-height: 140%;
+    color: var(--primary-dark-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover{
+      transform: scale(95%);
+    }
+  }
+}

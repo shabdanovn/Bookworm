@@ -4,6 +4,8 @@ import booksReducer from "./slices/books.slice";
 import genreReducer from "./slices/genres.slice";
 import userReducer from "./slices/user.slice";
 import chatReducer from "./slices/chat.slice";
+import postsReducer from "./slices/posts.slice";
+import friendsReducer from "./slices/friends.slice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +13,9 @@ export const store = configureStore({
         books: booksReducer,
         genres: genreReducer,
         user: userReducer,
-        chat: chatReducer
+        chat: chatReducer,
+        posts: postsReducer,
+        friends: friendsReducer
     },
     devTools: true
 })

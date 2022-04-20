@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useMemo, useState} from 'react';
+import React, {ChangeEvent, forwardRef, Ref, useEffect, useMemo, useState} from 'react';
 import H2 from "../../../Components/H2/H2";
 import Comment from "../../../Components/Comment/Comment";
 import cn from "classnames";
@@ -14,7 +14,7 @@ interface IComments {
     bookId: number | undefined
 }
 
-const Comments = ({bookId}: IComments) => {
+const Comments = forwardRef(({bookId}: IComments, ref: Ref<HTMLDivElement>) => {
     const {t} = useTranslation()
     const [text, setText] = useState<string>('')
     const {user, isLoggedIn} = useAppSelector(state => state.auth)
@@ -63,13 +63,13 @@ const Comments = ({bookId}: IComments) => {
                 })
             }
 
-            <div className={cn('add-comment')}>
+            <div className={cn('add-comment')} ref={ref}>
                 <textarea placeholder={t('comments-page.textarea-add')} value={text}
                           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>setText(e.target.value) }/>
                 <button onClick={clickHandler}>{t('comments-page.add')}</button>
             </div>
         </div>
     );
-};
+});
 
 export default Comments;

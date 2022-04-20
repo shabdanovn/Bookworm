@@ -43,6 +43,8 @@
         align-items: center;
         img{
           width: clamp(250px, 50vw, 420px);
+          height: clamp(250px, 50vw, 420px);
+          object-fit: contain;
         }
       }
 

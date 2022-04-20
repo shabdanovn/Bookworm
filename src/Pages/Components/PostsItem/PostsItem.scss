@@ -1,0 +1,35 @@
+.posts-page__post{
+  width: clamp(150px, 20vw, 230px);
+  height: clamp(150px, 20vw, 230px);
+  background-color: #333;
+  border-radius: 10px;
+  outline: 1px solid rgba(255, 255, 255, .5);
+  outline-offset: -8px;
+  box-shadow: 3px 3px 10px rgba(0,0,0, .1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--primary-dark-text);
+
+  .post-page__id{
+    position: absolute;
+    top: 0;
+    left: 15px;
+    font-weight: 600;
+    font-size: 18px;
+    text-shadow: 0 0 1px rgba(0,0,0,.5);
+    color: var(--primary-dark-text);
+  }
+  img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .6;
+    transition: transform .75s;
+
+    &:hover{
+      transform: scale(1.15);
+    }
+  }
+}

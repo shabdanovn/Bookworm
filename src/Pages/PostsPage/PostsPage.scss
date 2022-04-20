@@ -5,33 +5,19 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 
   &__content{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    height: 100vh;
-    overflow-y: scroll;
+    //height: 100vh;
+    //overflow-y: scroll;
 
-    &::-webkit-scrollbar{
-      display: none;
-    }
-
-    img{
-      width: clamp(150px, 20vw, 250px);
-      height: clamp(150px, 20vw, 250px);
-      object-fit: cover;
-      border-radius: 10px;
-      border: 2px solid var(--primary-dark-text);
-      margin:0 2px 2rem 2px;
-
-      &:hover{
-        width: calc(clamp(150px, 20vw, 250px) - 3px);
-        height: calc(clamp(150px, 20vw, 250px) - 3px);
-        transform: scale(97%);
-      }
-    }
   }
 
 

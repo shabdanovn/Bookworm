@@ -31,6 +31,8 @@ const MyBooksPage = () => {
         setBooksList(myBooks)
     }, [myBooks])
 
+    if(isLoading) return <Loader/>
+
     return (
         <MainLayout>
             {isLoading ? <Loader/> :

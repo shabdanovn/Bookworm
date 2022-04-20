@@ -32,6 +32,7 @@ const SavedBooksPage = () => {
         setBooksList(savedBooks)
     }, [savedBooks]);
 
+    if(isLoading) return <Loader/>
 
     return (
         <MainLayout>
