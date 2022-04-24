@@ -10,7 +10,7 @@ export type PostType = {
 
 export type CreatePostType = {
     img?: FileList,
-    authorId: number,
+    userId: number,
     description: string
 }
 

@@ -56,6 +56,11 @@
         font-size: 20px;
         line-height: 140%;
         color:var(--primary-light-text) !important;
+
+        span{
+          font-weight: 500;
+          font-style: italic;
+        }
       }
 
       p{

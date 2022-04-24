@@ -122,8 +122,8 @@ const ProfilePage = () => {
                 </div>
                 <div className={cn('profile-page__my-posts-challenges')}>
                     <p onClick={() => navigate('my-posts')}>My created posts</p>
-                    <p>My created challenges</p>
-                    <p>Challenges I am in</p>
+                    <p onClick={() => navigate('/my-created-challenges')}>My created challenges</p>
+                    <p onClick={() => navigate('/challenges-in')}>Challenges I am in</p>
                 </div>
             </div>}
         </MainLayout>

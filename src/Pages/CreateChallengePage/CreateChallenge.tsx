@@ -9,6 +9,7 @@ import map from '../../images/map.png'
 import './CreateChallenge.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {CreateChallengeType} from "../../types/challenges";
+import {createChallenge} from "../../redux/slices/challenges.slice";
 
 const CreateChallenge = () => {
     const {t} = useTranslation()
@@ -16,7 +17,7 @@ const CreateChallenge = () => {
     const location = useLocation()
     const navigate = useNavigate()
     // const {id} = useParams()
-    // const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
     const {user, isLoggedIn} = useAppSelector(state => state.auth)
     const [files, setFiles] = useState<FileList | null>()
     const [filesTitle, setFilesTitle] = useState<string>('')
@@ -51,7 +52,7 @@ const CreateChallenge = () => {
     // },[bookInfo])
 
     useEffect(()=>{
-        if(!isLoggedIn) navigate('/books')
+        if(!isLoggedIn) navigate('/challenges')
     }, [isLoggedIn, navigate])
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -60,55 +61,54 @@ const CreateChallenge = () => {
         setPost(item)
     }
 
-    // const formDataCreator = () => {
-    //     let formData = new FormData()
-    //     formData.append('title', post.title)
-    //     formData.append('author', post.author)
-    //     formData.append('cost', post.cost)
-    //     formData.append('conditions', post.conditions)
-    //     formData.append('state', post.state)
-    //     formData.append('notes', post.notes)
-    //     if(files) formData.append('img', files[0])
-    //     formData.append('userId', user.id)
-    //
-    //     return formData
-    // }
-    // const doneClick = () => {
-    //     if(location.pathname === '/create-post') {
-    //         if (genre.value && genre.value !== '---' && files && files[0] &&
-    //             post.author && post.state && post.title) {
-    //             const formData = formDataCreator()
-    //             dispatch(createBook({data: formData, genre: genre.value}))
-    //             navigate('/books')
-    //         }
-    //     }else{
-    //         if (files && files[0] && post.author && post.state && post.title) {
-    //             const formData = formDataCreator()
-    //             if(id) formData.append('id', id)
-    //             dispatch(updateBookWithImage(formData))
-    //             navigate('/books')
-    //         }else{
-    //             if(id && post.img){
-    //                 let data:UpdateBookType = {
-    //                     id: +id,
-    //                     title: post.title,
-    //                     author: post.author,
-    //                     cost: post.cost,
-    //                     state: post.state,
-    //                     conditions: post.conditions,
-    //                     notes: post.notes,
-    //                     userId: user.id,
-    //                     img: post.img
-    //                 }
-    //                 dispatch(updateBookWithoutImage(data))
-    //                 navigate('/books')
-    //             }
-    //         }
-    //     }
-    // }
+    const formDataCreator = () => {
+        let formData = new FormData()
+        formData.append('title', post.title)
+        formData.append('description', post.description)
+        formData.append('punishment', post.punishment)
+        formData.append('start_date', post.start_date)
+        formData.append('end_date', post.end_date)
+        if(files) formData.append('img', files[0])
+        formData.append('userId', user.id)
 
+        return formData
+    }
     const doneClick = () => {
-      alert('')
+        if(location.pathname === '/create-challenge') {
+            if (files && files[0] && post.title &&
+                post.description && post.start_date && post.end_date) {
+                const formData = formDataCreator()
+                dispatch(createChallenge(formData))
+                navigate('/challenges')
+
+                // console.log(new Date(post.start_date), new Date(post.end_date))
+            }else{
+                alert('All fields are required')
+            }
+        }else{
+            // if (files && files[0] && post.author && post.state && post.title) {
+            //     const formData = formDataCreator()
+            //     if(id) formData.append('id', id)
+            //     dispatch(updateBookWithImage(formData))
+            //     navigate('/books')
+            // }else{
+            //     if(id && post.img){
+            //         let data:UpdateBookType = {
+            //             id: +id,
+            //             title: post.title,
+            //             author: post.author,
+            //             cost: post.cost,
+            //             state: post.state,
+            //             conditions: post.conditions,
+            //             notes: post.notes,
+            //             userId: user.id,
+            //             img: post.img
+            //         }
+            //         dispatch(updateBookWithoutImage(data))
+            //         navigate('/books')
+            //     }
+            // }
+        }
     }
 
     return (
@@ -147,12 +147,12 @@ const CreateChallenge = () => {
                                 <input type={'text'}
                                        value={post.start_date} name={'start_date'}
                                        onChange={changeHandler}
-                                       placeholder={'25/02/2022'}
+                                       placeholder={'MM/DD/YYYY'}
                                        className={cn('input-item')}/>
                             </div>
                             <div className={cn('end_date')}>
                                 <p className={cn('book-title')}>End date</p>
-                                <input type={'number'} placeholder={'12/12/2022'}
+                                <input type={'text'} placeholder={'MM/DD/YYYY'}
                                        value={post.end_date} name={'end_date'}
                                        onChange={changeHandler}
                                        className={cn('input-item')}/>

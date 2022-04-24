@@ -8,67 +8,65 @@ import H2 from "../../../Components/H2/H2";
 import Comment from "../../../Components/Comment/Comment";
 import {PostCommentType} from "../../../../types/posts";
 import './ChallengeComments.scss'
+import {ChallengeCommentType, ChallengeCreateCommentType} from "../../../../types/challenges";
+import {createChallengeComment, getChallengeComments} from "../../../../redux/slices/challenges.slice";
 
 interface IChallengeComments{
-    challengeId: number
+    challengeId?: number
 }
 
 const ChallengeComments = ({challengeId}:IChallengeComments) => {
     const {t} = useTranslation()
     const [text, setText] = useState<string>('')
     const {user, isLoggedIn} = useAppSelector(state => state.auth)
-    // const {comments:postComments} = useAppSelector(state => state.posts)
+    const {comments:challengeComments} = useAppSelector(state => state.challenges)
 
-    // const [comments, setComments] = useState<PostCommentType[]|undefined>(postComments)
+    const [comments, setComments] = useState<ChallengeCommentType[]|undefined>(challengeComments)
     const {setModalContent, open, close} = useModal()
     const dispatch = useAppDispatch()
 
-    // useEffect(() => {
-        // if(postId) dispatch(getComments(bookId))
-    // }, [])
+    useEffect(() => {
+        if(challengeId) dispatch(getChallengeComments(challengeId))
+    }, [])
 
-    // useEffect(() => {
-    //     setComments(postComments)
-    // }, [postComments])
+    useEffect(() => {
+        setComments(challengeComments)
+    }, [challengeComments])
 
 
-    // const clickHandler = () => {
-    //     if(!isLoggedIn) {
-    //         setModalContent(<NotAuthedModal close={close}/>)
-    //         open()
-    //     }else{
-    //         if(text!==''){
-    //             let comment: CreateCommentType = {
-    //                 text,
-    //                 author: user.username,
-    //                 authorImg: user.img,
-    //                 bookId: bookId,
-    //                 authorId: user.id
-    //             }
-    //             dispatch(createComment(comment))
-    //             setText('')
-    //         }
-    //     }
-    // }
+    const clickHandler = () => {
+        if(!isLoggedIn) {
+            setModalContent(<NotAuthedModal close={close}/>)
+            open()
+        }else{
+            if(text!=='' && challengeId){
+                let comment: ChallengeCreateCommentType = {
+                    text,
+                    challengeId,
+                    authorId: user.id
+                }
+                dispatch(createChallengeComment(comment))
+                setText('')
+            }
+        }
+    }
 
     return (
         <div className={cn('challenge-comments-page')}>
             <H2 text={t('comments-page.title')}/>
             {
-                // comments && comments
-                //     .map((comment) => {
-                //         return (
-                //             <Comment key={comment.id} comment={comment}/>
-                //         )
-                //     })
+                comments && comments
+                    .map((comment) => {
+                        return (
+                            <Comment key={comment.id} comment={comment}/>
+                        )
+                    })
             }
-
-            {challengeId}
 
             <div className={cn('add-comment')}>
                 <textarea placeholder={t('comments-page.textarea-add')} value={text}
                           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>setText(e.target.value) }/>
-                <button>{t('comments-page.add')}</button>
+                <button onClick={clickHandler}>{t('comments-page.add')}</button>
             </div>
         </div>
     );

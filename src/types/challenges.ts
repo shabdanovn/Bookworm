@@ -18,3 +18,24 @@ export type ChallengeType = {
     end_date: string,
     userId: number
 }
+
+export type AddUserToChallengeType = {
+    "userId": number,
+    "challengeId": number
+}
+
+export type ChallengeCommentType = {
+    id: number,
+    text: string,
+    authorId: number,
+    author?: string,
+    authorImg?: string,
+    challengeId?: number,
+    createdAt?: string,
+}
+
+export type ChallengeCreateCommentType = {
+    text: string,
+    authorId: number,
+    challengeId: number,
+}

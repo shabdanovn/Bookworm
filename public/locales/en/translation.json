@@ -87,7 +87,8 @@
     "description-placeholder": "Aleph is a 2011 novel by the Brazilian writer Paulo Coelho. An autobiographical account, it is his fourteenth major book, and touches on the theme of spirituality."
   },
   "auth-burger-menu": {
-    "saved": "Saved",
+    "saved": "Saved books",
+    "saved-posts": "Saved posts",
     "my-books": "My books",
     "notifications": "Notifications",
     "messages": "Messages",

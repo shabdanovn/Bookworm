@@ -9,6 +9,7 @@ import map from '../../images/map.png'
 import './CreatePost.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {CreatePostType} from "../../types/posts";
+import {createPost} from "../../redux/slices/posts.slice";
 
 const CreatePost = () => {
     const {t} = useTranslation()
@@ -16,14 +17,14 @@ const CreatePost = () => {
     const location = useLocation()
     const navigate = useNavigate()
     // const {id} = useParams()
-    // const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
     const {user, isLoggedIn} = useAppSelector(state => state.auth)
     // const {bookInfo} = useAppSelector(state => state.books)
     const [files, setFiles] = useState<FileList | null>()
     const [filesTitle, setFilesTitle] = useState<string>('')
 
     const [post, setPost] = useState<CreatePostType>({
-        authorId: user.id,
+        userId: user.id,
         description: ''
     })
 
@@ -58,56 +59,46 @@ const CreatePost = () => {
     }
 
 
-    // const formDataCreator = () => {
-    //     let formData = new FormData()
-    //     formData.append('title', post.title)
-    //     formData.append('author', post.author)
-    //     formData.append('cost', post.cost)
-    //     formData.append('conditions', post.conditions)
-    //     formData.append('state', post.state)
-    //     formData.append('notes', post.notes)
-    //     if(files) formData.append('img', files[0])
-    //     formData.append('userId', user.id)
-    //
-    //     return formData
-    // }
+    const formDataCreator = () => {
+        let formData = new FormData()
+        formData.append('description', post.description)
+        if(files) formData.append('img', files[0])
+        formData.append('userId', user.id)
 
-    // const doneClick = () => {
-    //     if(location.pathname === '/create-post') {
-    //         if (genre.value && genre.value !== '---' && files && files[0] &&
-    //             post.author && post.state && post.title) {
-    //             const formData = formDataCreator()
-    //             dispatch(createBook({data: formData, genre: genre.value}))
-    //             navigate('/books')
-    //         }
-    //     }else{
-    //         if (files && files[0] && post.author && post.state && post.title) {
-    //             const formData = formDataCreator()
-    //             if(id) formData.append('id', id)
-    //             dispatch(updateBookWithImage(formData))
-    //             navigate('/books')
-    //         }else{
-    //             if(id && post.img){
-    //                 let data:UpdateBookType = {
-    //                     id: +id,
-    //                     title: post.title,
-    //                     author: post.author,
-    //                     cost: post.cost,
-    //                     state: post.state,
-    //                     conditions: post.conditions,
-    //                     notes: post.notes,
-    //                     userId: user.id,
-    //                     img: post.img
-    //                 }
-    //                 dispatch(updateBookWithoutImage(data))
-    //                 navigate('/books')
-    //             }
-    //         }
-    //     }
-    // }
+        return formData
+    }
 
     const doneClick = () => {
-        console.log('asd')
+        if(location.pathname === '/create-post-post') {
+            if (files && files[0] && post.description) {
+                const formData = formDataCreator()
+                dispatch(createPost(formData))
+                navigate('/posts')
+            }
+        }else{
+            // if (files && files[0] && post.author && post.state && post.title) {
+            //     const formData = formDataCreator()
+            //     if(id) formData.append('id', id)
+            //     dispatch(updateBookWithImage(formData))
+            //     navigate('/books')
+            // }else{
+            //     if(id && post.img){
+            //         let data:UpdateBookType = {
+            //             id: +id,
+            //             title: post.title,
+            //             author: post.author,
+            //             cost: post.cost,
+            //             state: post.state,
+            //             conditions: post.conditions,
+            //             notes: post.notes,
+            //             userId: user.id,
+            //             img: post.img
+            //         }
+            //         dispatch(updateBookWithoutImage(data))
+            //         navigate('/books')
+            //     }
+            // }
+        }
     }
 
     return (
@@ -138,7 +129,6 @@ const CreatePost = () => {
                                       onChange={changeHandler}
                                       placeholder={t('create-post.description-placeholder')}/>
                         </div>
-
 
                         <button onClick={doneClick}>
                             {location.pathname==='/create-post'

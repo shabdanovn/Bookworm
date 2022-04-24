@@ -24,6 +24,7 @@ import ChallengePage from "./Pages/ChallengesPage/ChallengePage/ChallengePage";
 import CreateReadingBook from "./Pages/CreateReadingBookPage/CreateReadingBook";
 import SavedPostsPage from "./Pages/SavedPostsPage/SavedPostsPage";
 import MyPostsPage from "./Pages/MyPostsPage/MyPostsPage";
+import MyChallengesPage from "./Pages/MyChallengesPage/MyChallengesPage";
 
 function App() {
     useAlan()
@@ -47,6 +48,8 @@ function App() {
             <Route path={'saved-posts'} element={<SavedPostsPage/>}/>
             <Route path={'profile-page/my-posts'} element={<MyPostsPage/>}/>
             <Route path={'challenges'} element={<ChallengesPage/>}/>
+            <Route path={'my-created-challenges'} element={<MyChallengesPage/>}/>
+            <Route path={'challenges-in'} element={<MyChallengesPage/>}/>
             <Route path={'challenges/:id'} element={<ChallengePage/>}/>
             <Route path={'create-challenge'} element={<CreateChallenge/>}/>
             <Route path={'followers'} element={<FollowersPage/>}/>

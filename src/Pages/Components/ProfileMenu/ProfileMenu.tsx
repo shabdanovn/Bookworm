@@ -57,7 +57,7 @@ const ProfileMenu = () => {
                      className={cn('saved')}>
                     <img src={saved} alt={'Saved logo'}/>
                     {/*<p>{t('auth-burger-menu.saved')}</p>*/}
-                    <p>Saved Posts</p>
+                    <p>{t('auth-burger-menu.saved-posts')}</p>
                 </div>
                 <div className={cn('my-posts')}
                      onClick={()=> clickHandle('/profile-page/my-books')}>

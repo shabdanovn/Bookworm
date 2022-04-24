@@ -7,12 +7,9 @@ import BookItem from "../Components/BookItem/BookItem";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {getUsersBooks} from "../../redux/slices/books.slice";
-import {BookType} from "../../types/books";
 import Loader from "../Components/Loader/Loader";
 import {PostType} from "../../types/posts";
 import {getUsersPosts} from "../../redux/slices/posts.slice";
-import {my} from "timeago.js/lib/lang";
 import PostsItem from "../Components/PostsItem/PostsItem";
 
 const MyPostsPage = () => {

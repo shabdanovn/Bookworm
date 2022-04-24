@@ -6,6 +6,7 @@ import userReducer from "./slices/user.slice";
 import chatReducer from "./slices/chat.slice";
 import postsReducer from "./slices/posts.slice";
 import friendsReducer from "./slices/friends.slice";
+import challengesReducer from "./slices/challenges.slice";
 
 export const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
         user: userReducer,
         chat: chatReducer,
         posts: postsReducer,
-        friends: friendsReducer
+        friends: friendsReducer,
+        challenges: challengesReducer
     },
     devTools: true
 })
