@@ -8,6 +8,13 @@ import {useTheme} from "./useTheme";
 import {createComment, getAllBooks, getFilteredBooks, getSearchedBooks} from "../redux/slices/books.slice";
 import {useGeneralContext} from "./useGeneralContext";
 import { CreateCommentType} from "../types/books";
+import useModal from "./useModal";
+import NotAuthedModal from "../Pages/Components/ModalWindows/NotAuthedModal/NotAuthedModal";
+import {PostCreateCommentType} from "../types/posts";
+import {createPostComment} from "../redux/slices/posts.slice";
+import {ChallengeCreateCommentType} from "../types/challenges";
+import {createChallengeComment} from "../redux/slices/challenges.slice";
+import {toast, ToastContainer} from 'react-toastify'
 
 interface ICommandData{
     command: string
@@ -25,6 +32,7 @@ const useAlan = () => {
     const dispatch = useAppDispatch()
     const {setIsDark} = useTheme()
     const {setShowComments} = useGeneralContext()
+    const {setModalContent, open, close} = useModal()
 
     const parseNum = (number:string) => {
         return number.length > 2 ? wordsToNumbers(number, {fuzzy: true}) : number
@@ -40,21 +48,60 @@ const useAlan = () => {
 
     const findAllBooks = () => dispatch(getAllBooks())
 
+    const commentToBook = (text:string, id:number) => {
+        let comment: CreateCommentType = {
+            text,
+            author: user.username,
+            authorImg: user.img,
+            bookId: id,
+            authorId: user.id
+        }
+        dispatch(createComment(comment))
+    }
+
+    const commentToPost = (text:string, id:number) => {
+        let comment: PostCreateCommentType = {
+            text,
+            postId: id,
+            authorId: user.id
+        }
+        dispatch(createPostComment(comment))
+    }
+
+    const commentToChallenge = (text:string, id:number) => {
+        let comment: ChallengeCreateCommentType = {
+            text,
+            challengeId: id,
+            authorId: user.id
+        }
+        dispatch(createChallengeComment(comment))
+    }
+
     const addComment = (text:string) => {
         if(!isLoggedIn) {
-            // return null
+            console.log('you gere')
+            setModalContent(<NotAuthedModal close={close } />)
+            open()
         }else{
             const array = window.location.pathname.split('/')
-            const bookId = array[array.length-1]
+            const id = array[array.length-1]
             if(text!==''){
-                let comment: CreateCommentType = {
-                    text,
-                    author: user.username,
-                    authorImg: user.img,
-                    bookId: +bookId,
-                    authorId: user.id
-                }
-                dispatch(createComment(comment))
+                if(array[array.length-2]==='books')
+                     commentToBook(text, +id)
+                if(array[array.length-2]==='posts')
+                    commentToPost(text, +id)
+                if(array[array.length-2]==='challenges')
+                    commentToChallenge(text, +id)
+                toast('👍 Your comment was added!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                <ToastContainer />
             }
         }
     }
@@ -67,6 +114,8 @@ const useAlan = () => {
             onCommand: ({command, number, word, genre, text}: ICommandData) => {
                 switch (command){
                     case 'books':
+                    case 'posts':
+                    case 'challenges':
                     case 'sign-in':
                     case 'sign-up':
                         navigate(`/${command}`)
@@ -74,9 +123,16 @@ const useAlan = () => {
                     case 'goBack': navigate(-1); break
                     case 'sign-out': dispatch(logout()); break
                     case 'profile-page':
+                    case 'my-created-challenges':
+                    case 'challenges-in':
+                    case 'followers':
+                    case 'followings':
                         if (isLoggedIn) navigate(`/${command}`)
                         break
                     case 'my-books':
+                        if (isLoggedIn) navigate(`/profile-page/${command}`)
+                        break
+                    case 'my-posts':
                         if (isLoggedIn) navigate(`/profile-page/${command}`)
                         break
                     case 'saved-books':
@@ -89,11 +145,33 @@ const useAlan = () => {
                             alanBtn().playText('Jasdasd')
                         }
                         break
+                    case 'saved-posts':
+                        if (isLoggedIn) navigate(`/${command}`)
+                        else {
+                            // alanBtn().callProjectApi("checkAuthed", {
+                            //     isLoggedIn: isLoggedIn
+                            // }, function(error, result) {});
+                            //@ts-ignore
+                            alanBtn().playText('Jasdasd')
+                        }
+                        break
                     case 'open-book':
                         navigate(`/books/${parseNum(number)}`)
                         break
+                    case 'open-post':
+                        navigate(`/posts/${parseNum(number)}`)
+                        break
+                    case 'open-challenge':
+                        navigate(`/challenges/${parseNum(number)}`)
+                        break
                     case 'main': navigate(`/`); break;
                     case "create-post":
+                        if (isLoggedIn) navigate(`/${command}`)
+                        break
+                    case "create-challenge":
+                        if (isLoggedIn) navigate(`/${command}`)
+                        break
+                    case "create-post-post":
                         if (isLoggedIn) navigate(`/${command}`)
                         break
                     case "edit-post":

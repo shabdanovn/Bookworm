@@ -7,18 +7,21 @@ import {useTranslation} from "react-i18next";
 import {CommentType} from "../../../types/books";
 import {API_URL} from "../../../utils/constants";
 import {PostCommentType} from "../../../types/posts";
+import {ChallengeCommentType} from "../../../types/challenges";
+import {useNavigate} from "react-router-dom";
 
 interface IComment{
-    comment: CommentType | PostCommentType
+    comment: CommentType | PostCommentType | ChallengeCommentType
 }
 
 const Comment = ({comment}: IComment) => {
     const {isDark} = useTheme()
     const {t} = useTranslation()
+    const navigate = useNavigate()
 
     return (
         <div className={cn('comment', {dark: isDark})}>
-            <div className={cn('author')}>
+            <div className={cn('author')} onClick={()=> navigate(`/user-profile-page/${comment.authorId}`)}>
                 <div className={cn('avatar')}>
                     <img src={comment.authorImg ? `${API_URL}/${comment.authorImg}`: username} alt={'Username logo'}/>
                 </div>

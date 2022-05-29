@@ -56,6 +56,8 @@
   "books": {
     "searchbar": "Title or author",
     "no-found": "No books found",
+    "all-books": "All books",
+    "kyrgyz-books": "Kyrgyz books",
     "filters": {
       "title": "Filters",
       "genre": "Genre",
@@ -64,12 +66,27 @@
       "free": "Free",
       "bookcrossing": "Bookcrossing",
       "done": "Done",
-      "no-found": "No items found"
+      "no-found": "No items found",
+      "language": "Language"
     }
   },
   "posts": {
     "searchbar": "Friend name or username",
-    "no-found": "No friends found"
+    "no-found": "No friends found",
+    "Post": "Post"
+  },
+  "challenges": {
+    "description": "Description",
+    "start-date": "Start date",
+    "end-date": "End date",
+    "punishment": "Punishment",
+    "leave": "LEAVE",
+    "join": "JOIN"
+  },
+  "create": {
+    "create-book": "Create a book",
+    "create-post": "Create a post",
+    "create-challenge": "Create a challenge"
   },
   "create-post": {
     "create": "Create",
@@ -86,6 +103,7 @@
     "author-placeholder": "Paulo Coelho",
     "description-placeholder": "Aleph is a 2011 novel by the Brazilian writer Paulo Coelho. An autobiographical account, it is his fourteenth major book, and touches on the theme of spirituality."
   },
+
   "auth-burger-menu": {
     "saved": "Saved books",
     "saved-posts": "Saved posts",
@@ -165,6 +183,8 @@
     "Poetry": "Poetry",
     "Romans": "Romans",
     "Thriller": "Thriller",
+    "Adult": "Adult",
+    "Education": "Education",
     "All": "All"
   }
 }

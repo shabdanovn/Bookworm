@@ -16,12 +16,13 @@
   }
 
   .book-img{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
     object-fit: cover;
     border-radius: 10px;
     width: clamp(100px, 13vw, 220px);
     height: clamp(100px, 14vw, 220px);
-    //object-fit: cover;
-    margin: 2% 16%;
   }
 
   .price-actions-group{
@@ -59,23 +60,35 @@
   }
   .book-title, .id{
     font-weight: 600;
-    font-size: clamp(12px, 1.2vw,18px);
+    font-size: clamp(12px, 1.3vw,18px);
     line-height: 140%;
     color: var(--primary-light-text);
   }
 
   .book-title{
-    width: 90%;
-    margin:1% 0 0 1rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
   }
 
   .book-author{
-    width: 90%;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
     font-weight: 500;
-    font-size: clamp(10px, 1.2vw,14px);
+    font-size: clamp(12px, 1.2vw,16px);
     line-height: 140%;
     color: rgba(30, 33, 45, 0.46);
-    margin:1% 0 0 1rem;
+    //margin:1% 0 0 1rem;
   }
 
   .id{

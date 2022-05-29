@@ -18,6 +18,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {getPost, getSavedPosts, removeSavedPost, savePost} from "../../../redux/slices/posts.slice";
 import NotAuthedModal from "../../Components/ModalWindows/NotAuthedModal/NotAuthedModal";
 import useModal from "../../../hooks/useModal";
+import {toast, ToastContainer} from "react-toastify";
 
 const PostPage = () => {
     const {id} = useParams()
@@ -36,7 +37,7 @@ const PostPage = () => {
     useEffect(() => {
         setShowComments(false)
         if(id) dispatch(getPost(+id))
-        if(savedPosts.length === 0) dispatch(getSavedPosts(user.id))
+        if(savedPosts.length === 0 && user) dispatch(getSavedPosts(user.id))
         if(id && savedPosts.find(item => item.id === +id))
             setIsSaved(true)
     }, []);
@@ -64,10 +65,28 @@ const PostPage = () => {
                 if(isSaved) {
                     dispatch(removeSavedPost({userId: user.id, postId: +id}))
                     setIsSaved(false)
+                    toast('📰 Post is unsaved!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 }
                 else {
                     dispatch(savePost({userId: user.id, postId: +id}))
                     setIsSaved(true)
+                    toast('📰 Post is saved!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 }
             }
         }
@@ -97,6 +116,7 @@ const PostPage = () => {
                         </div>
                 {/*    </>*/}
                 {/*}*/}
+                <ToastContainer/>
             </div>
             {showComments && <PostComments  postId={post.id} ref={commentsRef}/>}
         </MainLayout>

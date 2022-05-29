@@ -1,4 +1,6 @@
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Main from "./Pages/MainPage/Main";
 import { Route, Routes } from "react-router-dom";
 import SignInPage from "./Pages/RegistrationPage/Signin/SignInPage";
@@ -25,6 +27,7 @@ import CreateReadingBook from "./Pages/CreateReadingBookPage/CreateReadingBook";
 import SavedPostsPage from "./Pages/SavedPostsPage/SavedPostsPage";
 import MyPostsPage from "./Pages/MyPostsPage/MyPostsPage";
 import MyChallengesPage from "./Pages/MyChallengesPage/MyChallengesPage";
+import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 
 function App() {
     useAlan()
@@ -55,6 +58,7 @@ function App() {
             <Route path={'followers'} element={<FollowersPage/>}/>
             <Route path={'followings'} element={<FollowingsPage/>}/>
             <Route path={'profile-page/edit-reading-book'} element={<CreateReadingBook/>}/>
+            <Route path={'user-profile-page/:id'} element={<UserProfilePage/>}/>
             <Route path={"*"} element={<NoFoundPage/>}/>
         </Routes>
     );

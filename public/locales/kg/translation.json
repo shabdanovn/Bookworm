@@ -57,6 +57,8 @@
   "books": {
     "searchbar": "Китеп же автору",
     "no-found": "Китептер табылган жок",
+    "all-books": "Баардык китептер",
+    "kyrgyz-books": "Кыргызча китептер",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
@@ -65,16 +67,33 @@
       "free": "Бекер",
       "bookcrossing": "Буккроссинг",
       "done": "Издоо",
-      "no-found": "Эч нерсе табылган жок"
+      "no-found": "Эч нерсе табылган жок",
+      "language": "Тили"
     }
   },
   "posts": {
     "searchbar": "Досунузудун аты-жону",
-    "no-found": "Эч ким табылган жок"
+    "no-found": "Эч ким табылган жок",
+    "Post": "Пост"
   },
+
+  "challenges": {
+    "description": "Маалымат",
+    "start-date": "Башталган дата",
+    "end-date": "Буткон дата",
+    "punishment": "Жаза",
+    "leave": "ЧЫГУУ",
+    "join": "КОШУЛУУ"
+  },
+  "create": {
+    "create-book": "Китеп киргизуу",
+    "create-post": "Пост киргизуу",
+    "create-challenge": "Челлендж киргизуу"
+  },
+
   "create-post": {
     "create": "Жуктоо",
-    "save": "Сакоо",
+    "save": "Сактоо",
     "title-create": "Жаны пост жуктоо",
     "title-edit": "Постту ондоо",
     "picture": "Сурот тандоо",
@@ -166,6 +185,8 @@
     "Poetry": "Поэзия",
     "Romans": "Романдар",
     "Thriller": "Триллер",
+    "Adult": "Чондор учун",
+    "Education": "Билим",
     "All": "Баардыгы"
   }
 }

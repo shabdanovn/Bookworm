@@ -1,4 +1,4 @@
-.profile-page{
+.user-profile-page{
   min-height: 93vh;
   align-items: center;
   color: var(--primary-light-text);
@@ -77,8 +77,8 @@
             color: rgba(30, 33, 45, 0.71);
             margin: 1rem 0;
             overflow: hidden;
-            text-overflow: ellipsis;
             white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &__fullname{

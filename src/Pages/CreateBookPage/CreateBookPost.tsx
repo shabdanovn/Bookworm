@@ -26,10 +26,16 @@ const CreateBookPost = () => {
     const {bookInfo} = useAppSelector(state => state.books)
     const [files, setFiles] = useState<FileList | null>()
     const [filesTitle, setFilesTitle] = useState<string>('')
-    const [genre, setGenre] = useState<IOption>({value: "---", label: "---"})
+    const [genre, setGenre] = useState<IOption>({value: t(`genres.All`), label: t(`genres.All`)})
     const [genresList, setGenresList] = useState<IOption[]>(genres)
+    const [language, setLanguage] = useState<IOption>({value: "---", label: "---"})
 
-    // const [city, setCity] = useState<IOption>({value: '', label:''})
+    const languageOptions = [
+        {value: "english", label: "English"},
+        {value: "russian", label: "Русский"},
+        {value: "kyrgyz", label: "Кыргызча"}
+    ]
+
     const [post, setPost] = useState<CreateBookType>({
         title: "",
         author: "",
@@ -44,7 +50,7 @@ const CreateBookPost = () => {
         if(id) dispatch(getBook(+id))
     },[])
 
-    useEffect(() => GenresList({genres, setGenresList}),[genres])
+    useEffect(() => GenresList({genres, setGenresList, t}),[genres])
     useEffect(() =>{
         if(location.pathname!=='/create-post'
             && bookInfo.book?.title && bookInfo.book?.author
@@ -76,7 +82,7 @@ const CreateBookPost = () => {
     }
 
     const onChangeGenre = (newValue: OnChangeValue<IOption, boolean>) => setGenre(newValue as IOption)
-    // const onChangeCity = (newValue: OnChangeValue<IOption, boolean>) => setCity(newValue as IOption)
+    const onChangeLanguage = (newValue: OnChangeValue<IOption, boolean>) => setLanguage(newValue as IOption)
 
     const formDataCreator = () => {
         let formData = new FormData()
@@ -86,6 +92,7 @@ const CreateBookPost = () => {
         formData.append('conditions', post.conditions)
         formData.append('state', post.state)
         formData.append('notes', post.notes)
+        if(language && language.value) formData.append('language', language.value)
         if(files) formData.append('img', files[0])
         formData.append('userId', user.id)
 
@@ -106,7 +113,7 @@ const CreateBookPost = () => {
                 dispatch(updateBookWithImage(formData))
                 navigate('/books')
             }else{
-                if(id && post.img){
+                if(id && post.img && language.value){
                     let data:UpdateBookType = {
                         id: +id,
                         title: post.title,
@@ -116,7 +123,8 @@ const CreateBookPost = () => {
                         conditions: post.conditions,
                         notes: post.notes,
                         userId: user.id,
-                        img: post.img
+                        img: post.img,
+                        language: language.value
                     }
                     dispatch(updateBookWithoutImage(data))
                     navigate('/books')
@@ -170,6 +178,16 @@ const CreateBookPost = () => {
                                             placeholder={'Choose...'}
                                             options={genresList}
                                             value={genre} onChange={onChangeGenre}
+                                            isMulti={false} isSearchable
+                                    />
+                                </div>
+
+                                <div className={cn('language')}>
+                                    <p className={cn('book-title')}>{t('books.filters.language')}</p>
+                                    <Select classNamePrefix={cn('input-item')}
+                                            placeholder={'Choose...'}
+                                            options={languageOptions}
+                                            value={language} onChange={onChangeLanguage}
                                             isMulti={false} isSearchable
                                     />
                                 </div>

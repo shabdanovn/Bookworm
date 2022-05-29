@@ -3,6 +3,7 @@ import cn from "classnames";
 import './CreateModal.scss'
 import useModal from "../../../../hooks/useModal";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 enum CreateType {
     Book,
@@ -11,6 +12,7 @@ enum CreateType {
 }
 
 const CreateModal = () => {
+    const {t} = useTranslation()
     const {close} = useModal()
     const navigate = useNavigate()
 
@@ -23,9 +25,9 @@ const CreateModal = () => {
 
     return (
         <div className={cn('create-modal')}>
-            <p onClick={() => navigateHandle(CreateType.Book)}>Create a book</p>
-            <p onClick={() => navigateHandle(CreateType.Post)}>Create a post</p>
-            <p onClick={() => navigateHandle(CreateType.Challenge)}>Create a challenge</p>
+            <p onClick={() => navigateHandle(CreateType.Book)}>{t('create.create-book')}</p>
+            <p onClick={() => navigateHandle(CreateType.Post)}>{t('create.create-post')}</p>
+            <p onClick={() => navigateHandle(CreateType.Challenge)}>{t('create.create-challenge')}</p>
         </div>
     );
 };

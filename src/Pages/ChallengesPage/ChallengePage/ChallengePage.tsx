@@ -35,12 +35,10 @@ const ChallengePage = () => {
     const {setModalContent, open, close} = useModal()
     const [isMember, setIsMember] = useState<boolean>(false)
 
-
-
     useEffect(() => {
         setShowComments(false)
         if(id) dispatch(getChallenge(+id))
-        dispatch(getUserInChallenges(user.id))
+        if(user) dispatch(getUserInChallenges(user.id))
     }, []);
 
     useEffect(() => {
@@ -85,19 +83,19 @@ const ChallengePage = () => {
                              src={challenge && challenge.img ? `${API_URL}/${challenge.img}` : avatar}/>
                         <div className={cn('buttons')}>
                             <button onClick={commentsClick}>{t('book-page.comments')}</button>
-                            <button onClick={joinClick}>{isMember ? "LEAVE" : "JOIN"}</button>
+                            <button onClick={joinClick}>{isMember ? t('challenges.leave') : t('challenges.join')}</button>
                         </div>
                     </div>
                     <div className={cn('challenge-descr')}>
-                        <p className={cn('descr-title')}>Description:</p>
+                        <p className={cn('descr-title')}>{t('challenges.description')}:</p>
                         <p>{challenge?.description}</p>
-                        <p className={cn('descr-title')}>Start date:
+                        <p className={cn('descr-title')}>{t('challenges.start-date')}:
                             <span> {challenge && new Date(challenge?.start_date).toLocaleDateString()}</span>
                         </p>
-                        <p className={cn('descr-title')}>End date:
+                        <p className={cn('descr-title')}>{t('challenges.end-date')}:
                             <span> {challenge && new Date(challenge?.end_date).toLocaleDateString()}</span>
                         </p>
-                        <p className={cn('descr-title')}>Punishment:</p>
+                        <p className={cn('descr-title')}>{t('challenges.punishment')}:</p>
                         <p>{challenge?.punishment}</p>
                     </div>
                 </div>

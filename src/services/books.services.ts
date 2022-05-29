@@ -16,14 +16,64 @@ const addGenreToBook=async (genre: AttachGenreType)=> {
     }
 }
 
+enum GenreEnum{
+    "Detective"="Detective",
+    "Детектив"="Detective",
+    "Sci-Fi"="Sci-Fi",
+    "Илимий-Фантастикалык"="Sci-Fi",
+    "Научная фантастика"="Sci-Fi",
+    "Horror"="Horror",
+    "Ужас"="Horror",
+    "Ужасы"="Horror",
+    "Adventure"="Adventure",
+    "Укмуштуу окуялар"="Adventure",
+    "Приключение"="Adventure",
+    "Biography"="Biography",
+    "Өмүр баяны"="Biography",
+    "Биография"="Biography",
+    "Business"="Business",
+    "Бизнес"="Business",
+    "Classics"="Classics",
+    "Классика"="Classics",
+    "Crime"="Crime",
+    "Кылмыш"="Crime",
+    "Преступление"="Crime",
+    "Fantasy"="Fantasy",
+    "Фантастика"="Fantasy",
+    "History"="History",
+    "История"="History",
+    "Тарых"="History",
+    "Literary"="Literary",
+    "Адабий"="Literary",
+    "Литература"="Literary",
+    "Mystery"="Mystery",
+    "Мистика"="Mystery",
+    "Poetry"="Poetry",
+    "Поэзия"="Poetry",
+    "Romans"="Romans",
+    "Романы"="Romans",
+    "Романдар"="Romans",
+    "Thriller"="Thriller",
+    "Триллер"="Thriller",
+    "Adult"="Adult",
+    "Чондор учун"="Adult",
+    "Взрослое"="Adult",
+    "Education"="Education",
+    "Билим"="Education",
+    "Образование"="Education"
+}
+
 const createBook=async (data: FormData, genre:string)=> {
     try{
+        // @ts-ignore
+        const temp = GenreEnum[`${genre}`]
+        // console.log(temp)
         await axios.post(`${API_URL}/books`, data,{
             headers: {
                 Authorization: 'Bearer ' + authHeader()
             }
         })
-            .then((response) => addGenreToBook({name: genre, bookId: response.data.id}))
+            .then((response) => addGenreToBook({name: temp, bookId: response.data.id}))
     }catch (e){
         return e
     }
@@ -125,7 +175,9 @@ const getSearchedBooks=async (word:string)=> {
 
 const getFilteredBooks=async (word:string)=> {
     try{
-        const response = await axios.get(`${API_URL}/books/search/genre/${word}`)
+        // @ts-ignore
+        const temp = GenreEnum[`${word}`]
+        const response = await axios.get(`${API_URL}/books/search/genre/${temp}`)
         return response.data
     }catch (e){
         return e

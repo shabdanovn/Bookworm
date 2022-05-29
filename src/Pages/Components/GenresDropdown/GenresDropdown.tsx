@@ -15,7 +15,7 @@ interface IGenresDropdownProps{
 
 const GenresDropdown = ({setBooks}: IGenresDropdownProps) => {
     const {t} = useTranslation()
-    const [genre, setGenre] = useState<IOption>({value: "---", label: "---"})
+    const [genre, setGenre] = useState<IOption>({value: t(`genres.All`), label: t(`genres.All`)})
     const {genres, isLoading} = useAppSelector(state => state.genres)
     const [genresList, setGenresList] = useState<IOption[]>(genres)
     const {books} = useAppSelector(state => state.books)
@@ -31,13 +31,13 @@ const GenresDropdown = ({setBooks}: IGenresDropdownProps) => {
     },[])
 
     useEffect(() => {
-        if(genre.value && genre.value!=="---") dispatch(getFilteredBooks(genre.value))
+        if(genre.value && genre.value!==t(`genres.All`)) dispatch(getFilteredBooks(genre.value))
         else setBooks(books)
     }, [genre]);
 
 
     useEffect(() => {
-        GenresList({genres, setGenresList})
+        GenresList({genres, setGenresList, t})
     },[genres])
 
     // const changeValue = ():IOption => {

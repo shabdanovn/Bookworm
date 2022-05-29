@@ -5,6 +5,8 @@ import {useTheme} from "../../../../hooks/useTheme";
 import {useAppDispatch} from "../../../../hooks/redux";
 import {addConversation} from "../../../../redux/slices/chat.slice";
 
+
+
 interface IMessageModal {
     username?: string
     receiverId?: number
@@ -30,6 +32,7 @@ const MessageModal = ({username, senderId, receiverId, close}: IMessageModal) =>
                 <textarea value={text} onChange={e => setText(e.target.value)}/>
             </div>
             <button onClick={sendClick}>Send</button>
+
         </div>
     );
 };

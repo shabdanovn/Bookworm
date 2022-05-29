@@ -54,6 +54,7 @@ export type BookType = {
     author?: string,
     notes?: string,
     img?: string | null,
+    image?: any,
     cost?: string,
     conditions?: string,
     userId?: number,
@@ -61,6 +62,7 @@ export type BookType = {
     user?: UserType,
     genres?: GenreType[],
     comments?: CommentType[],
+    language?: string
 }
 
 export type CreateBookType = {
@@ -71,7 +73,8 @@ export type CreateBookType = {
     cost: string,
     conditions: string,
     userId?: number,
-    state: string
+    state: string,
+    language?: string
 }
 
 export type UpdateBookType = {
@@ -84,6 +87,7 @@ export type UpdateBookType = {
     img: string|FileList,
     userId: number,
     state: string,
+    language: string
 }
 
 export type SavedBookType = {

@@ -56,6 +56,8 @@
   "books": {
     "searchbar": "Название книги или автор",
     "no-found": "Книг не найдено",
+    "all-books": "Все книги",
+    "kyrgyz-books": "Книги на кыргызском",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
@@ -64,12 +66,27 @@
       "free": "Бесплатно",
       "bookcrossing": "Буккроссинг",
       "done": "Готово",
-      "no-found": "Ничего не найдено"
+      "no-found": "Ничего не найдено",
+      "language": "Язык"
     }
   },
   "posts": {
     "searchbar": "Имя пользователя",
-    "no-found": "Никто не найден"
+    "no-found": "Никто не найден",
+    "Post": "Пост"
+  },
+  "challenges": {
+    "description": "Описание",
+    "start-date": "Начало",
+    "end-date": "Конец",
+    "punishment": "Наказание",
+    "leave": "ПОКИНУТЬ",
+    "join": "ПРИНЯТЬ"
+  },
+  "create": {
+    "create-book": "Добавить книгу",
+    "create-post": "Добавить пост",
+    "create-challenge": "Добавить челлендж"
   },
   "create-post": {
     "create": "Создать",
@@ -166,6 +183,8 @@
     "Poetry": "Поэзия",
     "Romans": "Романы",
     "Thriller": "Триллер",
+    "Adult": "Взрослое",
+    "Education": "Образование",
     "All": "Все"
   }
 }
