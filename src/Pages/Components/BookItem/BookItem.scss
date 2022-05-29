@@ -83,6 +83,7 @@
     transform: translate(-50%);
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     width: 80%;
     font-weight: 500;
     font-size: clamp(12px, 1.2vw,16px);

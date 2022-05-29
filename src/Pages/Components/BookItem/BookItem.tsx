@@ -15,11 +15,10 @@ import {deleteBook, removeSavedBook, saveBook} from "../../../redux/slices/books
 import Loader from "../Loader/Loader";
 
 interface BookItemProps{
-    book: BookType,
-    kyrgyz?: boolean
+    book: BookType
 }
 
-const BookItem = ({book, kyrgyz}: BookItemProps) => {
+const BookItem = ({book}: BookItemProps) => {
     const {isDark} = useTheme()
     const navigate = useNavigate()
     const location = useLocation()
@@ -76,12 +75,9 @@ const BookItem = ({book, kyrgyz}: BookItemProps) => {
                          src={deleteLogo} alt={'Delete item'}/>
                 </div>}
             </div>
-            {kyrgyz
-                ? <img className={cn('book-img')}
-                       src={book.image} alt={'Book image logo'}/>
-                : <img className={cn('book-img')}
-                       src={book.img ? `${API_URL}/${book.img}` : book3} alt={'Book image'}/>
-            }
+            <img className={cn('book-img')}
+                 src={book.img ? `${API_URL}/${book.img}` : book3}
+                 alt={'Book image'}/>
 
             <p className={cn('book-title')}>{book.title}</p>
             <p className={cn('book-author')}>{book.author}</p>
