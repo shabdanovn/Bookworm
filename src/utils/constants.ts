@@ -1,2 +1,2 @@
 // export const API_URL = 'http://localhost:5000'
-export const API_URL = 'https://a88cc1afa5fa33.lhrtunnel.link'
+export const API_URL = 'https://929647d69ad0f6.lhrtunnel.link'
