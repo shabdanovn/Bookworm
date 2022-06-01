@@ -22,9 +22,9 @@ import {useGeneralContext} from "../../../hooks/useGeneralContext";
 import useModal from "../../../hooks/useModal";
 import MessageModal from "../../Components/ModalWindows/MessageModal/MessageModal";
 import NotAuthedModal from "../../Components/ModalWindows/NotAuthedModal/NotAuthedModal";
-import './BookPage.scss'
 import cn from "classnames";
 import { ToastContainer, toast } from 'react-toastify';
+import './BookPage.scss'
 import {getSavedPosts} from "../../../redux/slices/posts.slice";
 
 
