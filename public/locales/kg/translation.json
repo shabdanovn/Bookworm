@@ -7,7 +7,6 @@
     "about-us": "Биз жонундо",
     "sign-in": "Кируу",
     "sign-out": "Чыгуу"
-
   },
   "main-page": {
     "title-page": {
@@ -26,7 +25,7 @@
     },
     "books": {
       "title": "Китептер",
-      "button": "Баардыгы",
+      "button": "Бардыгы",
       "bookcrossing": "Буккроссинг",
       "free": "Бекер"
     },
@@ -57,8 +56,10 @@
   "books": {
     "searchbar": "Китеп же автору",
     "no-found": "Китептер табылган жок",
-    "all-books": "Баардык китептер",
+    "all-books": "Бардык китептер",
     "kyrgyz-books": "Кыргызча китептер",
+    "russian-books": "Орусча китептер",
+    "english-books": "Англисче китептер",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
@@ -187,6 +188,6 @@
     "Thriller": "Триллер",
     "Adult": "Чондор учун",
     "Education": "Билим",
-    "All": "Баардыгы"
+    "All": "Бардыгы"
   }
 }

@@ -58,6 +58,8 @@
     "no-found": "No books found",
     "all-books": "All books",
     "kyrgyz-books": "Kyrgyz books",
+    "russian-books": "Russian books",
+    "english-books": "English books",
     "filters": {
       "title": "Filters",
       "genre": "Genre",

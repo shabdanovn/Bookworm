@@ -58,6 +58,8 @@
     "no-found": "Книг не найдено",
     "all-books": "Все книги",
     "kyrgyz-books": "Книги на кыргызском",
+    "russian-books": "Книги на русском",
+    "english-books": "Книги на английском",
     "filters": {
       "title": "Фильтр",
       "genre": "Жанр",
